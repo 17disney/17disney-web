@@ -1,0 +1,25 @@
+{
+  "presets": [
+    ["env", {
+      "modules": false
+    }],
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-runtime", 
+    [
+      "transform-modules", {
+        "cube-ui": {
+          "transform": "cube-ui/src/modules/${member}",
+          "kebabCase": true
+        }
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
+    }
+  }
+}

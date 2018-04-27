@@ -1,0 +1,84 @@
+<html>
+<script type="text/javascript" src="bundle.js"></script>
+<!-- <script type="text/javascript" src="js/leaflet.js"></script> -->
+<!-- <link rel="stylesheet" href="css/leaflet.css" /> -->
+
+<style>
+  div {
+    display: inline-block;
+  }
+</style>
+
+<body>
+  <div id="shanghaiMap" style="width: 700px; height: 400px;"></div>
+  <div id="parisMap" style="width: 700px; height: 400px;"></div>
+
+  <div id="hongkongMap" style="width: 700px; height: 400px;"></div>
+
+
+  <div id="californiaMap" style="width: 700px; height: 400px;"></div>
+
+  <div id="orlandoMap" style="width: 700px; height: 400px;"></div>
+
+
+  <script>
+    // 31.1420076963,121.6617265386
+    var shanghaiMap = L.map('shanghaiMap').setView([19.108005, 72.658424], 16);
+
+    L.tileLayer('https://secure.parksandresorts.wdpromedia.com/media/maps/prod/shdr-baidu/13/{z}/{x}/{y}.jpg', {
+      maxZoom: 20
+    }).addTo(shanghaiMap);
+
+
+    var orlandoMap = L.map('orlandoMap').setView([28.418862, -81.581254], 16);
+
+    L.tileLayer('https://secure.parksandresorts.wdpromedia.com/media/maps/prod/93/{z}/{x}/{y}.jpg', {
+      maxZoom: 20
+    }).addTo(orlandoMap);
+
+
+    var californiaMap = L.map('californiaMap').setView([33.811883, -117.918940], 14);
+
+    L.tileLayer('https://secure.parksandresorts.wdpromedia.com/media/maps/prod/disneyland/38/{z}/{x}/{y}.jpg', {
+      maxZoom: 20
+    }).addTo(californiaMap);
+
+
+    var hongkongMap = L.map('hongkongMap').setView([22.3129715, 114.0390932], 14);
+
+    L.tileLayer('https://secure.parksandresorts.wdpromedia.com/media/maps/prod/hkdl/18/{z}/{x}/{y}.jpg', {
+      maxZoom: 20
+    }).addTo(hongkongMap);
+
+
+    var parisMap = L.map('parisMap').setView([48.8722379, 2.7736192], 14);
+
+    L.tileLayer('https://secure.parksandresorts.wdpromedia.com/media/maps/prod/dlp/15/{z}/{x}/{y}.jpg', {
+      maxZoom: 20
+    }).addTo(parisMap);
+
+
+    // var popup = L.popup();
+
+    // function onMapClick(e) {
+    //   popup
+    //     .setLatLng(e.latlng)
+    //     .setContent("You clicked the map at " + e.latlng.toString())
+    //     .openOn(orlandoMap);
+    // }
+
+    // orlandoMap.on('click', onMapClick);
+
+
+    // L.marker([121.7, 31.05]).addTo(mymap)
+    //     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

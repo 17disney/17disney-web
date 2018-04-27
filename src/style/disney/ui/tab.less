@@ -1,0 +1,36 @@
+.mint-navbar {
+}
+
+.ds-tab.mint-navbar {
+  // &__bd {
+  //   display: flex;
+  //   flex-direction: row;
+  //   flex-grow: 1;
+  display: block;
+  overflow-x: auto;
+  // }
+  .inner{
+    white-space: nowrap;
+    display: flex;
+  }
+  .mint-tab-item-label {
+    font-size: 18px;
+    display: inline-block;
+    line-height: 45px;
+    box-sizing: border-box;
+    word-break: keep-all;
+  }
+  .mint-tab-item {
+    text-align: center;
+    color: @dsColorPrimary;
+    padding-bottom: 5px;
+    padding: 0 20px !important;
+    border-bottom: 3px solid @dsLineColorLight;
+    margin: 0px;
+  }
+  .is-selected {
+    font-weight: 600;
+    color: @dsTextColorTitle;
+    border-color: @dsColorPrimary;
+  }
+}
