@@ -7,29 +7,23 @@
 <script>
 import echarts from 'echarts'
 import Color from '@/common/color'
-// import moment from 'moment'
 
 export default {
   props: {
     id: {
       type: String,
-      default: 'chart'
+      default: 'charts-att-count'
     },
     data: {
       type: Array,
       default: []
     },
-    // sort: {
-    //   type: Array,
-    //   default: []
-    // },
     indexList: {
       type: Array,
-      default: function() {
+      default: function () {
         return ['num']
       }
     },
-
     xAxisKey: {
       type: String,
       default: 'key'
@@ -44,18 +38,18 @@ export default {
     this.init()
   },
   watch: {
-    'data': function(val) {
+    'data': function (val) {
       this.init()
     },
-    'indexList': function(val) {
+    'indexList': function (val) {
       this.init()
     }
   },
   methods: {
     initSeries(data, key) {
-      const name = this.Filters.fieldName(key)
+      // const name = this.Filters.fieldName(key)
       const series = {
-        name,
+        // name,
         data,
         type: 'bar',
         smooth: true,

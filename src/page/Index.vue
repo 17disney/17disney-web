@@ -25,9 +25,8 @@
       <el-card class="card-forecast">
         <div slot="header" class="clearfix">
           <span>客流预测</span>
-          <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          <el-button style="float: right; padding: 3px 0" type="text"></el-button>
         </div>
-
         <div class="forecast-park">
           <div class="forecast-item" v-for="item in forecast">
             <div class="forecast-item__date">
@@ -43,48 +42,44 @@
         </div>
 
       </el-card>
-
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>历史等候时间</span>
-          <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-        </div>
+      <el-card class="card-attcount">
         <el-container>
           <el-aside width="240px">
             <att-list-select @click-item="selectAtt" v-model="aid" :data="activeAttList"></att-list-select>
           </el-aside>
           <el-container>
             <el-main>
-              <calendar year="2018" month="04"></calendar>
-
+              <select-date-range @click="handleClickDateRange"></select-date-range>
+              <calendar :data="attCount" :year="2018" :month="4"></calendar>
+              <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
             </el-main>
           </el-container>
         </el-container>
-
       </el-card>
     </div>
   </div>
 </template>
 
 <script>
-import AttListSelect from '@/components/AttList/AttListSelect'
+import base from '@/common/mixins/base'
+import moment from 'moment'
 import { mapState, mapActions, mapGetters } from 'vuex'
+import Wait from '@/common/api/wait'
+import Forecast from '@/common/api/forecast'
+import AttListSelect from '@/components/AttList/AttListSelect'
 import DsMap from '@/components/DsMap/DsMap.vue'
 import Calendar from '@/components/Calendar/Calendar'
-import Forecast from '@/common/api/forecast'
-import moment from 'moment'
-import base from '@/common/mixins/base'
-import Wait from '@/common/api/wait'
-
+import ChartsAttCount from '@/components/Charts/ChartsAttCount'
+import SelectDateRange from '@/components/Select/SelectDateRange'
 export default {
-  components: { DsMap, AttListSelect, Calendar },
+  components: { DsMap, AttListSelect, Calendar, ChartsAttCount, SelectDateRange },
 
   mixins: [base],
   data() {
     return {
       forecast: [],
       aid: 'attExplorerCanoes',
-      dateRang: ['2018-04-01', '2018-04-27'],
+      dateRange: ['2018-04-01', '2018-04-27'],
       attCount: []
     }
   },
@@ -104,18 +99,20 @@ export default {
   methods: {
     async initAtt() {
       const { local, aid } = this
-      const [st, et] = this.dateRang
+      const [st, et] = this.dateRange
 
       this.attCount = await Wait.attractionsIdCount(local, aid, { st, et })
     },
 
     selectAtt(id) {
-      console.log(id)
 
       this.aid = id
       this.initAtt()
+    },
+    handleClickDateRange(val) {
+      this.dateRange = val
+      this.initAtt()
     }
-
   }
 }
 </script>

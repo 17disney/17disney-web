@@ -6,6 +6,9 @@
         <router-view></router-view>
       </transition>
     </div>
+    <div class="footer">
+      17disney 2017-2018
+    </div>
   </div>
 </template>
 

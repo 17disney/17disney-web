@@ -1,31 +1,21 @@
 <template>
   <div class="calendar">
     <div class="calendar-tools">
-      <div class="text center">
-      </div>
+
     </div>
-    <table cellpadding="5" class="table">
+    <table class="calendar__table" cellpadding="5">
       <thead>
         <tr>
-          <th width="14.2857%" v-for="week in weeks" class="week">{{week}}
+          <th v-for="week in weeks" class="week">{{week}}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, key) in days">
-          <td v-for="day in item">
-            <div class="box-day" :class="{now: day.type == 1, next: day.type == 2,'green': day.wait < 30, 'orange': day.wait >= 30 && day.wait < 60, 'red': day.wait >= 60}">
-              <i class="wea_icon" :class="'d' + day.wea_i"></i>
-              <p class="day">{{day.day}}</p>
-              <span class="zhishu" v-if="day.wait">
-                <p class="max" v-if="day.wait" :class="{now: day.type == 1, next: day.type == 2,'green': day.wait < 20, 'orange': day.wait >= 20 && day.wait < 30, 'red': day.wait >= 30}">
-                  {{day.wait}}
-                </p>
-              </span>
-              <span v-if="day.max" class="wait" :class="{'blue': day.max < 20, 'green': day.max >= 20 && day.max < 28, 'orange': day.max >= 28}">{{day.max}}
-                <em v-if="day.min">/</em>{{day.min}}℃</span>
-              <p class="type" v-if="day.type == 1">实时</p>
-              <p class="type" v-if="day.type == 2">预测</p>
+        <tr v-for="(item, index) in calendar" :key="index">
+          <td v-for="(day, index) in item" :key="index">
+            <div class="calendar-item" v-if="day.day">
+              <p class="calendar-item__day">{{day.day}}</p>
+              <att-wait-time :wait="data[day.index]"></att-wait-time>
             </div>
           </td>
         </tr>
@@ -36,112 +26,85 @@
 
 <script>
 import moment from 'moment'
+import AttWaitTime from '@/components/Att/AttWaitTime'
 export default {
+  components: {
+    AttWaitTime
+  },
   props: {
-    year: {},
-    month: {},
-    parkHistory: {},
+    year: Number,
+    month: Number,
+    data: Array,
     weeks: {
       type: Array,
-      default: function () {
+      default: () => {
         return ['一', '二', '三', '四', '五', '六', '日']
-      }
-    },
-    months: {
-      type: Array,
-      default: function () {
-        return ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
       }
     }
   },
   data() {
     return {
       day: 0,
-      hour: 0,
-      minute: 0,
-      second: 0,
-      days: [],
+      calendar: [],
       today: [],
-      currentMonth: Number,
-      monthString: "",
     }
   },
-  created() {
+  mounted() {
     this.init()
   },
   watch: {
-    parkHistory(curVal, oldVal) {
-      this.init()
-    }
+    // parkHistory(curVal, oldVal) {
+    //   this.init()
+    // }
   },
   methods: {
-    init() {
-      let year = this.year
-      let month = this.month
-      this.render(year, month)
-    },
     is_leap(year) {
       let res
       return (year % 100 == 0 ? res = (year % 400 == 0 ? 1 : 0) : res = (year % 4 == 0 ? 1 : 0));
     },
 
-    render(y, m) {
-      let today = new Date()
-      let year = y //today.getFullYear()
-      m = m - 1//today.getMonth()
+    init() {
+      const { year, month } = this
+      const MONTH_DAYS = [31, 28 + this.is_leap(year), 31, 30, 31, 31, 30, 31, 30, 31, 30, 31]
+
+      const today = new Date()
+      const m = month - 1
       let day = today.getDate()
 
-      let days_per_month = [31, 28 + this.is_leap(year), 31, 30, 31, 31, 30, 31, 30, 31, 30, 31]
+      const firstDay = new Date(year, m, 1)
+      let dayOfWeek = firstDay.getDay() - 1
 
+      if (dayOfWeek === -1) { dayOfWeek = 6 }
+      const calendarCol = Math.ceil((dayOfWeek + MONTH_DAYS[m]) / 7)
 
-      let firstday = new Date(year, m, 1)
-      let dayOfWeek = firstday.getDay() - 1
-      if (dayOfWeek == -1) { dayOfWeek = 6 }
-
-
-      let str_nums = Math.ceil((dayOfWeek + days_per_month[m]) / 7)
-
-      let temp = []
-
-      for (let i = 0; i < str_nums; i++) {
-        temp[i] = []
-
+      const calendar = []
+      let index = -dayOfWeek
+      for (let i = 0; i < calendarCol; i++) {
+        calendar[i] = []
         for (let k = 0; k < 7; k++) {
           let idx = 7 * i + k
           let date = idx - dayOfWeek + 1
-          let json = []
-          let day = ''
+          let day
 
           if (date <= 0) {
 
-          } else if (date > days_per_month[m]) {
+          } else if (date > MONTH_DAYS[m]) {
 
           } else {
             day = idx - dayOfWeek + 1
           }
 
-          if (day) {
-            let month = m + 1
-            if (month < 10) {
-              month = '0' + month
-            }
-            if (day < 10) {
-              day = '0' + day
-            }
-
-            var day_x = moment(y + '-' + month + '-' + day).format('x') / 1000
-
-            if (this.parkHistory[day_x]) {
-              json = this.parkHistory[day_x]
-            }
+          if (day < 10) {
+            day = '0' + day
           }
-
-          json['day'] = day
-
-          temp[i].push(json)
+          calendar[i].push({
+            day,
+            index
+          })
+          index++
         }
       }
-      this.days = temp
+      this.calendar = calendar
     }
   }
 }
@@ -209,6 +172,50 @@ export default {
         height: 300px;
       }
     }
+  }
+}
+
+.calendar {
+  background: #FFF;
+  margin-top: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+
+  &__table {
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    >thead {
+      >tr {
+        >th {
+          color: #FFF;
+          text-align: center;
+          background: $color-primary;
+          border-bottom: none;
+          line-height: 40px;
+          // border: 2px solid color_main_fade;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          position: relative;
+          height: 40px;
+          padding: 1px;
+          border: 1px solid rgb(250, 250, 250);
+          border-color: $color-primary-s;
+          background: $color-primary-ss;
+        }
+      }
+    }
+  }
+
+  &-&-itemtem {
   }
 }
 </style>
