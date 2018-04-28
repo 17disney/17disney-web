@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
-import { Toast } from 'mint-ui'
+// import { Toast } from 'mint-ui'
 
 const service = axios.create({
   // baseURL: ,
@@ -23,11 +23,11 @@ const service = axios.create({
 service.interceptors.response.use(
   response => response.data,
   error => {
-    Toast({
-      message: error,
-      position: 'bottom',
-      duration: 5000
-    })
+    // Toast({
+    //   message: error,
+    //   position: 'bottom',
+    //   duration: 5000
+    // })
     console.log('err' + error)
   }
 )

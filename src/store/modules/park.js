@@ -3,7 +3,6 @@ import moment from 'moment'
 import { lineToObject } from '@/utils/tool'
 import { landName } from '@/utils/filter'
 import coordtransform from '@/utils/coordtransform'
-import { attTypeTab, attTypeIcon } from '@/common/park-arr'
 
 const user = {
   state: {

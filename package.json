@@ -1,7 +1,7 @@
 {
-  "name": "disney-map",
+  "name": "17disney-web",
   "version": "0.1.0",
-  "description": "Disney map",
+  "description": "17Disney Web",
   "author": "xank <xank@qq.com>",
   "private": true,
   "scripts": {
@@ -14,15 +14,17 @@
     "build": "node build/build.js"
   },
   "compileDependencies": [
-    "cube-ui"
+    "17disney-web"
   ],
   "dependencies": {
     "axios": "^0.18.0",
     "disney-ui": "1.0.5",
+    "element-ui": "^2.3.6",
     "moment": "^2.20.1",
     "postcss-loader": "^2.1.1",
     "proj4": "^2.4.4",
     "vue": "^2.5.2",
+    "vue-baidu-map": "^0.21.8",
     "vue-router": "^3.0.1",
     "vue2-leaflet": "^0.0.58",
     "vuex": "^3.0.1"
