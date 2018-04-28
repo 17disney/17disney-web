@@ -1,6 +1,6 @@
-import request from '~/utils/request'
+import request from '@/utils/request'
 
-const base = 'forecast-service'
+const base = 'https://api.17disney.com/forecast-service'
 
 export default {
   tickets: function tickets(local, st, et) {

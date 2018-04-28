@@ -3,7 +3,7 @@
 
 .ds-map {
   width: 100%;
-  height: 400px;
+  height: 300px;
   position: relative;
   color: #FFF;
 

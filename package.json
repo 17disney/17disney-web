@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "disney-ui": "1.0.5",
+    "echarts": "^4.0.4",
     "element-ui": "^2.3.6",
     "moment": "^2.20.1",
     "postcss-loader": "^2.1.1",
