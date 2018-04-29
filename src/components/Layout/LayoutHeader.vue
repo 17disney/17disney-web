@@ -11,6 +11,7 @@
   line-height: 80px;
   z-index: 100;
   position: relative;
+  overflow hidden
 
   .container {
     height: 100%;
@@ -70,19 +71,15 @@ html {
 <template>
   <div class="header">
     <div class="container">
-      <h1 class="logo">17disney</h1>
+      <h1 class="logo">
+        <logo-text></logo-text>
+      </h1>
       <ul class="nav">
         <li class="nav-item">
-          <a href="">首页</a>
+          <a href="">上海迪士尼乐园</a>
         </li>
         <li class="nav-item">
-          <a href="">等候时间</a>
-        </li>
-        <li class="nav-item">
-          <a href="">时间表</a>
-        </li>
-        <li class="nav-item">
-          <a href="">预测</a>
+          <a href="">小程序</a>
         </li>
       </ul>
     </div>
@@ -90,8 +87,10 @@ html {
 </template>
 
 <script>
+import LogoText from './LogoText.vue'
+
 export default {
-  components: {},
+  components: {LogoText},
 
   props: {
   },

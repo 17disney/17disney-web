@@ -1,8 +1,6 @@
 <template>
   <div class="calendar">
-    <div class="calendar-tools">
-
-    </div>
+    {{ym}}
     <table class="calendar__table" cellpadding="5">
       <thead>
         <tr>
@@ -32,49 +30,39 @@ export default {
     AttWaitTime
   },
   props: {
-    year: Number,
-    month: Number,
     data: Array,
-    weeks: {
-      type: Array,
-      default: () => {
-        return ['一', '二', '三', '四', '五', '六', '日']
-      }
-    }
+    ym: String
   },
   data() {
     return {
       day: 0,
       calendar: [],
-      today: [],
+      weeks: ['一', '二', '三', '四', '五', '六', '日']
     }
   },
   mounted() {
     this.init()
   },
   watch: {
-    // parkHistory(curVal, oldVal) {
-    //   this.init()
-    // }
+    ym() {
+      this.init()
+    }
   },
   methods: {
     is_leap(year) {
       let res
       return (year % 100 == 0 ? res = (year % 400 == 0 ? 1 : 0) : res = (year % 4 == 0 ? 1 : 0));
     },
-
     init() {
-      const { year, month } = this
+      const year = moment(this.ym, 'YYYY-MM').format('YYYY')
+      const month = moment(this.ym, 'YYYY-MM').format('MM')
       const MONTH_DAYS = [31, 28 + this.is_leap(year), 31, 30, 31, 31, 30, 31, 30, 31, 30, 31]
 
-      const today = new Date()
       const m = month - 1
-      let day = today.getDate()
-
       const firstDay = new Date(year, m, 1)
-      let dayOfWeek = firstDay.getDay() - 1
 
-      if (dayOfWeek === -1) { dayOfWeek = 6 }
+      let dayOfWeek = firstDay.getDay() - 1
+      if (dayOfWeek === -1) dayOfWeek = 6
       const calendarCol = Math.ceil((dayOfWeek + MONTH_DAYS[m]) / 7)
 
       const calendar = []
@@ -94,9 +82,8 @@ export default {
             day = idx - dayOfWeek + 1
           }
 
-          if (day < 10) {
-            day = '0' + day
-          }
+          if (day < 10) day = '0' + day
+
           calendar[i].push({
             day,
             index
@@ -112,68 +99,6 @@ export default {
 
 <style lang="stylus">
 @require '../../styles/disney/var/color.styl';
-
-.calendar-tool {
-  border-radius: 10px;
-  background: $color-primary;
-  padding: 15px;
-  overflow: hidden;
-
-  .s_title {
-    line-height: 36px !important;
-    float: left;
-    margin-bottom: 0px !important;
-  }
-}
-
-.panel-history {
-  overflow: hidden;
-  padding-bottom: 30px;
-
-  .panel-heading {
-    border-bottom: 1px solid #EEE;
-  }
-
-  // margin-top 30px
-  .btn-box {
-    float: right;
-  }
-
-  // .calendar
-  // // max-width 600px
-  // margin 0 auto
-  .month {
-    font-size: 30px;
-  }
-
-  .chart-box {
-    // margin-top: 30px
-    background: $color-primary;
-    border-radius: 10px;
-    padding: 4px;
-    border-radius: 10px;
-
-    .title {
-      line-height: 2;
-      text-align: center;
-      padding: 10px 0;
-      margin: 0px;
-      font-size: 22px;
-      line-height: 22px;
-      // padding-left: 15px
-    }
-
-    .history-chart {
-      border-radius: 5px;
-      background: #FFF;
-      overflow: hidden;
-
-      .box {
-        height: 300px;
-      }
-    }
-  }
-}
 
 .calendar {
   background: #FFF;
@@ -213,9 +138,6 @@ export default {
         }
       }
     }
-  }
-
-  &-&-itemtem {
   }
 }
 </style>

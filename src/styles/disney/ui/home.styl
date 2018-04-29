@@ -1,12 +1,39 @@
 .ds-first {
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% auto;
+  position: relative;
+
+  .ds-map {
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1;
+    position: absolute;
+  }
+
+  &__cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10;
+    background: rgba($color-primary, 0.4);
+  }
 
   .container {
-    height: 610px;
+    height: 510px;
+    z-index: 111;
     // background-position: right top;
     position: relative;
+  }
+
+  .card-forecast {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
   }
 }
 

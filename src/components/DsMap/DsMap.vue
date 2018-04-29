@@ -3,27 +3,8 @@
 
 .ds-map {
   width: 100%;
-  height: 300px;
   position: relative;
   color: #FFF;
-
-  &__cover {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: 999;
-    background: rgba($color-primary, 0.4);
-  }
-
-  h1 {
-    font-weight: 500;
-  }
-
-  &__icon {
-    font-size: 30px;
-  }
 
   .leaflet-control-container {
     display: none;
@@ -33,12 +14,7 @@
 
 <template>
   <div class="ds-map">
-    <div class="ds-map__cover">
-      <div class="container">
-        <div class="ds-map__icon icon--pep icon__shanghai-disney-resort"></div>
-        <h1>上海迪士尼乐园</h1>
-      </div>
-    </div>
+
     <v-map :crs="crsBaidu" ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center"></v-map>
   </div>
 </template>

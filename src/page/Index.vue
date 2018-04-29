@@ -20,28 +20,40 @@
 </style>
 <template>
   <div>
-    <ds-map></ds-map>
-    <div class="container ds-main">
-      <el-card class="card-forecast">
-        <div slot="header" class="clearfix">
-          <span>客流预测</span>
-          <el-button style="float: right; padding: 3px 0" type="text"></el-button>
-        </div>
-        <div class="forecast-park">
-          <div class="forecast-item" v-for="item in forecast">
-            <div class="forecast-item__date">
-              {{item.date | timeFormat('M月D日')}}
-            </div>
-            <div class="forecast-item__date">
-              星期{{item.date | timeFormat('d')}}
-            </div>
-            <div class="forecast-item__date">
-              {{item.flowMaxFT}}
+    <div class="ds-first">
+
+      <div class="ds-first__cover">
+        <!-- <div class="container">
+        <div class="ds-map__icon icon--pep icon__shanghai-disney-resort"></div>
+        <h1>上海迪士尼乐园</h1>
+      </div> -->
+      </div>
+
+      <div class="container">
+        <el-card class="card-forecast">
+          <div slot="header" class="clearfix">
+            <span>客流预测</span>
+            <el-button style="float: right; padding: 3px 0" type="text"></el-button>
+          </div>
+          <div class="forecast-park">
+            <div class="forecast-item" v-for="item in forecast">
+              <div class="forecast-item__date">
+                {{item.date | timeFormat('M月D日')}}
+              </div>
+              <div class="forecast-item__date">
+                星期{{item.date | timeFormat('d')}}
+              </div>
+              <div class="forecast-item__date">
+                {{item.flowMaxFT}}
+              </div>
             </div>
           </div>
-        </div>
+        </el-card>
+      </div>
+      <ds-map></ds-map>
 
-      </el-card>
+    </div>
+    <div class="container ds-main">
       <el-card class="card-attcount">
         <el-container>
           <el-aside width="240px">
@@ -50,7 +62,7 @@
           <el-container>
             <el-main>
               <select-date-range @click="handleClickDateRange"></select-date-range>
-              <calendar :data="attCount" :year="2018" :month="4"></calendar>
+              <calendar :data="attCount" :ym="calendar"></calendar>
               <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
             </el-main>
           </el-container>
@@ -80,7 +92,8 @@ export default {
       forecast: [],
       aid: 'attExplorerCanoes',
       dateRange: ['2018-04-01', '2018-04-27'],
-      attCount: []
+      attCount: [],
+      calendar: '2018-04'
     }
   },
 
@@ -100,17 +113,16 @@ export default {
     async initAtt() {
       const { local, aid } = this
       const [st, et] = this.dateRange
-
       this.attCount = await Wait.attractionsIdCount(local, aid, { st, et })
     },
 
     selectAtt(id) {
-
       this.aid = id
       this.initAtt()
     },
     handleClickDateRange(val) {
       this.dateRange = val
+      this.calendar = moment(val, 'YYYY-MM-DD').format('YYYY-MM')
       this.initAtt()
     }
   }
