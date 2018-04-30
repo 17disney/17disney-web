@@ -1,10 +1,9 @@
 <template>
   <div class="calendar">
-    {{ym}}
     <table class="calendar__table" cellpadding="5">
       <thead>
         <tr>
-          <th v-for="week in weeks" class="week">{{week}}
+          <th :width="100/7 + '%'" v-for="week in weeks" class="week">{{week}}
           </th>
         </tr>
       </thead>
@@ -49,14 +48,14 @@ export default {
     }
   },
   methods: {
-    is_leap(year) {
+    isLeap(year) {
       let res
-      return (year % 100 == 0 ? res = (year % 400 == 0 ? 1 : 0) : res = (year % 4 == 0 ? 1 : 0));
+      return (year % 100 == 0 ? res = (year % 400 == 0 ? 1 : 0) : res = (year % 4 == 0 ? 1 : 0))
     },
     init() {
       const year = moment(this.ym, 'YYYY-MM').format('YYYY')
       const month = moment(this.ym, 'YYYY-MM').format('MM')
-      const MONTH_DAYS = [31, 28 + this.is_leap(year), 31, 30, 31, 31, 30, 31, 30, 31, 30, 31]
+      const MONTH_DAYS = [31, 28 + this.isLeap(year), 31, 30, 31, 31, 30, 31, 30, 31, 30, 31]
 
       const m = month - 1
       const firstDay = new Date(year, m, 1)

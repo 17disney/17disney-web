@@ -5,15 +5,22 @@
   display: flex;
 
   &-item {
+    height: 100px;
     border: 1px solid $color-primary;
-    margin 10px
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+
+    &.is-active {
+      background: $color-primary-ss;
+    }
   }
 }
 </style>
 <template>
   <div class="select-daterange">
-    <div @click="handleClick(item)" class="select-daterange-item" v-for="item, index in list" :key="index">
-      {{item}}
+    <div @click="handleClick(item)" class="select-daterange-item" :class="{'is-active': select === item}" v-for="item, index in list" :key="index">
+      {{item | timeFormat('YYYY年MM月', 'YYYY-MM')}}
     </div>
 
   </div>

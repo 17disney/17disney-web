@@ -20,48 +20,42 @@
 </style>
 <template>
   <div>
-    <div class="ds-first">
 
-      <div class="ds-first__cover">
-        <!-- <div class="container">
-        <div class="ds-map__icon icon--pep icon__shanghai-disney-resort"></div>
-        <h1>上海迪士尼乐园</h1>
-      </div> -->
-      </div>
+    <div class="container ds-main">
 
-      <div class="container">
-        <el-card class="card-forecast">
-          <div slot="header" class="clearfix">
-            <span>客流预测</span>
-            <el-button style="float: right; padding: 3px 0" type="text"></el-button>
-          </div>
-          <div class="forecast-park">
-            <div class="forecast-item" v-for="item in forecast">
-              <div class="forecast-item__date">
-                {{item.date | timeFormat('M月D日')}}
-              </div>
-              <div class="forecast-item__date">
-                星期{{item.date | timeFormat('d')}}
-              </div>
-              <div class="forecast-item__date">
-                {{item.flowMaxFT}}
-              </div>
+      <el-card class="card-forecast">
+        <div slot="header" class="clearfix">
+          <span>客流预测</span>
+          <el-button style="float: right; padding: 3px 0" type="text"></el-button>
+        </div>
+        <div class="forecast-park">
+          <div class="forecast-item" v-for="item in forecast">
+            <div class="forecast-item__date">
+              {{item.date | timeFormat('M月D日')}}
+            </div>
+            <div class="forecast-item__date">
+              星期{{item.date | timeFormat('d')}}
+            </div>
+            <div class="forecast-item__date">
+              <park-flow-num :num="item.flowMaxFT"></park-flow-num>
             </div>
           </div>
-        </el-card>
-      </div>
-      <ds-map></ds-map>
+        </div>
+        <div class="forecast-att">
+          <div class="forecast-att-item" v-for="item, index in FtAttList">
+            {{item.name}}
+          </div>
+        </div>
+      </el-card>
 
-    </div>
-    <div class="container ds-main">
       <el-card class="card-attcount">
+        <select-date-range @click="handleClickDateRange" :select="calendar"></select-date-range>
         <el-container>
           <el-aside width="240px">
             <att-list-select @click-item="selectAtt" v-model="aid" :data="activeAttList"></att-list-select>
           </el-aside>
           <el-container>
             <el-main>
-              <select-date-range @click="handleClickDateRange"></select-date-range>
               <calendar :data="attCount" :ym="calendar"></calendar>
               <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
             </el-main>
@@ -79,12 +73,14 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import Wait from '@/common/api/wait'
 import Forecast from '@/common/api/forecast'
 import AttListSelect from '@/components/AttList/AttListSelect'
-import DsMap from '@/components/DsMap/DsMap.vue'
+
 import Calendar from '@/components/Calendar/Calendar'
 import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
+import ParkFlowNum from '@/components/Park/ParkFlowNum'
+
 export default {
-  components: { DsMap, AttListSelect, Calendar, ChartsAttCount, SelectDateRange },
+  components: { AttListSelect, Calendar, ChartsAttCount, SelectDateRange, ParkFlowNum },
 
   mixins: [base],
   data() {
@@ -93,13 +89,29 @@ export default {
       aid: 'attExplorerCanoes',
       dateRange: ['2018-04-01', '2018-04-27'],
       attCount: [],
-      calendar: '2018-04'
+      calendar: '2018-04',
+      homeTab: [
+        {
+          'name': '客流预测'
+        },
+        {
+
+          'name': '历史等候'
+        },
+        {
+
+          'name': '乐园实况'
+        }
+      ]
     }
   },
 
   computed: {
     activeAttList() {
       return this.attListFilter('attraction', 3)
+    },
+    FtAttList() {
+      return this.attListFilter('attraction', 4)
     },
   },
 

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/page/Index'
 import Layout from '@/components/Layout/Layout'
 
 Vue.use(Router)
@@ -9,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/forecast'
     },
     {
       path: '/',
@@ -17,8 +16,16 @@ export default new Router({
       name: 'home',
       children: [
         {
-          path: 'index',
-          component:  Index
+          path: 'forecast',
+          component: () => import( '@/page/forecast/index')
+        },
+        {
+          path: 'history',
+          component:  () => import( '@/page/history/index')
+        },
+        {
+          path: 'live',
+          component:  () => import( '@/page/live/index')
         }
       ]
     }
