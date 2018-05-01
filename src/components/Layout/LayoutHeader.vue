@@ -135,7 +135,7 @@
         <li class="nav-item">
           <el-popover placement="bottom-end" width="200" trigger="hover">
             <div class="popover-wxapp">
-              <img src="static/wxapp.jpg" alt="">
+              <img src="static/wxapp_17disney.jpg" alt="">
               <div class="popover-wxapp__title">扫码进入小程序</div>
             </div>
             <div class="insert" slot="reference" href="">

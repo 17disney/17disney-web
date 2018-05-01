@@ -70,12 +70,17 @@
       </router-link>
     </div>
 
-    <el-popover placement="top-start" title="标题" width="200" trigger="hover" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-      <div>
+    <el-popover popper-class="ds-tab-item" placement="bottom" width="200" trigger="hover">
+      <div class="popover-wxapp">
+        <img src="static/wxapp_17disney.jpg" alt="">
+        <div class="popover-wxapp__title">扫码进入小程序</div>
+      </div>
+      <a slot="reference">
         <div class="ds-tab-item__icon icon--pep icon__current-location"></div>
         <div class="ds-tab-item__name">乐园实况</div>
-      </div>
+      </a>
     </el-popover>
+
   </div>
 </template>
 

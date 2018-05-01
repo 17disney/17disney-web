@@ -61,9 +61,7 @@
 
 .footer {
   margin-top: 32px;
-  width: 100%;
   text-align: center;
-  height: 100px;
   padding: 30px;
   background: $color-primary-ss;
   color: $color-light-grey;
@@ -75,5 +73,34 @@
 
   .inner {
     height: 400px;
+  }
+}
+
+.wxapp-list {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+
+  &-item {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 0 50px;
+
+    &__img {
+      width: 150px;
+    }
+
+    &__name {
+      font-size: 14px;
+      color: $color-light-grey-s;
+      margin-top: 8px;
+    }
+
+    &__desc {
+      font-size: 16px;
+      color: $color-grey;
+      border-radius: 10px;
+    }
   }
 }
