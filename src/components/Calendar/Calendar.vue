@@ -1,3 +1,47 @@
+<style lang="stylus">
+@require '../../styles/disney/var/color.styl';
+
+.calendar {
+  background: #FFF;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto;
+
+  &__table {
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    >thead {
+      >tr {
+        >th {
+          color: #FFF;
+          text-align: center;
+          background: $color-primary;
+          border-bottom: none;
+          line-height: 40px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+
+          position: relative;
+          padding: 1px;
+          border: 1px solid #FFF
+          background: $color-primary-ss;
+        }
+      }
+    }
+  }
+}
+</style>
+
 <template>
   <div class="calendar">
     <table class="calendar__table" cellpadding="5">
@@ -10,10 +54,8 @@
       <tbody>
         <tr v-for="(item, index) in calendar" :key="index">
           <td v-for="(day, index) in item" :key="index">
-            <div class="calendar-item" v-if="day.day">
-              <p class="calendar-item__day">{{day.day}}</p>
-              <att-wait-time :wait="data[day.index]"></att-wait-time>
-            </div>
+            <calendar-item v-if="day.day" :day="day.day" :data="data[day.index]"></calendar-item>
+
           </td>
         </tr>
       </tbody>
@@ -24,9 +66,11 @@
 <script>
 import moment from 'moment'
 import AttWaitTime from '@/components/Att/AttWaitTime'
+import CalendarItem from './CalendarItem'
+import { ATT_WAIT_CLASS } from '@/common/data/const'
 export default {
   components: {
-    AttWaitTime
+    AttWaitTime, CalendarItem
   },
   props: {
     data: Array,
@@ -96,47 +140,4 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@require '../../styles/disney/var/color.styl';
 
-.calendar {
-  background: #FFF;
-  margin-top: 30px;
-  border-radius: 10px;
-  overflow: hidden;
-
-  &__table {
-    width: 100%;
-    text-align: center;
-    margin: 0px;
-    border-collapse: collapse;
-    border-spacing: 0;
-
-    >thead {
-      >tr {
-        >th {
-          color: #FFF;
-          text-align: center;
-          background: $color-primary;
-          border-bottom: none;
-          line-height: 40px;
-          // border: 2px solid color_main_fade;
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        td {
-          position: relative;
-          height: 40px;
-          padding: 1px;
-          border: 1px solid rgb(250, 250, 250);
-          border-color: $color-primary-s;
-          background: $color-primary-ss;
-        }
-      }
-    }
-  }
-}
-</style>

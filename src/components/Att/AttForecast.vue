@@ -59,7 +59,8 @@
 
   <div class="att-forecast" :class="numName.class">
     <div class="badge"></div>
-    <div class="att-forecast__num"><strong>{{forecast.waitAvg}}</strong> 分钟</div>
+    <div class="att-forecast__num">
+      <strong>{{forecast.waitAvg}}</strong> 分钟</div>
     <!-- <div class="num-good">{{num | numGood}}</div> -->
     <!-- <div class="text">{{numName.name}}</div> -->
   </div>
@@ -67,6 +68,7 @@
 </template>
 
 <script>
+import { ATT_WAIT_CLASS } from '@/common/data/const'
 const INDEX_TYPE = {
   'green': {
     name: '舒适',

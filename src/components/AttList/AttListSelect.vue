@@ -19,14 +19,14 @@
 
   &__item {
     padding: 8px 16px;
-    width: 300px;
+    width: 100%;
     cursor: pointer;
     display: flex;
     align-content: center;
     color: $color-dark-grey;
 
     .att-media {
-      width: 32px;
+      border-radius: 100%;
       margin-right: 16px;
     }
 

@@ -5,14 +5,60 @@
   display: flex;
 
   &-item {
+    flex: 1;
     height: 100px;
-    border: 1px solid $color-primary;
-    margin: 10px;
     text-align: center;
     cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 6px solid $color-light-grey-ss;
+    // transition: border-color 0.15s;
+    color: $color-grey;
+    position: relative;
+
+    &:not(:last-child) {
+      &:after {
+        content: '';
+        position: absolute;
+        right: 0px;
+        top: 15px;
+        bottom: 15px;
+        width: 1px;
+        background: $color-light-grey-sss;
+      }
+    }
+
+    &__year {
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    &__month {
+      background-color: $color-light-grey-s;
+      color: #FFF;
+      font-size: 14px;
+      line-height: 25px;
+      border-radius: 5px;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
 
     &.is-active {
-      background: $color-primary-ss;
+      border-color: $color-primary;
+      background-color: $color-primary-ss;
+      color: $color-primary;
+      font-weight: 600;
+
+
+
+      .select-daterange-item__month {
+        background-color: $color-primary;
+      }
     }
   }
 }
@@ -20,7 +66,15 @@
 <template>
   <div class="select-daterange">
     <div @click="handleClick(item)" class="select-daterange-item" :class="{'is-active': select === item}" v-for="item, index in list" :key="index">
-      {{item | timeFormat('YYYY年MM月', 'YYYY-MM')}}
+
+      <div class="select-daterange-item__year">
+        {{item | timeFormat('YYYY年', 'YYYY-MM')}}
+      </div>
+
+      <div class="select-daterange-item__month">
+        {{item | timeFormat('MM月', 'YYYY-MM')}}
+      </div>
+
     </div>
 
   </div>
