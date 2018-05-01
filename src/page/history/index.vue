@@ -24,7 +24,7 @@
 </style>
 <template>
   <div class="container ds-main">
-    <div class="ds-card" style="margin-top: 16px;margin-bottom: 16px">
+    <div class="ds-card" style="margin-bottom: 16px">
       <select-date-range @click="handleClickDateRange" :select="calendar"></select-date-range>
     </div>
     <div class="ds-card">
@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       aid: 'attExplorerCanoes',
-      dateRange: ['2018-04-01', '2018-04-27'],
+      dateRange: ['2018-04-01', '2018-04-30'],
       attCount: [],
       calendar: '2018-04',
     }

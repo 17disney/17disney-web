@@ -14,7 +14,6 @@
     align-items: center;
     padding: 15px;
     border-bottom: 6px solid $color-light-grey-ss;
-    // transition: border-color 0.15s;
     color: $color-grey;
     position: relative;
 
@@ -33,7 +32,7 @@
     &__year {
       padding-bottom: 6px;
       margin-bottom: 6px;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     &__month {
@@ -50,12 +49,8 @@
 
     &.is-active {
       border-color: $color-primary;
-      background-color: $color-primary-ss;
       color: $color-primary;
       font-weight: 600;
-
-
-
       .select-daterange-item__month {
         background-color: $color-primary;
       }
@@ -66,11 +61,9 @@
 <template>
   <div class="select-daterange">
     <div @click="handleClick(item)" class="select-daterange-item" :class="{'is-active': select === item}" v-for="item, index in list" :key="index">
-
       <div class="select-daterange-item__year">
         {{item | timeFormat('YYYY年', 'YYYY-MM')}}
       </div>
-
       <div class="select-daterange-item__month">
         {{item | timeFormat('MM月', 'YYYY-MM')}}
       </div>

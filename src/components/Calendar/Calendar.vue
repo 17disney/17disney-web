@@ -47,7 +47,7 @@
     <table class="calendar__table" cellpadding="5">
       <thead>
         <tr>
-          <th :width="100/7 + '%'" v-for="week in weeks" class="week">{{week}}
+          <th :width="100/7 + '%'" v-for="week in weeks" class="week">周{{week}}
           </th>
         </tr>
       </thead>

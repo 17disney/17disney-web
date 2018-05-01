@@ -2,7 +2,7 @@
 @require '../../styles/disney/var/color.styl';
 
 .ds-main {
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .forecast-park {

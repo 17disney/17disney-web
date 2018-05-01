@@ -20,7 +20,7 @@
       </transition>
     </div>
     <div class="footer">
-      17disney 2017-2018
+      ©2018 17disney · 一起迪士尼
     </div>
   </div>
 </template>
@@ -46,11 +46,6 @@ export default {
           'name': '历史等候',
           'icon': 'magic-morning',
           'to': '/history'
-        },
-        {
-          'name': '乐园实况',
-          'icon': 'current-location',
-          'to': '/live'
         }
       ]
     }

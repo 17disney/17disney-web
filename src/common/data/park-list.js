@@ -7,7 +7,8 @@ const parkList = [
     local: 'orlando',
     utc: -5,
     nameCN: '奥兰多迪士尼乐园',
-    icon: 'disney-resort'
+    icon: 'disney-resort',
+    open: false
   },
   {
     id: '80008297',
@@ -15,7 +16,8 @@ const parkList = [
     utc: -8,
     local: 'california',
     nameCN: '加州迪士尼乐园',
-    icon: 'california-adventure'
+    icon: 'california-adventure',
+    open: false
   },
   {
     id: 'dlp',
@@ -23,7 +25,8 @@ const parkList = [
     local: 'paris',
     utc: -1,
     nameCN: '巴黎迪士尼乐园',
-    icon: 'disney-paris'
+    icon: 'disney-paris',
+    open: false
   },
   {
     id: 'hkdl',
@@ -31,7 +34,8 @@ const parkList = [
     local: 'hongkong',
     utc: 8,
     nameCN: '香港迪士尼乐园',
-    icon: 'hong-kong-disney'
+    icon: 'hong-kong-disney',
+    open: false
   },
   {
     id: 'shdr',
@@ -39,7 +43,8 @@ const parkList = [
     local: 'shanghai',
     utc: 8,
     nameCN: '上海迪士尼乐园',
-    icon: 'shanghai-disney-resort'
+    icon: 'shanghai-disney-resort',
+    open: true
   },
   {
     id: 'tokon',
@@ -47,7 +52,8 @@ const parkList = [
     local: 'tokon',
     utc: 8,
     nameCN: '东京迪士尼乐园',
-    icon: 'tokyo-disney'
+    icon: 'tokyo-disney',
+    open: false
   }
 ]
 

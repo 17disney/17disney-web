@@ -12,7 +12,7 @@
   width: 500px;
   margin: 0 auto;
 
-  .ds-tab-item {
+  .ds-tab-item, span {
     flex: 1;
     text-align: center;
     display: flex;
@@ -35,18 +35,19 @@
     }
 
     a {
-      color: $color-primary;
+      color: $color-grey;
       text-decoration: none;
       margin-bottom: 2px solid $color-primary;
       transition: 0.5s;
+      cursor: pointer;
 
       &:hover {
-        color: $color-grey;
+        color: $color-primary;
       }
 
       &.router-link-active {
         // font-weight: 600;
-        color: $color-grey;
+        color: $color-primary;
       }
     }
 
@@ -68,6 +69,13 @@
         <div class="ds-tab-item__name">{{item.name}}</div>
       </router-link>
     </div>
+
+    <el-popover placement="top-start" title="标题" width="200" trigger="hover" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+      <div>
+        <div class="ds-tab-item__icon icon--pep icon__current-location"></div>
+        <div class="ds-tab-item__name">乐园实况</div>
+      </div>
+    </el-popover>
   </div>
 </template>
 

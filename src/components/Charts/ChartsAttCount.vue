@@ -128,7 +128,7 @@ export default {
           axisTick: {
             show: false
           },
-          max: 300,
+          max: 250,
           axisLine: {
             lineStyle: {
               color: '#5C6B80'
