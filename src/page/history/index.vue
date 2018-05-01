@@ -12,11 +12,19 @@
     font-weight: 500;
     text-align: center;
   }
+
+  .chart-att-count {
+    border-radius: 10px;
+    background-color: $color-primary-ss;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-top: 32px;
+  }
 }
 </style>
 <template>
   <div class="container ds-main">
-    <div class="ds-card" style="margin-bottom: 16px">
+    <div class="ds-card" style="margin-top: 16px;margin-bottom: 16px">
       <select-date-range @click="handleClickDateRange" :select="calendar"></select-date-range>
     </div>
     <div class="ds-card">

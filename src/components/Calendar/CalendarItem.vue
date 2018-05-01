@@ -88,6 +88,8 @@ export default {
           return ATT_WAIT_CLASS['red']
         }
 
+      } else {
+        return ATT_WAIT_CLASS['green']
       }
     }
 

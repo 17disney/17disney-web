@@ -1,5 +1,5 @@
 <template>
-  <div class="chart chart--att-count chart--full">
+  <div class="chart chart-att-count">
     <div class="inner" :id="id"></div>
   </div>
 </template>
@@ -40,9 +40,6 @@ export default {
   watch: {
     'data': function (val) {
       this.init()
-    },
-    'indexList': function (val) {
-      this.init()
     }
   },
   methods: {
@@ -56,7 +53,7 @@ export default {
         // symbol: 'circle',
         symbolSize: 2,
         showSymbol: false,
-        barWidth: '40%',
+        barWidth: '35%',
         lineStyle: {
           width: 3
         },
@@ -73,7 +70,7 @@ export default {
 
     init() {
       this.chart = echarts.init(document.getElementById(this.id))
-      const { data, legend, xAxisKey, indexList } = this
+      const { data, xAxisKey, indexList } = this
 
       // 设置x轴数据
       const xAxisData = data.map(_ => _[xAxisKey])
@@ -84,25 +81,37 @@ export default {
         series.push(_series)
       })
 
-      const option = {
-        grid: {
-          top: 50,
-          left: '2%',
-          right: '2%',
-          bottom: '2%',
-          containLabel: true
-        },
+      if (!data) return
 
+      let option = {
+        // grid: {
+        //   top: 50,
+        //   left: '2%',
+        //   right: '2%',
+        //   bottom: '2%',
+        //   containLabel: true
+        // },
+        legend: {
+          show: false,
+        },
         visualMap: {
           top: 10,
           right: 10,
+          show: false,
           pieces: [{
             gt: 0,
+            lte: 30,
+            color: Color.colorGreen
+          }, {
+            gt: 30,
             lte: 60,
-            color: Color.colorPrimary
+            color: Color.colorYellow
           }, {
             gt: 60,
-            lte: 300,
+            lte: 120,
+            color: Color.colorOrange
+          }, {
+            gt: 120,
             color: Color.colorRed
           }]
         },
@@ -119,6 +128,7 @@ export default {
           axisTick: {
             show: false
           },
+          max: 300,
           axisLine: {
             lineStyle: {
               color: '#5C6B80'
@@ -136,11 +146,6 @@ export default {
             }
           }
         }],
-
-        legend: {
-          data: [legend]
-        },
-
         xAxis: [{
           type: 'category',
           // boundaryGap: false,
@@ -153,6 +158,34 @@ export default {
         }],
         series
       }
+
+      // option = {
+      //   legend: {
+      //     show: false,
+      //   },
+      //   xAxis: [
+      //     {
+      //       type: 'category',
+      //       boundaryGap: false,
+      //       data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+      //     }
+      //   ],
+      //   yAxis: [
+      //     {
+      //       type: 'value'
+      //     }
+      //   ],
+      //   series: [
+      //     {
+      //       name: '邮件营销',
+      //       type: 'line',
+      //       stack: '总量',
+      //       areaStyle: { normal: {} },
+      //       data: [120, 132, 101, 134, 90, 230, 210]
+      //     }
+      //   ]
+      // };
+      // console.log(option)
 
       this.chart.setOption(option)
     }

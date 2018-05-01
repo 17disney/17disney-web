@@ -5,6 +5,8 @@ const color = {
   colorPrimaryDark: '#243247',
   colorPick: 'rgb(118, 111, 187)',
   colorGreen: '#6fa622',
+  colorYellow: 'rgb(230, 200, 100)',
+  colorOrange: '#FFA157',
   colorRed: '#ed5853',
   colorDarkGrey: '#243247',
   colorLightGrey: '#5C6B80',

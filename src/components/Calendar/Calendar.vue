@@ -5,7 +5,7 @@
   background: #FFF;
   border-radius: 10px;
   overflow: hidden;
-  max-width: 500px;
+  max-width: 650px;
   margin: 0 auto;
 
   &__table {
