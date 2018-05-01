@@ -6,7 +6,6 @@ import playType from '@/common/data/play-type'
 const explorer = {
   state: {
     local: 'shanghai',
-    date: moment().format('YYYY-MM-DD'),
     attList: [],
     attRawList: [],
     facetGroups: {},
@@ -22,14 +21,17 @@ const explorer = {
       return state.attList.filter(item => item.type === 'attraction')
     },
     attListFilter: (state, getters) => (type, hotLevel = 0) => {
-      return state.attList.filter(item => item.type === type && item.hotLevel >= hotLevel)
+      return state.attList.filter(
+        item => item.type === type && item.hotLevel >= hotLevel
+      )
     },
-    attRawListFilter: (state, getters) => (type) => {
+    attRawListFilter: (state, getters) => type => {
       return state.attRawList.filter(item => item.type === type)
     },
-    attFind: (state, getters) => (aid) => {
+    attFind: (state, getters) => aid => {
       return state.attList.find(item => item.aid === aid)
     }
+
   },
   mutations: {
     SET_LOCAL: (state, data) => {
@@ -47,33 +49,10 @@ const explorer = {
       state.attList = data
     },
 
-    SET_ATT_RAW_LIST: (state, data) => {
-      data.forEach(item => {
-        item.type = item.type.toLowerCase()
-        // 提取坐标
-        // item.coordinates = [0, 0]
-        // if (
-        //   item.relatedLocations &&
-        //   item.relatedLocations[0] &&
-        //   item.relatedLocations[0]['coordinates'] &&
-        //   item.relatedLocations[0]['coordinates'][0]
-        // ) {
-        //   let coordinates = item.relatedLocations[0]['coordinates'][0]
-        //   const { latitude, longitude } = coordinates
-        //   coordinates = [latitude, longitude].map(parseFloat)
-        //   coordinates[0] = coordinates[0] + 0.0003
-        //   coordinates[1] = coordinates[1] - 0.0001
-        //   item.coordinates = coordinates
-        // }
-      })
-      console.log(data)
-      state.attRawList = data
-    },
-
     SET_SCHEDULES: (state, data) => {
       let activities = []
       for (const item of data) {
-        activities = activities.concat(item.body.activities)
+        activities = activities.concat(item.body[0].activities)
       }
       data = {}
       activities.forEach(item => {
@@ -86,15 +65,6 @@ const explorer = {
     }
   },
   actions: {
-    // 获取项目列表(原始)
-    async getDestinationsRawList({ commit, state }) {
-      const data = await Explorer.destinationsRaw(state.local)
-      if (data) {
-        const { added, facetGroups } = data
-        commit('SET_ATT_RAW_LIST', added)
-        commit('SET_FACET_GROUPS', facetGroups)
-      }
-    },
     // 获取项目列表
     async getDestinationsList({ commit, state }) {
       const data = await Explorer.destinations(state.local)
@@ -104,7 +74,7 @@ const explorer = {
     },
     // 获取时间表
     async getSchedules({ commit, state }, date) {
-      const data = await Explorer.schedules(state.local, date)
+      const data = await Explorer.schedulesPre(state.local)
       commit('SET_SCHEDULES', data)
     }
   }

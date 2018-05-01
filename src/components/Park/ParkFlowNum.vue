@@ -11,12 +11,17 @@
   }
 
   .num {
-    font-size: 14px;
+    font-size: 18px;
     margin-bottom: 5px;
   }
 
   .text {
     color: #FFF;
+    width: 50px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 14px;
+    margin: 0 auto;
   }
 
   &.is-yellow {

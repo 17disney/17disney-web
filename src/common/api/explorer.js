@@ -26,9 +26,9 @@ export default {
     })
   },
 
-  schedules: function schedules(local, date) {
+  schedulesPre: function schedulesPre(local) {
     return request({
-      url: `${base}/explorer/park/schedules/${local}/${date}`,
+      url: `${base}/schedules/pre/${local}`,
       method: 'get'
     })
   }

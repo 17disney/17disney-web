@@ -1,56 +1,51 @@
 <style lang='stylus'>
 @require '../../styles/disney/var/color.styl';
 
-.att-list {
-  padding: 15px;
-  background: #FFF;
-
-  &-item {
+.att-list-table {
+  &__meta {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
-    background: #FFF;
-    cursor: pointer;
+  }
 
-    .att-sechedules {
-      width: 400px;
-    }
+  .att-media {
+    margin-right: 16px;
+    border-radius: 100%;
+  }
 
-    .att-forecast {
-      width: 200px;
-    }
-
-    .att-media {
-      margin-right: 16px;
-    }
-
-    &.is-active {
-      border: 1px solide @color-primary;
-    }
-
-    &__title {
-      flex: 1;
-      color: $color-grey;
-      font-size: 17px;
-      font-weight: 500;
-      width: 200px;
-    }
+  &__title {
+    color: $color-grey;
+    font-size: 17px;
+    font-weight: 500;
+    width: 200px;
   }
 }
 </style>
 <template>
-  <div class="att-list">
-    <div class="att-list-item" :class="{'is-active': item.active}" v-for="item in data" :key="item.id" @click="clickAttItem(item)">
-      <att-media :medias="item.medias"></att-media>
-      <h4 class="att-list-item__title">{{item.name}}</h4>
+  <el-table class="att-list-table" :data="data">
+    <el-table-column label="游乐项目">
+      <template slot-scope="scope">
+        <div class="att-list-table__meta">
+          <att-media :medias="scope.row.medias" type="finderListMobileSquare"></att-media>
+          <div class="att-list-table__title">
+            {{scope.row.name}}
+          </div>
+        </div>
+      </template>
+    </el-table-column>
 
-      <att-schedules :schedules="schedules[item.aid]" :date="date"></att-schedules>
+    <el-table-column label="状态">
+      <template slot-scope="scope">
+        <att-schedules :schedule="forecast[scope.row.aid]" :date="date"></att-schedules>
+      </template>
+    </el-table-column>
 
-      <att-forecast :forecast="forecast[item.aid]"></att-forecast>
-    </div>
-  </div>
+    <el-table-column label="预计等候">
+      <template slot-scope="scope">
+        <att-forecast :forecast="forecast[scope.row.aid]"></att-forecast>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
-
 <script>
 import base from '@/common/mixins/base'
 import AttListItem from '@/components/AttList/AttListItem'

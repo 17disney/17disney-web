@@ -11,6 +11,7 @@ export default {
       tickets: state => state.forecast.tickets,
       dayList: state => state.forecast.dayList,
       days: state => state.forecast.days,
+      schedules: state => state.explorer.schedules,
 
       weatherHistoryList: state => state.forecast.weatherHistoryList,
       weatherHistorys: state => state.forecast.weatherHistorys,
