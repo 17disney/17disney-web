@@ -2,30 +2,28 @@
 @require '../../styles/disney/var/color.styl';
 
 .att-list {
-  padding: 15px;
-  background: #FFF;
-
   &-item {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
-    background: #FFF;
-    cursor: pointer;
+    padding: 24px 24px;
+    border-right: 1px solid $color-light-grey-sss;
+    border-bottom: 1px solid $color-light-grey-sss;
 
     .att-sechedules {
       width: 400px;
     }
 
     .att-forecast {
-      width: 200px;
+      width: 120px;
     }
 
     .att-media {
       margin-right: 16px;
+      border-radius: 100%;
     }
 
     &.is-active {
-      border: 1px solide @color-primary;
+      // border: 1px solide @color-primary;
     }
 
     &__title {
@@ -33,22 +31,23 @@
       color: $color-grey;
       font-size: 17px;
       font-weight: 500;
-      width: 200px;
     }
   }
 }
 </style>
 <template>
-  <div class="att-list">
-    <div class="att-list-item" :class="{'is-active': item.active}" v-for="item in data" :key="item.id" @click="clickAttItem(item)">
-      <att-media :medias="item.medias"></att-media>
-      <h4 class="att-list-item__title">{{item.name}}</h4>
 
-      <att-schedules :schedules="schedules[item.aid]" :date="date"></att-schedules>
+  <el-row class="att-list">
+    <el-col :span="12" v-for="item in data" :key="item.id">
+      <div class="att-list-item" :class="{'is-active': item.active}" @click="clickAttItem(item)">
+        <att-media :medias="item.medias"></att-media>
+        <h4 class="att-list-item__title">{{item.name}}</h4>
+        <att-schedules :schedules="schedules[item.aid]" :date="date"></att-schedules>
+        <att-forecast :forecast="forecast[item.aid]"></att-forecast>
+      </div>
+    </el-col>
+  </el-row>
 
-      <att-forecast :forecast="forecast[item.aid]"></att-forecast>
-    </div>
-  </div>
 </template>
 
 <script>

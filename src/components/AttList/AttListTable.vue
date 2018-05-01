@@ -2,6 +2,7 @@
 @require '../../styles/disney/var/color.styl';
 
 .att-list-table {
+  // padding: 15px;
   &__meta {
     display: flex;
     align-items: center;
@@ -33,14 +34,14 @@
       </template>
     </el-table-column>
 
-    <el-table-column label="状态">
+    <!-- <el-table-column label="状态">
       <template slot-scope="scope">
-        <att-schedules :schedule="forecast[scope.row.aid]" :date="date"></att-schedules>
       </template>
-    </el-table-column>
+    </el-table-column> -->
 
     <el-table-column label="预计等候">
       <template slot-scope="scope">
+        <!-- <att-schedules :schedule="forecast[scope.row.aid]" :date="date"></att-schedules> -->
         <att-forecast :forecast="forecast[scope.row.aid]"></att-forecast>
       </template>
     </el-table-column>
