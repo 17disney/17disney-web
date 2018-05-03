@@ -5,7 +5,6 @@ import router from './router'
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import Vue2Leaflet from 'vue2-leaflet'
 import store from './store'
-import BaiduMap from 'vue-baidu-map'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/disney/index.styl'
 import 'leaflet/dist/leaflet.css'
@@ -15,9 +14,6 @@ import * as Filters from '@/common/filters'
 
 Vue.use(Vuex)
 Vue.use(ElementUI, { locale })
-Vue.use(BaiduMap, {
-  ak: 'AqG0eu7Q2IMGDdXgxlVTMlT136fAFnmS'
-})
 
 Object.keys(Filters).forEach(key => {
   Vue.filter(key, Filters[key])

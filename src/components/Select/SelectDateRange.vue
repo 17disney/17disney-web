@@ -67,9 +67,7 @@
       <div class="select-daterange-item__month">
         {{item | timeFormat('MM月', 'YYYY-MM')}}
       </div>
-
     </div>
-
   </div>
 </template>
 
