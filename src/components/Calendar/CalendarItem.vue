@@ -75,7 +75,8 @@ export default {
 
   props: {
     day: [String, Number],
-    data: Object
+    data: Object,
+    tipDisabled: false
   },
 
   data() {
@@ -85,16 +86,11 @@ export default {
 
   computed: {
     tipContent() {
-      if (this.data.waitAvg) {
+      if (this.data && this.data.waitAvg) {
+        this.tipDisabled = false
         return `${this.data.waitAvg}分钟`
-      }
-    },
-
-    tipDisabled() {
-      if (this.data.waitAvg) {
-        return false
       } else {
-        return true
+         this.tipDisabled = true
       }
     },
 
