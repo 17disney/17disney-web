@@ -3,7 +3,19 @@
 
 .calendar-item {
   position: relative;
-  height: 50px;
+  height: 60px;
+
+  &.is-pointer {
+    cursor: pointer
+    &:hover{
+      .calendar-item{
+        &__day{
+          color: $color-primary
+        }
+      }
+      background-color rgba($color-primary-s, .2);
+    }
+  }
 
   &__day {
     position: absolute;
@@ -19,7 +31,6 @@
     position: absolute;
     right: 8px;
     bottom: 8px;
-    cursor: pointer;
   }
 
   &.is-yellow {
@@ -48,13 +59,13 @@
 }
 </style>
 <template>
-  <div class="calendar-item" :class="numName.class">
-    <p class="calendar-item__day">{{day}}</p>
-    <el-tooltip v-if="data && data.waitAvg" effect="dark" :content="data.waitAvg + '分钟'" placement="top">
-      <div class="badge"></div>
-    </el-tooltip>
-    <!-- <att-wait-time :wait="data"></att-wait-time> -->
-  </div>
+  <el-tooltip :disabled="tipDisabled" effect="dark" :content="tipContent" placement="top">
+    <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
+      <p class="calendar-item__day">{{day}}</p>
+        <div v-if="data.waitAvg" class="badge"></div>
+      <!-- <att-wait-time :wait="data"></att-wait-time> -->
+    </div>
+  </el-tooltip>
 </template>
 
 <script>
@@ -73,10 +84,22 @@ export default {
   },
 
   computed: {
+    tipContent() {
+      if (this.data.waitAvg) {
+        return `${this.data.waitAvg}分钟`
+      }
+    },
+
+    tipDisabled() {
+      if (this.data.waitAvg) {
+        return false
+      } else {
+        return true
+      }
+    },
 
     numName() {
       if (this.data && this.data.waitAvg) {
-
         const { waitAvg } = this.data
         if (waitAvg < 30) {
           return ATT_WAIT_CLASS['green']

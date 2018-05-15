@@ -5,7 +5,7 @@
   background: #FFF;
   border-radius: 10px;
   overflow: hidden;
-  max-width: 650px;
+  max-width: 500px;
   margin: 0 auto;
 
   &__table {
@@ -23,6 +23,7 @@
           background: $color-primary;
           border-bottom: none;
           line-height: 40px;
+          font-weight: 500;
         }
       }
     }
@@ -30,7 +31,6 @@
     tbody {
       tr {
         td {
-
           position: relative;
           padding: 1px;
           border: 1px solid #FFF
@@ -47,7 +47,7 @@
     <table class="calendar__table" cellpadding="5">
       <thead>
         <tr>
-          <th :width="100/7 + '%'" v-for="week in weeks" class="week">周{{week}}
+          <th :width="100/7 + '%'" v-for="week in weeks" class="week">{{week}}
           </th>
         </tr>
       </thead>
@@ -55,7 +55,6 @@
         <tr v-for="(item, index) in calendar" :key="index">
           <td v-for="(day, index) in item" :key="index">
             <calendar-item v-if="day.day" :day="day.day" :data="data[day.index]"></calendar-item>
-
           </td>
         </tr>
       </tbody>
@@ -126,7 +125,6 @@ export default {
           }
 
           if (day < 10) day = '0' + day
-
           calendar[i].push({
             day,
             index

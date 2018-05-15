@@ -1,6 +1,9 @@
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
+.select-daterange{
+  margin-bottom 16px
+}
 .att-history {
   .title {
     color: $color-gery;
@@ -16,7 +19,7 @@
   .chart-att-count {
     border-radius: 10px;
     background-color: $color-primary-ss;
-    max-width: 650px;
+    max-width: 500px;
     margin: 0 auto;
     margin-top: 32px;
   }
@@ -24,9 +27,7 @@
 </style>
 <template>
   <div class="container ds-main">
-    <div class="ds-card" style="margin-bottom: 16px">
-      <select-date-range @click="handleClickDateRange" :select="calendar"></select-date-range>
-    </div>
+    <select-date-range class="ds-card" @click="handleClickDateRange" :select="calendar"></select-date-range>
     <div class="ds-card">
       <el-container>
         <el-aside width="320px">
@@ -37,9 +38,7 @@
             <h1 class="title">月平均等候时间</h1>
             <calendar :data="attCount" :ym="calendar"></calendar>
             <div class="wait-index">
-              <div class="wait-index-item">
-
-              </div>
+              <div class="wait-index-item"></div>
             </div>
             <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
           </el-main>
@@ -68,9 +67,10 @@ export default {
   data() {
     return {
       aid: 'attExplorerCanoes',
-      dateRange: ['2018-04-01', '2018-04-30'],
+      dateRange: ['2018-05-01', '2018-05-31'],
       attCount: [],
-      calendar: '2018-04',
+      calendar: '2018-05',
+      loading: true
     }
   },
 
@@ -87,9 +87,14 @@ export default {
 
   methods: {
     async initAtt() {
+      this.loading = true
       const { local, aid } = this
       const [st, et] = this.dateRange
       this.attCount = await Wait.attractionsIdCount(local, aid, { st, et })
+
+      setTimeout(() => {
+        this.loading = false
+      }, 500)
     },
 
     selectAtt(id) {

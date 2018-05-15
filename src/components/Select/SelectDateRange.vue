@@ -6,14 +6,13 @@
 
   &-item {
     flex: 1;
-    height: 100px;
     text-align: center;
     cursor: pointer;
     text-align: center;
     justify-content: center;
     align-items: center;
     padding: 15px;
-    border-bottom: 6px solid $color-light-grey-ss;
+    // border-bottom: 6px solid $color-light-grey-ss;
     color: $color-grey;
     position: relative;
 
@@ -39,8 +38,12 @@
       background-color: $color-light-grey-s;
       color: #FFF;
       font-size: 14px;
-      line-height: 25px;
-      border-radius: 5px;
+      border-radius: 100%;
+      line-height: 48px;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto;
+      margin-bottom: 5px;
     }
 
     &:hover {
@@ -50,7 +53,7 @@
     &.is-active {
       border-color: $color-primary;
       color: $color-primary;
-      font-weight: 600;
+
       .select-daterange-item__month {
         background-color: $color-primary;
       }
@@ -62,7 +65,7 @@
   <div class="select-daterange">
     <div @click="handleClick(item)" class="select-daterange-item" :class="{'is-active': select === item}" v-for="item, index in list" :key="index">
       <div class="select-daterange-item__year">
-        {{item | timeFormat('YYYY年', 'YYYY-MM')}}
+        {{item | timeFormat('YYYY', 'YYYY-MM')}}
       </div>
       <div class="select-daterange-item__month">
         {{item | timeFormat('MM月', 'YYYY-MM')}}
@@ -83,7 +86,7 @@ export default {
   data() {
     return {
       st: '2017-04',
-      et: '2018-04',
+      et: '2018-05',
       list: []
     }
   },

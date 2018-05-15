@@ -28,10 +28,11 @@
   &.is-active {
     border-color: $color-primary;
     color: $color-primary;
-  }
-
-  &__num {
-    margin-top: 4px;
+    .forecast-item{
+      &__num{
+        color: $color-primary;
+      }
+    }
   }
 
   &__week {
@@ -40,6 +41,12 @@
 
   &__date {
     color: $color-light-grey-s;
+    margin-top: 4px;
+    font-size: 18px;
+  }
+
+  &__num {
+    color: #999
     margin-top: 4px;
   }
 
@@ -62,10 +69,10 @@
       <div class="forecast-park">
         <div @click="handleClickDate(index)" class="forecast-item" :class="{'is-active': item.date === date}" v-for="(item, index) in forecast">
           <div class="forecast-item__week">
-            周{{item.date | timeFormat('d')}}
+            星期{{item.date | timeFormat('d')}}
           </div>
           <div class="forecast-item__date">
-            {{item.date | timeFormat('MM月DD日')}}
+            {{item.date | timeFormat('M月D日')}}
           </div>
           <div class="forecast-item__num">
             <park-flow-num :num="item.flowMaxFT"></park-flow-num>
@@ -73,12 +80,10 @@
         </div>
       </div>
     </div>
-
     <div class="ds-card">
       <!-- <att-list-table :data="FtAttList" :date="date" :forecast="attractions"></att-list-table> -->
       <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
     </div>
-
   </div>
 </template>
 
@@ -115,7 +120,6 @@ export default {
   },
 
   methods: {
-
     handleClickDate(index) {
       const { date, attractions } = this.forecast[index]
       this.date = date
@@ -126,7 +130,6 @@ export default {
       })
       this.attractions = list
     }
-
   }
 }
 </script>

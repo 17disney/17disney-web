@@ -26,17 +26,8 @@
     }
 
     path {
-      fill: $color-pick !important;
+      fill: $color-primary !important;
     }
-  }
-}
-
-.chart {
-  width: 100%;
-  height: 400px;
-
-  .inner {
-    height: 400px;
   }
 }
 
