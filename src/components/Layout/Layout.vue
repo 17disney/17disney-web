@@ -16,45 +16,19 @@
         <router-view></router-view>
       </transition>
     </div>
-    <div class="footer">
-      <div class="container">
-        <div class="wxapp-list">
-          <div class="wxapp-list-item">
-            <img class="wxapp-list-item__img" src="static/wxapp_17disney.jpg" alt="">
-            <div class="wxapp-list-item__name">微信小程序</div>
-            <div class="wxapp-list-item__desc">17俱乐部</div>
-          </div>
-
-
-
-          <div class="wxapp-list-item">
-            <img class="wxapp-list-item__img" src="static/wx_17shenqi.jpg" alt="">
-            <div class="wxapp-list-item__name">公众号</div>
-            <div class="wxapp-list-item__desc">一起神奇</div>
-          </div>
-
-          <div class="wxapp-list-item">
-            <img class="wxapp-list-item__img" src="static/wxapp_timesguide.jpg" alt="">
-            <div class="wxapp-list-item__name">微信小程序</div>
-            <div class="wxapp-list-item__desc">乐园时间表</div>
-          </div>
-        </div>
-        <div class="footer__text">
-          ©2018 17disney · 一起迪士尼
-        </div>
-      </div>
-    </div>
+    <layout-footer></layout-footer>
   </div>
 </template>
 
 <script>
 import LayoutHeader from '@/components/Layout/LayoutHeader'
+import LayoutFooter from '@/components/Layout/LayoutFooter'
 import DsMap from '@/components/DsMap/DsMap.vue'
 import DsTabHome from '@/components/DsTab/DsTabHome'
 export default {
   name: 'layout',
   components: {
-    LayoutHeader, DsMap, DsTabHome
+    LayoutHeader, LayoutFooter, DsMap, DsTabHome
   },
   data() {
     return {

@@ -69,7 +69,6 @@
         <div class="ds-tab-item__name">{{item.name}}</div>
       </router-link>
     </div>
-
     <el-popover popper-class="ds-tab-item" placement="bottom" width="200" trigger="hover">
       <div class="popover-wxapp">
         <img src="static/wxapp_17disney.jpg" alt="">
@@ -80,7 +79,6 @@
         <div class="ds-tab-item__name">乐园实况</div>
       </a>
     </el-popover>
-
   </div>
 </template>
 

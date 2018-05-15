@@ -1,15 +1,9 @@
-// {
-//   name: '上海迪士尼度假区',
-//   id: 'destination',
-//   icon: '',
-//   showTab: false
-// },
 const attType = [
   {
-    name: '游乐项目',
-    id: 'attraction',
-    icon: 'attractions',
-    showTab: true
+    name: '上海迪士尼度假区',
+    id: 'destination',
+    icon: '',
+    showTab: false
   },
   {
     name: '周围景点',
@@ -17,11 +11,18 @@ const attType = [
     icon: '',
     showTab: false
   },
+
   {
     name: '主题园区',
     id: 'land',
     icon: '',
     showTab: false
+  },
+  {
+    name: '游乐项目',
+    id: 'attraction',
+    icon: 'attractions',
+    showTab: true
   },
   {
     name: '娱乐演出',
@@ -77,19 +78,7 @@ const attType = [
     id: 'playsfd',
     icon: 'disneyland-recreation',
     showTab: true
-  },
-  {
-    name: '主题乐园',
-    id: 'theme-park',
-    icon: '',
-    showTab: false
   }
-  // {
-  //   name: 'The BOATHOUSE™',
-  //   id: 'restaurant',
-  //   icon: '',
-  //   showTab: false
-  // }
 ]
 
 export default attType

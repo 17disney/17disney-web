@@ -9,7 +9,7 @@
 }
 </style>
 <template>
-  <div>
+  <div class="logo-text">
     <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 85">
       <path class="cls-1" d="M24.24,13V61.12H15V21.62H2L8.19,13Z" />
       <path class="cls-1" d="M81.81,13,42.15,84.12,34.4,79,66.61,21.62H34.05V13Z" />

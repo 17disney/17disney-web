@@ -5,7 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const PostCompilePlugin = require('webpack-post-compile-plugin')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -28,16 +28,20 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath:
+      process.env.NODE_ENV === 'production'
+        ? config.build.assetsPublicPath
+        : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      vue$: 'vue/dist/vue.esm.js',
+      '@': resolve('src')
     }
+  },
+  externals: {
+    echarts: 'echarts'
   },
   module: {
     rules: [
@@ -76,7 +80,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 1000,
+          limit: 1000
           // name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
@@ -94,7 +98,5 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
-  plugins: [
-    new PostCompilePlugin()
-  ]
+  plugins: [new PostCompilePlugin()]
 }
