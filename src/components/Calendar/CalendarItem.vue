@@ -62,7 +62,7 @@
   <el-tooltip :disabled="tipDisabled" effect="dark" :content="tipContent" placement="top">
     <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
       <p class="calendar-item__day">{{day}}</p>
-        <div v-if="data.waitAvg" class="badge"></div>
+        <div v-if="data && data.waitAvg" class="badge"></div>
       <!-- <att-wait-time :wait="data"></att-wait-time> -->
     </div>
   </el-tooltip>
@@ -75,18 +75,18 @@ export default {
 
   props: {
     day: [String, Number],
-    data: Object,
-    tipDisabled: false
+    data: Object
   },
 
   data() {
     return {
+      tipDisabled: false
     }
   },
 
   computed: {
     tipContent() {
-      if (this.data && this.data.waitAvg) {
+      if (this.data && this.data.waitAvg > 0) {
         this.tipDisabled = false
         return `${this.data.waitAvg}分钟`
       } else {
