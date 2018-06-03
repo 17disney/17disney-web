@@ -43,7 +43,7 @@
         <att-media :medias="item.medias"></att-media>
         <h4 class="att-list-item__title">{{item.name}}</h4>
         <!-- <att-schedules :schedules="schedules[item.aid]" :date="date"></att-schedules> -->
-        <att-forecast :forecast="forecast[item.aid]"></att-forecast>
+        <att-forecast v-if="forecast && forecast[item.aid]" :forecast="forecast[item.aid]"></att-forecast>
       </div>
     </el-col>
   </el-row>
