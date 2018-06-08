@@ -10,10 +10,14 @@ import '@/styles/disney/index.styl'
 import 'leaflet/dist/leaflet.css'
 import ElementUI from 'element-ui'
 import * as Filters from '@/common/filters'
-// Vue.config.productionTip = false
+
+import DmUi from 'package/dm-ui'
+import AttUi from 'package/att-ui'
 
 Vue.use(Vuex)
 Vue.use(ElementUI, { locale })
+Vue.use(DmUi)
+Vue.use(AttUi)
 
 Object.keys(Filters).forEach(key => {
   Vue.filter(key, Filters[key])
@@ -24,6 +28,8 @@ Vue.component('v-tilelayer', Vue2Leaflet.TileLayer)
 Vue.component('v-marker', Vue2Leaflet.Marker)
 Vue.component('v-popup', Vue2Leaflet.Popup)
 Vue.component('v-tooltip', Vue2Leaflet.Tooltip)
+
+Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
