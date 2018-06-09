@@ -1,9 +1,10 @@
 <style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
-.select-daterange{
-  margin-bottom 16px
+.select-daterange {
+  margin-bottom: 16px;
 }
+
 .att-history {
   .title {
     color: $color-gery;
@@ -80,16 +81,22 @@ export default {
   },
 
   async mounted() {
-    this.getDestinationsList()
-    this.initAtt()
+    setTimeout(() => {
+      this.init()
+    }, 1000)
   },
 
   methods: {
+    init() {
+      this.getDestinationsList()
+      this.initAtt()
+    },
+
     async initAtt() {
       this.loading = true
       const { local, aid } = this
       const [st, et] = this.dateRange
-      this.attCount = await this.$Api.waitTimes.attractionsIdCount(local, aid, { st, et })
+      this.attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
 
       setTimeout(() => {
         this.loading = false

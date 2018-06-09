@@ -38,14 +38,14 @@
           <div slot="header" class="clearfix">
             <span>客流量预测</span>
           </div>
-          <charts-flow :data="forecast"></charts-flow>
+          <charts-flow v-loading="loading" :data="forecast"></charts-flow>
         </dm-card>
         <dm-card>
           <div slot="header" class="clearfix">
             <span>售票量趋势</span>
           </div>
           <div class="charts-flow">
-            <charts-ticket-week :data="forecast"></charts-ticket-week>
+            <charts-ticket-week v-loading="loading" :data="forecast"></charts-ticket-week>
           </div>
         </dm-card>
       </el-col>
@@ -55,8 +55,8 @@
             <span>项目等候时间</span>
           </div>
           <ft-date-select @click="handleClickDate" v-model="date" :dates="forecast"></ft-date-select>
-          <ft-index :data="focuesIndex"></ft-index>
-          <div class="att-list-wrapper">
+          <ft-index v-loading="loading" :data="focuesIndex"></ft-index>
+          <div v-loading="loading" class="att-list-wrapper">
             <dm-scroll>
               <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
             </dm-scroll>
@@ -86,6 +86,7 @@ export default {
   mixins: [base],
   data() {
     return {
+      loading: true,
       forecast: [],
       date: null,
       attractions: null,
@@ -101,17 +102,19 @@ export default {
   },
 
   async mounted() {
-    this.getDestinationsList()
-    this.init()
+    setTimeout(() => {
+      this.init()
+    }, 1000)
   },
 
   methods: {
     async init() {
+      this.getDestinationsList()
       const data = await this.$Api.forecast.forecastReport('shanghai')
 
       this.forecast = data['data']
       this.handleClickDate(0)
-
+      this.loading = false
     },
     handleClickDate(index) {
       const data = this.forecast[index]
@@ -121,7 +124,7 @@ export default {
       this.focuesIndex = [
         {
           label: '预测客流量',
-          value: formatNumber(ticketNumFT)
+          value: formatNumber(flowMaxFT)
         },
         {
           label: '预测售票量',
