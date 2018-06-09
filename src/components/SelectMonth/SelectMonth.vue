@@ -5,7 +5,7 @@ $height = 68px;
 
 .att-date-select {
   display: flex;
-  border: 1px solid $color-light-grey-sss;
+  border: 1px solid $color-light-grey-ss;
   border-radius: 5px;
   color: $color-primary-dark;
 
@@ -31,8 +31,8 @@ $height = 68px;
     display: flex;
     position: relative;
     overflow: hidden;
-    border-left: 1px solid $color-light-grey-sss;
-    border-right: 1px solid $color-light-grey-sss;
+    border-left: 1px solid $color-light-grey-ss;
+    border-right: 1px solid $color-light-grey-ss;
   }
 
   &__list {
@@ -52,11 +52,11 @@ $height = 68px;
     justify-content: center;
     text-align: center;
     position: relative;
-    border-left: 1px solid $color-light-grey-sss;
+    border-left: 1px solid $color-light-grey-ss;
     cursor: pointer;
     height: $height;
     transition: 0.3s;
-    color: #999;
+    color: $color-grey;
 
     &:hover {
       color: $color-primary;

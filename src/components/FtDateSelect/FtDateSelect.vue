@@ -23,7 +23,7 @@
 
   &.is-active {
     border-color: $color-primary;
-    color: $color-primary;
+    color: $color-grey-primary;
 
     .forecast-item {
       &__num {

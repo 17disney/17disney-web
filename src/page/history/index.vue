@@ -34,6 +34,15 @@
       border: none;
     }
   }
+
+  &__title {
+    color: $color-grey;
+    border-bottom: 1px solid $color-light-grey-ss;
+    padding-bottom: 35px;
+    margin-bottom: 35px;
+    line-height: 23px;
+    font-size: 23px;
+  }
 }
 </style>
 <template>
@@ -46,12 +55,7 @@
     <dm-main>
       <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
       <div class="ft-section-list">
-        <ft-section>
-          <div slot="header" class="clearfix">
-            <span>{{info.name}}</span>
-          </div>
-          <att-media  :medias="info.medias"></att-media>
-        </ft-section>
+        <h2 class="ft-section-list__title">{{info.name}}</h2>
 
         <ft-section>
           <div slot="header" class="clearfix">
