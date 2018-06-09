@@ -102,13 +102,13 @@ export default {
         legend: {
           top: 0
         },
+        axisPointer: {
+          lineStyle: {
+            color: Color.colorPrimary
+          }
+        },
         tooltip: {
           trigger: 'axis',
-          axisPointer: {
-            lineStyle: {
-              color: '#243247'
-            }
-          }
         },
         series: [
           {

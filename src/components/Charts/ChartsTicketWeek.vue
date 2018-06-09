@@ -83,6 +83,11 @@ export default {
             color: Color.colorLightGrey
           }
         },
+        axisPointer: {
+          lineStyle: {
+            color: Color.colorPrimary
+          }
+        },
         yAxis: {
           type: 'value',
           boundaryGap: [0, '100%'],
