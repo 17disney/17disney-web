@@ -47,7 +47,7 @@
     <table class="calendar__table" cellpadding="5">
       <thead>
         <tr>
-          <th :width="100/7 + '%'" v-for="week in weeks" class="week">{{week}}
+          <th :width="100/7 + '%'" v-for="week in WEEKS" class="week">{{$t('el.datepicker.weeks.' + [week])}}
           </th>
         </tr>
       </thead>
@@ -67,6 +67,8 @@ import moment from 'moment'
 import AttWaitTime from '@/components/Att/AttWaitTime'
 import CalendarItem from './CalendarItem'
 import { ATT_WAIT_CLASS } from '@/common/data/const'
+const WEEKS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+
 export default {
   components: {
     AttWaitTime, CalendarItem
@@ -79,7 +81,7 @@ export default {
     return {
       day: 0,
       calendar: [],
-      weeks: ['一', '二', '三', '四', '五', '六', '日']
+      WEEKS
     }
   },
   mounted() {

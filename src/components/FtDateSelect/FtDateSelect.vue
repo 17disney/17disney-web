@@ -71,15 +71,15 @@
 </style>
 <template>
   <div class="ft-date-select">
-    <div @click="handleClick(index)" class="forecast-item" :class="{'is-active': item.date === value}" v-for="(item, index) in dates">
+    <div @click="handleClick(index)" class="forecast-item" :class="{'is-active': item.date === value}" v-for="(item, index) in list">
       <div class="forecast-item__num">
         <park-flow-num :num="item.flowMaxFT"></park-flow-num>
       </div>
       <div class="forecast-item__week">
-        星期{{item.date | timeFormat('d')}}
+        {{$t('el.datepicker.weeks.' + [item.week])}}
       </div>
       <div class="forecast-item__date">
-        {{item.date | timeFormat('M月D日')}}
+        {{item.date | timeFormat($t('ds.dateFormat.monthDay'))}}
       </div>
     </div>
   </div>
@@ -87,6 +87,9 @@
 
 <script>
 import ParkFlowNum from '@/components/Park/ParkFlowNum'
+import moment from 'moment'
+
+const WEEKS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
 export default {
   components: { ParkFlowNum },
@@ -98,12 +101,25 @@ export default {
 
   data() {
     return {
+      list: []
     }
   },
 
   computed: {},
 
-  mounted() { },
+  mounted() {
+    const list = []
+
+    this.dates.forEach(item => {
+      const { date } = item
+      list.push({
+        date,
+        week: WEEKS[moment(date, 'YYYY-MM-DD').format('e')]
+      })
+    })
+
+    this.list = list
+  },
 
   methods: {
     handleClick(value) {

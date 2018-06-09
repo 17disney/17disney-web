@@ -47,7 +47,8 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id))
 
       const { data } = this
-      const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D月'))
+      const DATE_FORMAT = this.$t('ds.dateFormat.monthDay')
+      const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format(DATE_FORMAT))
 
       let option = {
         grid: {
@@ -121,7 +122,7 @@ export default {
           }
         }],
         series: [{
-          name: '平均等候',
+          name: this.$t('ds.label.waitsAvg'),
           data: data.map(_ => _['waitAvg']),
           type: 'bar',
           smooth: true,
@@ -140,7 +141,7 @@ export default {
           }
         },
         {
-          name: '最高等候',
+          name: this.$t('ds.label.waitsMax'),
           data: data.map(_ => _['waitMax']),
           type: 'line',
           smooth: true,

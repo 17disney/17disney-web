@@ -72,11 +72,11 @@
     <el-popover popper-class="ds-tab-item" placement="bottom" width="200" trigger="hover">
       <div class="popover-wxapp">
         <img src="static/wxapp_17disney.jpg" alt="">
-        <div class="popover-wxapp__title">扫码进入小程序</div>
+        <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
       </div>
       <a slot="reference">
         <div class="ds-tab-item__icon icon--pep icon__current-location"></div>
-        <div class="ds-tab-item__name">乐园实况</div>
+        <div class="ds-tab-item__name">{{$t('ds.label.parkLive')}}</div>
       </a>
     </el-popover>
   </div>

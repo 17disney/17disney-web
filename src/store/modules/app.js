@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Lockr from 'lockr'
 
 const app = {
   state: {
@@ -12,6 +13,7 @@ const app = {
   },
   actions: {
     setLocale: ({ commit }, locale) => {
+      Lockr.set('locale', locale)
       commit('SET_LOCALE', locale)
     }
   }

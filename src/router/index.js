@@ -36,9 +36,10 @@ const router = new Router({
 router.beforeEach(async (to, from, next) => {
 
   const local = Lockr.get('local') || 'shanghai'
+  const locale = Lockr.get('locale') || 'zh-hans'
 
   router.app.$options.store.dispatch('setLocal', local)
-  router.app.$options.store.dispatch('setLocale', 'zh-hans')
+  router.app.$options.store.dispatch('setLocale', locale)
 
   await router.app.$options.store.dispatch('getDestinationsList')
   next()

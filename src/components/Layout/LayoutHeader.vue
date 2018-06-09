@@ -9,13 +9,11 @@
   width: 100%;
   z-index: 100;
   position: relative;
-  // overflow: hidden;
   position: absolute;
   z-index: 200;
 
   .container {
     height: 100%;
-    // position: relative;
   }
 
   .logo {
@@ -31,7 +29,6 @@
     padding: 0;
     margin: 0;
     z-index: 10;
-    // position: relative;
   }
 
   .nav-item {
@@ -41,11 +38,12 @@
     cursor: pointer;
 
     .insert {
+      margin-top: 10px;
       font-size: 17px;
       text-decoration: none;
       color: #FFF;
       display: block;
-      padding: 0 22px;
+      padding: 0 18px;
       opacity: 0.8;
       transition: 0.15s;
 
@@ -54,27 +52,8 @@
       }
 
       .name {
-        line-height: 80px;
+        line-height: 48px;
       }
-    }
-  }
-
-  &__detail {
-    position: absolute;
-    z-index: -1;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    height: 250px;
-    padding-top: 80px;
-    background: rgba($color-grey, 0.6);
-    transition: 0.15s;
-
-    .container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
   }
 }
@@ -83,23 +62,65 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   width: 100%;
 
   &-item {
-    flex: 1;
+    width: 150px;
+    padding: 10px 0;
     text-align: center;
     cursor: pointer;
+    color: $color-light-grey;
+    transition: 0.2s;
+
+    &:hover {
+      color: $color-primary;
+    }
 
     &__icon {
-      font-size: 50px;
+      font-size: 30px;
     }
 
     &__name {
-      font-size: 16px;
+      font-size: 13px;
     }
 
     &.is-close {
       opacity: 0.6;
+      cursor: default;
+
+      &:hover {
+        color: $color-light-grey;
+      }
+    }
+
+    &.is-active {
+      color: $color-primary;
+    }
+  }
+}
+
+.popover-locale {
+  padding: 0px !important;
+}
+
+.popover-park-list {
+  padding: 0px !important;
+}
+
+.locale-select {
+  padding: 8px 0;
+
+  &-item {
+    list-style: none;
+    cursor: pointer;
+    line-height: 36px;
+    font-size: 16px;
+    padding: 0 16px;
+
+    &:hover {
+      background-color: $color-light-grey-sss;
+      color: $color-primary;
     }
   }
 }
@@ -112,34 +133,43 @@
         <logo-text></logo-text>
       </h1>
       <ul class="nav">
-        <li @mouseenter="enter" @mouseleave="leave" class="nav-item">
-          <a class="insert">
-            <span class="name">{{$t('ds.disneyLand.' + local)}}</span>
-            <i class="el-icon-arrow-down el-icon--right"></i>
-            <div class="header__detail" v-show="detail">
-              <div class="container">
-                <div class="park-list">
-                  <div class="park-list-item" :class="{'is-close': !item.open}" v-for="item in LOCAL">
-                    <el-tooltip effect="dark" :content="item.open ? $t(item.label) : '敬请期待'" placement="bottom">
-                      <a @click="handleLocalSelect(item.value)">
-                        <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
-                        <div class="park-list-item__name">{{$t(item.label)}}</div>
-                      </a>
-                    </el-tooltip>
-                  </div>
-                </div>
+        <!-- 地区选择 -->
+        <li class="nav-item">
+          <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="hover">
+            <div class="park-list">
+              <div @click="handleLocalSelect(item.value)" class="park-list-item" :class="{'is-close': !item.open, 'is-active': item.value === local}" v-for="item in LOCAL">
+                <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
+                <div class="park-list-item__name">{{$t(item.label)}}</div>
               </div>
             </div>
-          </a>
+            <a slot="reference" class="insert">
+              <span class="name">{{$t('ds.disneyLand.' + local)}}</span>
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </a>
+          </el-popover>
+        </li>
+        <!-- 语言选择 -->
+        <li class="nav-item">
+          <el-popover popper-class="popover-locale" placement="bottom" width="200" trigger="hover">
+            <ul class="locale-select">
+              <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
+                {{item.label}}
+              </li>
+            </ul>
+            <a slot="reference" class="insert">
+              <span class="name">{{locale | locale}}</span>
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </a>
+          </el-popover>
         </li>
         <li class="nav-item">
           <el-popover placement="bottom-end" width="200" trigger="hover">
             <div class="popover-wxapp">
               <img src="static/wxapp_17disney.jpg" alt="">
-              <div class="popover-wxapp__title">扫码进入小程序</div>
+              <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
             </div>
             <div class="insert" slot="reference" href="">
-              <span class="name">小程序</span>
+              <span class="name">{{$t('ds.label.miniProgram')}}</span>
             </div>
           </el-popover>
         </li>
@@ -149,8 +179,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import LogoText from './LogoText.vue'
 import LOCAL from 'package/17disney-common/const/local'
+import LOCALE from 'package/17disney-common/const/locale'
 import base from '@/common/mixins/base'
 
 export default {
@@ -164,19 +197,30 @@ export default {
   data() {
     return {
       LOCAL,
+      LOCALE,
       detail: false,
       timeout: null,
       visible: false,
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapState({
+      'locale': state => state.app.locale
+    })
+  },
 
   mounted() {
 
   },
 
   methods: {
+    // 语言选择
+    handleLocaleSelect(value) {
+      this.$store.dispatch('setLocale', value)
+      location.reload()
+    },
+    // 地区选择
     handleLocalSelect(val) {
       const localInfo = LOCAL.find(_ => _.value === val)
       if (!localInfo.open) return

@@ -88,7 +88,7 @@ export default {
     tipContent() {
       if (this.data && this.data.waitAvg > 0) {
         this.tipDisabled = false
-        return `${this.data.waitAvg}分钟`
+        return `${this.data.waitAvg} ${this.$t('ds.label.minute')}`
       } else {
          this.tipDisabled = true
       }

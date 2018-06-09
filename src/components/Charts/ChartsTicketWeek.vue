@@ -124,7 +124,7 @@ export default {
         },
         series: [
           {
-            name: '实时售票量',
+            name: this.$t('ds.label.ticketLive'),
             type: 'line',
             smooth: true,
             sampling: 'average',
@@ -147,7 +147,7 @@ export default {
             data: numData
           },
           {
-            name: '预测售票量',
+            name: this.$t('ds.label.forecastTicket'),
             type: 'line',
             smooth: true,
             sampling: 'average',

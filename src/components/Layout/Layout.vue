@@ -44,14 +44,14 @@ export default {
 
     if (local === 'shanghai') {
       homeTab.push({
-        'name': '客流预测',
+        'name': this.$t('ds.label.flowForecast'),
         'icon': 'business-excellence',
         'to': '/forecast'
       })
     }
 
     homeTab.push({
-      'name': '历史等候',
+      'name': this.$t('ds.label.historicalWait'),
       'icon': 'magic-morning',
       'to': '/history'
     })

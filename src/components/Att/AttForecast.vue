@@ -60,7 +60,7 @@
   <div class="att-forecast" :class="numName.class">
     <div class="badge"></div>
     <div class="att-forecast__num">
-      <strong>{{forecast.waitAvg}}</strong> 分钟</div>
+      <strong>{{forecast.waitAvg}}</strong> {{$t('ds.label.minute')}}</div>
     <!-- <div class="num-good">{{num | numGood}}</div> -->
     <!-- <div class="text">{{numName.name}}</div> -->
   </div>

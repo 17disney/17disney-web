@@ -39,14 +39,14 @@
       <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
       <ft-section>
         <div slot="header" class="clearfix">
-          <span>等候时间日历</span>
+          <span>{{$t('ds.label.waitsCalendar')}}</span>
         </div>
         <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
         <!-- <ft-index :data="attIndex"></ft-index> -->
       </ft-section>
       <ft-section>
         <div slot="header" class="clearfix">
-          <span>等候时间趋势</span>
+          <span>{{$t('ds.label.waitsTrend')}}</span>
         </div>
         <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
       </ft-section>

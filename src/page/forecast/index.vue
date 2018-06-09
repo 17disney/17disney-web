@@ -36,13 +36,13 @@
       <el-col :span="10">
         <dm-card>
           <div slot="header" class="clearfix">
-            <span>客流量预测</span>
+            <span>{{this.$t('ds.label.forecastflow')}}</span>
           </div>
           <charts-flow v-loading="loading" :data="forecast"></charts-flow>
         </dm-card>
         <dm-card>
           <div slot="header" class="clearfix">
-            <span>售票量趋势</span>
+            <span>{{this.$t('ds.label.ticketTrend')}}</span>
           </div>
           <div class="charts-flow">
             <charts-ticket-week v-loading="loading" :data="forecast"></charts-ticket-week>
@@ -52,7 +52,7 @@
       <el-col :span="14">
         <dm-card class="dm-card-att-list">
           <div slot="header" class="clearfix">
-            <span>项目等候时间</span>
+            <span>{{this.$t('ds.label.attractionWaits')}}</span>
           </div>
           <ft-date-select @click="handleClickDate" v-model="date" :dates="forecast"></ft-date-select>
           <ft-index v-loading="loading" :data="focuesIndex"></ft-index>
@@ -122,11 +122,11 @@ export default {
 
       this.focuesIndex = [
         {
-          label: '预测客流量',
+          label: this.$t('ds.label.forecastflow'),
           value: formatNumber(flowMaxFT)
         },
         {
-          label: '预测售票量',
+          label: this.$t('ds.label.forecastTicket'),
           value: formatNumber(ticketNumFT)
         }
       ]

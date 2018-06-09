@@ -112,7 +112,7 @@ export default {
         },
         series: [
           {
-            name: '预测客流',
+            name: this.$t('ds.label.forecastflow'),
             type: 'line',
             smooth: true,
             sampling: 'average',

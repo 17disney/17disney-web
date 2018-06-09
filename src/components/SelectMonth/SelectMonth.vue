@@ -163,9 +163,11 @@ export default {
         dateList.unshift(_date)
       }
 
+      const MONTH_FORMAT = this.$t('ds.dateFormat.month')
+
       dateList.forEach(item => {
         list.push({
-          view: moment(item).format('MM月'),
+          view: moment(item).format(MONTH_FORMAT),
           year: moment(item).format('YYYY'),
           value: moment(item).format(DATE_FORMAT)
         })
