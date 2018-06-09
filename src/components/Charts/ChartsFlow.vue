@@ -7,12 +7,16 @@
 <script>
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
+import moment from 'moment'
+const NAME = 'charts-flow'
 
 export default {
+  name: NAME,
+
   props: {
     id: {
       type: String,
-      default: 'charts-att-count'
+      default: NAME
     },
     data: {
       type: Array,
@@ -21,12 +25,12 @@ export default {
     indexList: {
       type: Array,
       default: function () {
-        return ['num']
+        return ['flowMaxFT']
       }
     },
     xAxisKey: {
       type: String,
-      default: 'key'
+      default: 'date'
     }
   },
   data() {
@@ -44,16 +48,14 @@ export default {
   },
   methods: {
     initSeries(data, key) {
-      // const name = this.Filters.fieldName(key)
+
       const series = {
-        // name,
         data,
-        type: 'bar',
+        type: 'line',
         smooth: true,
-        // symbol: 'circle',
+        symbol: 'circle',
         symbolSize: 2,
         showSymbol: false,
-        barWidth: '35%',
         lineStyle: {
           width: 3
         },
@@ -73,7 +75,10 @@ export default {
       const { data, xAxisKey, indexList } = this
 
       // 设置x轴数据
-      const xAxisData = data.map(_ => _[xAxisKey])
+      // const xAxisData = data.map(_ => _[xAxisKey])
+
+      const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
+
       const series = []
       indexList.forEach(item => {
         const _data = data.map(_ => _[item])
@@ -128,18 +133,13 @@ export default {
           axisTick: {
             show: false
           },
-          max: 250,
+          max: 100000,
           axisLine: {
             lineStyle: {
               color: '#5C6B80'
             }
           },
-          // axisLabel: {
-          //   margin: 10,
-          //   textStyle: {
-          //     fontSize: 12
-          //   }
-          // },
+
           splitLine: {
             lineStyle: {
               color: '#EDF1F4'
@@ -148,7 +148,6 @@ export default {
         }],
         xAxis: [{
           type: 'category',
-          // boundaryGap: false,
           axisLine: {
             lineStyle: {
               color: '#5C6B80'
@@ -158,34 +157,6 @@ export default {
         }],
         series
       }
-
-      // option = {
-      //   legend: {
-      //     show: false,
-      //   },
-      //   xAxis: [
-      //     {
-      //       type: 'category',
-      //       boundaryGap: false,
-      //       data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      //     }
-      //   ],
-      //   yAxis: [
-      //     {
-      //       type: 'value'
-      //     }
-      //   ],
-      //   series: [
-      //     {
-      //       name: '邮件营销',
-      //       type: 'line',
-      //       stack: '总量',
-      //       areaStyle: { normal: {} },
-      //       data: [120, 132, 101, 134, 90, 230, 210]
-      //     }
-      //   ]
-      // };
-      // console.log(option)
 
       this.chart.setOption(option)
     }

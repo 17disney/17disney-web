@@ -2,100 +2,57 @@
 @require '../../styles/disney/var/color.styl';
 
 .ds-main {
-  margin-top: 16px;
-}
-
-.forecast-park {
-  display: flex;
-}
-
-.forecast-item {
-  flex: 1;
-  position: relative;
-  text-align: center;
-  display: flex;
-  flex-flow: column;
-  color: $color-gray;
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 6px solid $color-light-grey-ss;
-  transition: 0.15s;
-
-  &:hover {
-    border-color: $color-light-grey-s;
-  }
-
-  &.is-active {
-    border-color: $color-primary;
-    color: $color-primary;
-    .forecast-item{
-      &__num{
-        color: $color-primary;
-      }
-    }
-  }
-
-  &__week {
-    color: $color-light-grey;
-  }
-
-  &__date {
-    color: $color-light-grey-s;
-    margin-top: 4px;
-    font-size: 18px;
-  }
-
-  &__num {
-    color: #999
-    margin-top: 4px;
-  }
-
-  &:not(:last-child) {
-    &:after {
-      content: '';
-      position: absolute;
-      right: 0px;
-      top: 15px;
-      bottom: 15px;
-      width: 1px;
-      background: $color-light-grey-ss;
-    }
-  }
+  margin-top: 32px;
 }
 </style>
 <template>
   <div class="container ds-main">
-    <div class="ds-card" style="margin-bottom: 16px">
-      <div class="forecast-park">
-        <div @click="handleClickDate(index)" class="forecast-item" :class="{'is-active': item.date === date}" v-for="(item, index) in forecast">
-          <div class="forecast-item__week">
-            星期{{item.date | timeFormat('d')}}
+
+    <el-row :gutter="20">
+      <el-col :span="10">
+        <dm-card>
+          <div slot="header" class="clearfix">
+            <span>客流趋势</span>
           </div>
-          <div class="forecast-item__date">
-            {{item.date | timeFormat('M月D日')}}
+          <charts-flow :data="forecast"></charts-flow>
+
+        </dm-card>
+
+        <dm-card>
+          <div slot="header" class="clearfix">
+            <span>售票量趋势</span>
           </div>
-          <div class="forecast-item__num">
-            <park-flow-num :num="item.flowMaxFT"></park-flow-num>
+          <div class="charts-flow">
+            <charts-ticket-week :data="forecast"></charts-ticket-week>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="ds-card">
-      <!-- <att-list-table :data="FtAttList" :date="date" :forecast="attractions"></att-list-table> -->
-      <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
-    </div>
+        </dm-card>
+      </el-col>
+      <el-col :span="14">
+        <dm-card>
+          <div slot="header" class="clearfix">
+            <span>项目等候时间</span>
+          </div>
+          <ft-date-select @click="handleClickDate" v-model="date" :dates="forecast"></ft-date-select>
+          <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
+        </dm-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import base from '@/common/mixins/base'
-import Forecast from '@/common/api/forecast'
+
 import ParkFlowNum from '@/components/Park/ParkFlowNum'
 import AttListTable from '@/components/AttList/AttListTable'
 import AttList from '@/components/AttList/AttList'
+import FtDateSelect from '@/components/FtDateSelect/FtDateSelect'
+import ChartsFlow from '@/components/Charts/ChartsFlow'
+import ChartsTicketWeek from '@/components/Charts/ChartsTicketWeek'
+
 export default {
-  components: { ParkFlowNum, AttListTable, AttList },
+  components: { ParkFlowNum, AttListTable, AttList, FtDateSelect, ChartsFlow, ChartsTicketWeek },
 
   mixins: [base],
   data() {
@@ -114,12 +71,17 @@ export default {
 
   async mounted() {
     this.getDestinationsList()
-    const data = await Forecast.forecastReport('shanghai')
-    this.forecast = data['data']
-    this.handleClickDate(0)
+    this.init()
   },
 
   methods: {
+    async init() {
+      const data = await this.$Api.forecast.forecastReport('shanghai')
+
+      this.forecast = data['data']
+      this.handleClickDate(0)
+
+    },
     handleClickDate(index) {
       const { date, attractions } = this.forecast[index]
       this.date = date

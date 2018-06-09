@@ -5,8 +5,7 @@
   &-item {
     display: flex;
     align-items: center;
-    padding: 24px 24px;
-    border-right: 1px solid $color-light-grey-sss;
+    padding: 14px 14px;
     border-bottom: 1px solid $color-light-grey-sss;
 
     .att-sechedules {
@@ -37,16 +36,14 @@
 </style>
 <template>
 
-  <el-row class="att-list">
-    <el-col :span="12" v-for="item in data" :key="item.id">
-      <div class="att-list-item" :class="{'is-active': item.active}" @click="clickAttItem(item)">
-        <att-media :medias="item.medias"></att-media>
-        <h4 class="att-list-item__title">{{item.name}}</h4>
-        <!-- <att-schedules :schedules="schedules[item.aid]" :date="date"></att-schedules> -->
-        <att-forecast v-if="forecast && forecast[item.aid]" :forecast="forecast[item.aid]"></att-forecast>
-      </div>
-    </el-col>
-  </el-row>
+  <div class="att-list">
+    <div v-for="item in data" :key="item.id" class="att-list-item" :class="{'is-active': item.active}" @click="clickAttItem(item)">
+      <att-media :medias="item.medias"></att-media>
+      <h4 class="att-list-item__title">{{item.name}}</h4>
+      <!-- <att-schedules :schedules="schedules[item.aid]" :date="date"></att-schedules> -->
+      <att-forecast v-if="forecast && forecast[item.aid]" :forecast="forecast[item.aid]"></att-forecast>
+    </div>
+  </div>
 
 </template>
 

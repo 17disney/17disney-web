@@ -4,7 +4,7 @@ import Layout from '@/components/Layout/Layout'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -17,17 +17,24 @@ export default new Router({
       children: [
         {
           path: 'forecast',
-          component: () => import( '@/page/forecast/index')
+          component: () => import('@/page/forecast/index')
         },
         {
           path: 'history',
-          component:  () => import( '@/page/history/index')
+          component: () => import('@/page/history/index')
         },
         {
           path: 'live',
-          component:  () => import( '@/page/live/index')
+          component: () => import('@/page/live/index')
         }
       ]
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  router.app.$options.store.dispatch('setLocal', 'shanghai')
+  next()
+})
+
+export default router

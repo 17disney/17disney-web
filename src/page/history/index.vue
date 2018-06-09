@@ -52,7 +52,6 @@
 import base from '@/common/mixins/base'
 import moment from 'moment'
 import { mapState, mapActions, mapGetters } from 'vuex'
-import Wait from '@/common/api/wait'
 import AttListSelect from '@/components/AttList/AttListSelect'
 
 import Calendar from '@/components/Calendar/Calendar'
@@ -90,7 +89,7 @@ export default {
       this.loading = true
       const { local, aid } = this
       const [st, et] = this.dateRange
-      this.attCount = await Wait.attractionsIdCount(local, aid, { st, et })
+      this.attCount = await this.$Api.waitTimes.attractionsIdCount(local, aid, { st, et })
 
       setTimeout(() => {
         this.loading = false

@@ -51,7 +51,7 @@
 </style>
 <template>
   <div class="park-flow-num" :class="numName.class">
-    <div class="num">{{num}}</div>
+    <!-- <div class="num">{{num}}</div> -->
     <!-- <div class="num-good">{{num | numGood}}</div> -->
     <div class="text">{{numName.name}}</div>
   </div>

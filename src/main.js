@@ -1,33 +1,43 @@
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| Main
+|
+*/
 import Vue from 'vue'
-import Vuex from 'vuex'
+import store from './store'
 import App from './App'
 import router from './router'
-import locale from 'element-ui/lib/locale/lang/zh-CN'
-import Vue2Leaflet from 'vue2-leaflet'
-import store from './store'
+
+// CSS
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/disney/index.styl'
 import 'leaflet/dist/leaflet.css'
-import ElementUI from 'element-ui'
 import * as Filters from '@/common/filters'
 
+// UI
+import ElementUI from 'element-ui'
 import DmUi from 'package/dm-ui'
 import AttUi from 'package/att-ui'
 
-Vue.use(Vuex)
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI)
 Vue.use(DmUi)
 Vue.use(AttUi)
+
+// tools
+import initLocale from './utils/locale'
+import initLeaflet from './utils/leaflet'
+import * as Api from 'package/17disney-common/api'
+
+Vue.prototype.$Api = Api
+
+initLocale(Vue)
+initLeaflet(Vue)
 
 Object.keys(Filters).forEach(key => {
   Vue.filter(key, Filters[key])
 })
-
-Vue.component('v-map', Vue2Leaflet.Map)
-Vue.component('v-tilelayer', Vue2Leaflet.TileLayer)
-Vue.component('v-marker', Vue2Leaflet.Marker)
-Vue.component('v-popup', Vue2Leaflet.Popup)
-Vue.component('v-tooltip', Vue2Leaflet.Tooltip)
 
 Vue.config.productionTip = false
 
@@ -38,6 +48,8 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+// 错误提交
 
 function formatComponentName(vm) {
   if (vm.$root === vm) return 'root'
@@ -53,6 +65,7 @@ function formatComponentName(vm) {
       : '')
   )
 }
+
 
 Vue.config.errorHandler = function(err, vm, info) {
   var componentName = formatComponentName(vm)
