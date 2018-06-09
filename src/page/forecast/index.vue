@@ -1,23 +1,38 @@
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
 .ds-main {
   margin-top: 32px;
 }
+
+.dm-card {
+  margin-bottom: 30px;
+}
+
+.dm-card-att-list {
+  .att-list-wrapper {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .att-list {
+      width: 100%;
+    }
+  }
+}
 </style>
 <template>
   <div class="container ds-main">
 
-    <el-row :gutter="20">
+    <el-row :gutter="50">
       <el-col :span="10">
         <dm-card>
           <div slot="header" class="clearfix">
-            <span>客流趋势</span>
+            <span>客流量预测</span>
           </div>
           <charts-flow :data="forecast"></charts-flow>
-
         </dm-card>
-
         <dm-card>
           <div slot="header" class="clearfix">
             <span>售票量趋势</span>
@@ -28,12 +43,16 @@
         </dm-card>
       </el-col>
       <el-col :span="14">
-        <dm-card>
+        <dm-card class="dm-card-att-list">
           <div slot="header" class="clearfix">
             <span>项目等候时间</span>
           </div>
           <ft-date-select @click="handleClickDate" v-model="date" :dates="forecast"></ft-date-select>
-          <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
+          <div class="att-list-wrapper">
+            <dm-scroll>
+              <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
+            </dm-scroll>
+          </div>
         </dm-card>
       </el-col>
     </el-row>
