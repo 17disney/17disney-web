@@ -27,6 +27,14 @@
 .att-list-scroll-wrapper {
   height: 900px;
 }
+
+.ft-section-list {
+  .ft-section {
+    &:last-child {
+      border: none;
+    }
+  }
+}
 </style>
 <template>
   <div class="container">
@@ -37,19 +45,28 @@
     </el-aside>
     <dm-main>
       <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
-      <ft-section>
-        <div slot="header" class="clearfix">
-          <span>{{$t('ds.label.waitsCalendar')}}</span>
-        </div>
-        <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
-        <!-- <ft-index :data="attIndex"></ft-index> -->
-      </ft-section>
-      <ft-section>
-        <div slot="header" class="clearfix">
-          <span>{{$t('ds.label.waitsTrend')}}</span>
-        </div>
-        <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
-      </ft-section>
+      <div class="ft-section-list">
+        <ft-section>
+          <div slot="header" class="clearfix">
+            <span>{{info.name}}</span>
+          </div>
+          <att-media  :medias="info.medias"></att-media>
+        </ft-section>
+
+        <ft-section>
+          <div slot="header" class="clearfix">
+            <span>{{$t('ds.label.waitsCalendar')}}</span>
+          </div>
+          <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
+          <!-- <ft-index :data="attIndex"></ft-index> -->
+        </ft-section>
+        <ft-section>
+          <div slot="header" class="clearfix">
+            <span>{{$t('ds.label.waitsTrend')}}</span>
+          </div>
+          <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
+        </ft-section>
+      </div>
       <!-- <ft-section>
         <div slot="header" class="clearfix">
           <span>历史最高等候</span>
@@ -80,6 +97,7 @@ export default {
   data() {
     return {
       aid: null,
+      info: {},
       attIndex: [],
       attCount: [],
       attRank: [],
@@ -105,14 +123,14 @@ export default {
 
   watch: {
     'calendar': function (val, oVal) {
-      this.initAtt()
+      // this.initAtt()
     }
   },
 
   methods: {
     init() {
       this.handleMonthSelect(this.calendar)
-      this.initAtt()
+      this.handleAttSelect(this.aid)
     },
     // 读取项目
     async initAtt() {
@@ -144,8 +162,10 @@ export default {
     async handleAttSelect(aid) {
       const { local } = this
       this.aid = aid
+      console.log(this.activeAttList)
+      this.info = this.activeAttList.find(_ => _.aid === aid)
 
-      // this.attRank = await this.$Api.waitTimes.attractions(local, aid, { sort: 'wait-avg' })
+      // this.attRank =  await this.$Api.waitTimes.attractions(local, aid, { sort: 'wait-avg' })
       this.initAtt()
     },
     // 选择月份
