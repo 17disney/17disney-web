@@ -18,10 +18,9 @@
 </template>
 
 <script>
-import AttStatus from './AttStatus'
 
 export default {
-  components: { AttStatus },
+  components: {  },
 
   props: {
     schedule: Object

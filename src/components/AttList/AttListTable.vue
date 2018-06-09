@@ -50,7 +50,6 @@
 <script>
 import base from '@/common/mixins/base'
 import AttListItem from '@/components/AttList/AttListItem'
-import AttStatus from '@/components/Att/AttStatus'
 import AttSchedules from '@/components/Att/AttSchedules'
 import AttForecast from '@/components/Att/AttForecast'
 import { mapState } from 'vuex'

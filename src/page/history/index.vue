@@ -1,6 +1,21 @@
 <style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
+.container {
+  margin-top: 30px;
+  display: flex;
+  overflow: hidden;
+
+  .dm-main {
+    flex: 1;
+  }
+}
+
+.el-aside {
+  width: 320px;
+  margin-right: 50px;
+}
+
 .select-daterange {
   margin-bottom: 16px;
 }
@@ -27,25 +42,27 @@
 }
 </style>
 <template>
-  <div class="container ds-main">
-    <select-date-range class="ds-card" @click="handleClickDateRange" :select="calendar"></select-date-range>
-    <div class="ds-card">
-      <el-container>
-        <el-aside width="320px">
-          <att-list-select @click-item="selectAtt" v-model="aid" :data="activeAttList"></att-list-select>
-        </el-aside>
-        <el-container>
-          <el-main class="att-history">
-            <h1 class="title">月平均等候时间</h1>
-            <calendar :data="attCount" :ym="calendar"></calendar>
-            <div class="wait-index">
-              <div class="wait-index-item"></div>
-            </div>
-            <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
-          </el-main>
-        </el-container>
-      </el-container>
-    </div>
+  <div class="container">
+    <el-aside width="320px">
+      <att-list-select @click-item="selectAtt" v-model="aid" :data="activeAttList"></att-list-select>
+    </el-aside>
+    <dm-main>
+      <!-- <dm-scroll> -->
+      <!-- <select-date-range @click="handleClickDateRange" :select="calendar"></select-date-range> -->
+      <!-- </dm-scroll> -->
+      <ft-section>
+        <div slot="header" class="clearfix">
+          <span>等候时间日历</span>
+        </div>
+        <calendar :data="attCount" :ym="calendar"></calendar>
+      </ft-section>
+      <ft-section>
+        <div slot="header" class="clearfix">
+          <span>等候时间趋势</span>
+        </div>
+        <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
+      </ft-section>
+    </dm-main>
   </div>
 </template>
 
@@ -58,10 +75,11 @@ import AttListSelect from '@/components/AttList/AttListSelect'
 import Calendar from '@/components/Calendar/Calendar'
 import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
-import ParkFlowNum from '@/components/Park/ParkFlowNum'
+
+import FtSection from '@/components/FtSection/FtSection'
 
 export default {
-  components: { AttListSelect, Calendar, ChartsAttCount, SelectDateRange, ParkFlowNum },
+  components: { AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection },
 
   mixins: [base],
   data() {
