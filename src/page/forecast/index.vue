@@ -9,9 +9,17 @@
   margin-bottom: 30px;
 }
 
+.ft-date-select {
+  margin-bottom: 30px;
+}
+
+.ft-index {
+  margin-bottom: 30px;
+}
+
 .dm-card-att-list {
   .att-list-wrapper {
-    height: 800px;
+    height: 640px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -24,7 +32,6 @@
 </style>
 <template>
   <div class="container ds-main">
-
     <el-row :gutter="50">
       <el-col :span="10">
         <dm-card>
@@ -48,6 +55,7 @@
             <span>项目等候时间</span>
           </div>
           <ft-date-select @click="handleClickDate" v-model="date" :dates="forecast"></ft-date-select>
+          <ft-index :data="focuesIndex"></ft-index>
           <div class="att-list-wrapper">
             <dm-scroll>
               <att-list :data="FtAttList" :date="date" :forecast="attractions"></att-list>
@@ -61,6 +69,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import { formatNumber } from '@/common/filters'
 import base from '@/common/mixins/base'
 
 import ParkFlowNum from '@/components/Park/ParkFlowNum'
@@ -69,16 +78,19 @@ import AttList from '@/components/AttList/AttList'
 import FtDateSelect from '@/components/FtDateSelect/FtDateSelect'
 import ChartsFlow from '@/components/Charts/ChartsFlow'
 import ChartsTicketWeek from '@/components/Charts/ChartsTicketWeek'
+import FtIndex from '@/components/FtIndex/FtIndex'
 
 export default {
-  components: { ParkFlowNum, AttListTable, AttList, FtDateSelect, ChartsFlow, ChartsTicketWeek },
+  components: { ParkFlowNum, AttListTable, AttList, FtDateSelect, ChartsFlow, ChartsTicketWeek, FtIndex },
 
   mixins: [base],
   data() {
     return {
       forecast: [],
       date: null,
-      attractions: null
+      attractions: null,
+      focuesData: null,
+      focuesIndex: []
     }
   },
 
@@ -102,7 +114,23 @@ export default {
 
     },
     handleClickDate(index) {
-      const { date, attractions } = this.forecast[index]
+      const data = this.forecast[index]
+
+      const { ticketNumFT, ticketNum, flowMaxFT } = data
+
+      this.focuesIndex = [
+        {
+          label: '预测客流量',
+          value: formatNumber(ticketNumFT)
+        },
+        {
+          label: '预测售票量',
+          value: formatNumber(ticketNumFT)
+        }
+      ]
+
+      const { date, attractions } = data
+      this.focuesData = data
       this.date = date
 
       const list = {}

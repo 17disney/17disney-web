@@ -50,13 +50,12 @@
 <script>
 import base from '@/common/mixins/base'
 import AttListItem from '@/components/AttList/AttListItem'
-import AttMedia from '@/components/Att/AttMedia'
 import AttStatus from '@/components/Att/AttStatus'
 import AttSchedules from '@/components/Att/AttSchedules'
 import AttForecast from '@/components/Att/AttForecast'
 import { mapState } from 'vuex'
 export default {
-  components: { AttListItem, AttMedia, AttSchedules, AttForecast },
+  components: { AttListItem,  AttSchedules, AttForecast },
   mixins: [base],
   props: {
     date: String,

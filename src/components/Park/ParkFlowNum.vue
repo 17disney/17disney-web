@@ -4,56 +4,39 @@
 .park-flow-num {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
 
-  .num-good {
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
-
-  .num {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-
-  .text {
-    color: #FFF;
-    width: 50px;
-    font-size: 14px;
-    line-height: 1.5;
-    border-radius: 14px;
+  .bardge {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
     margin: 0 auto;
-  }
 
-  &.is-yellow {
-    .text {
+    &.is-yellow {
       background-color: $color-yellow;
     }
-  }
 
-  &.is-green {
-    .text {
+    &.is-green {
       background-color: $color-green;
     }
-  }
 
-  &.is-orange {
-    .text {
+    &.is-orange {
       background-color: $color-orange;
     }
-  }
 
-  &.is-red {
-    .text {
+    &.is-red {
       background-color: $color-red;
     }
   }
 }
 </style>
 <template>
-  <div class="park-flow-num" :class="numName.class">
+  <div class="park-flow-num">
     <!-- <div class="num">{{num}}</div> -->
     <!-- <div class="num-good">{{num | numGood}}</div> -->
-    <div class="text">{{numName.name}}</div>
+    <div class="bardge" :class="numName.class"></div>
+    <!-- {{numName.name}} -->
   </div>
 </template>
 

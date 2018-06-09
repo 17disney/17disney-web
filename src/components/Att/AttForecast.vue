@@ -6,8 +6,8 @@
   align-items: center;
 
   .badge {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     display: inline-block;
     border-radius: 50%;
     vertical-align: middle;
@@ -16,7 +16,7 @@
   }
 
   &__num {
-    font-size: 18px;
+    font-size: 15px;
     color: $color-grey;
 
     strong {
@@ -69,6 +69,7 @@
 
 <script>
 import { ATT_WAIT_CLASS } from '@/common/data/const'
+
 const INDEX_TYPE = {
   'green': {
     name: '舒适',

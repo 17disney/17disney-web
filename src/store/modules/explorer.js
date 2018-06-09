@@ -16,7 +16,7 @@ const explorer = {
       return state.attList.filter(item => item.type === 'attraction')
     },
     attListFilter: (state, getters) => type => {
-      return state.attList.filter(item => item.type === type)
+      return state.attList.filter(item => item.type === type && item.hotLevel >= 3)
     },
     attFind: (state, getters) => aid => {
       return state.attList.find(item => item.aid === aid)

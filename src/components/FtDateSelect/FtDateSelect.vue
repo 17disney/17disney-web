@@ -1,7 +1,8 @@
 <style lang='stylus'>
-.forecast-park {
+@require '../../styles/disney/var/color.styl';
+
+.ft-date-select {
   display: flex;
-  border 1px solid #ccc
 }
 
 .forecast-item {
@@ -13,7 +14,7 @@
   color: $color-gray;
   padding: 10px;
   cursor: pointer;
-  border-bottom: 6px solid $color-light-grey-ss;
+  border-bottom: 2px solid $color-light-grey-ss;
   transition: 0.15s;
 
   &:hover {
@@ -28,48 +29,57 @@
       &__num {
         color: $color-primary;
       }
+
+      &__week {
+        color: $color-primary;
+      }
+
+      &__date {
+        color: $color-primary;
+      }
     }
   }
 
   &__week {
+    font-size: 14px;
     color: $color-light-grey;
   }
 
   &__date {
     color: $color-light-grey-s;
     margin-top: 4px;
-    font-size: 18px;
+    font-size: 15px;
   }
 
   &__num {
     color: #999;
-    margin-top: 4px;
+    margin-bottom: 10px;
   }
 
   &:not(:last-child) {
     &:after {
-      content: '';
-      position: absolute;
-      right: 0px;
-      top: 15px;
-      bottom: 15px;
-      width: 1px;
-      background: $color-light-grey-ss;
+      // content: '';
+      // position: absolute;
+      // right: 0px;
+      // top: 25px;
+      // bottom: 25px;
+      // width: 1px;
+      // background: $color-light-grey-sss;
     }
   }
 }
 </style>
 <template>
-  <div class="forecast-park">
+  <div class="ft-date-select">
     <div @click="handleClick(index)" class="forecast-item" :class="{'is-active': item.date === value}" v-for="(item, index) in dates">
+      <div class="forecast-item__num">
+        <park-flow-num :num="item.flowMaxFT"></park-flow-num>
+      </div>
       <div class="forecast-item__week">
         星期{{item.date | timeFormat('d')}}
       </div>
       <div class="forecast-item__date">
         {{item.date | timeFormat('M月D日')}}
-      </div>
-      <div class="forecast-item__num">
-        <park-flow-num :num="item.flowMaxFT"></park-flow-num>
       </div>
     </div>
   </div>

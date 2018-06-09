@@ -54,11 +54,10 @@
 </template>
 
 <script>
-import AttMedia from '@/components/Att/AttMedia'
 import AttListItem from '@/components/AttList/AttListItem'
 import { mapState } from 'vuex'
 export default {
-  components: { AttListItem, AttMedia },
+  components: { AttListItem },
 
   props: {
     data: {
