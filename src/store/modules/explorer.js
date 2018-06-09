@@ -17,7 +17,7 @@ const explorer = {
       return state.attList.filter(item => item.type === 'attraction')
     },
     attListFilter: (state, getters) => (type) => {
-      const hotLevel = 0
+      const hotLevel = 3
       return state.attList.filter(item => item.type === type && item.hotLevel >= hotLevel)
     },
     attFind: (state, getters) => aid => {
@@ -28,7 +28,6 @@ const explorer = {
   mutations: {
     // 设置地区
     SET_LOCAL: (state, data) => {
-      console.log(data)
       const { utc } = Local.find(_ => _.value === data)
       state.utc = utc
       state.local = data

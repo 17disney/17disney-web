@@ -117,7 +117,6 @@ export default {
     },
     handleClickDate(index) {
       const data = this.forecast[index]
-
       const { ticketNumFT, ticketNum, flowMaxFT } = data
 
       this.focuesIndex = [

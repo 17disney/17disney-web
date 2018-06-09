@@ -76,7 +76,7 @@
         <park-flow-num :num="item.flowMaxFT"></park-flow-num>
       </div>
       <div class="forecast-item__week">
-        {{$t('el.datepicker.weeks.' + [item.week])}}
+        {{item.week}}
       </div>
       <div class="forecast-item__date">
         {{item.date | timeFormat($t('ds.dateFormat.monthDay'))}}
@@ -108,20 +108,32 @@ export default {
   computed: {},
 
   mounted() {
-    const list = []
 
-    this.dates.forEach(item => {
-      const { date } = item
-      list.push({
-        date,
-        week: WEEKS[moment(date, 'YYYY-MM-DD').format('e')]
-      })
-    })
+  },
 
-    this.list = list
+  watch: {
+    'dates': function (val, oVal) {
+      this.init()
+    }
   },
 
   methods: {
+    init() {
+      const list = []
+      this.dates.forEach(item => {
+        const { date } = item
+        let week = this.$t('el.datepicker.weeks.' + WEEKS[moment(date, 'YYYY-MM-DD').format('e')])
+
+        if (this.$lang === 'zh-hans') {
+          week = '星期' + week
+        }
+        list.push({
+          date,
+          week
+        })
+      })
+      this.list = list
+    },
     handleClick(value) {
       this.$emit('click', value)
     }

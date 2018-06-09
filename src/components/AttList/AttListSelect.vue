@@ -21,6 +21,7 @@
 
   &__item {
     padding: 8px 24px;
+    border-radius: 5px;
     // padding-left: 48px;
     width: 100%;
     cursor: pointer;
@@ -60,7 +61,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  components: { },
+  components: {},
 
   props: {
     data: {

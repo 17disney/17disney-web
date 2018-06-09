@@ -21,6 +21,7 @@
     float: left;
     font-size: 32px;
     font-weight: 400;
+    text-shadow: 0px 2px 2px rgba($color-grey, 0.87);
   }
 
   .nav {
@@ -38,21 +39,26 @@
     cursor: pointer;
 
     .insert {
-      margin-top: 10px;
-      font-size: 17px;
+      margin-top: 16px;
+      font-size: 16px;
       text-decoration: none;
       color: #FFF;
       display: block;
-      padding: 0 18px;
-      opacity: 0.8;
+      padding-left: 25px;
+      opacity: 0.9;
       transition: 0.15s;
 
       &:hover {
-        opacity: 1;
+        opacity: 0.7;
       }
 
       .name {
-        line-height: 48px;
+        line-height: 36px;
+        text-shadow: 0px 1px 5px rgba($color-grey, 0.87);
+      }
+
+      .el-icon--right {
+        font-size: 12px;
       }
     }
   }
@@ -115,7 +121,7 @@
     list-style: none;
     cursor: pointer;
     line-height: 36px;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0 16px;
 
     &:hover {
@@ -150,7 +156,7 @@
         </li>
         <!-- 语言选择 -->
         <li class="nav-item">
-          <el-popover popper-class="popover-locale" placement="bottom" width="200" trigger="hover">
+          <el-popover popper-class="popover-locale" placement="bottom" width="100" trigger="hover">
             <ul class="locale-select">
               <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
                 {{item.label}}

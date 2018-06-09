@@ -3,12 +3,14 @@ import Lockr from 'lockr'
 
 const app = {
   state: {
-    locale: null
+    locale: null,
+    init: false
   },
   mutations: {
     SET_LOCALE: (state, locale) => {
       Vue.config.lang = locale
       state.locale = locale
+      state.init = true
     }
   },
   actions: {
