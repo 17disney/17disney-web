@@ -5,7 +5,6 @@
 }
 </style>
 
-
 <template>
   <div class="chart-wrapper" :id="id"></div>
 </template>
@@ -14,6 +13,7 @@
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import moment from 'moment'
+
 const NAME = 'charts-flow'
 
 export default {

@@ -3,13 +3,16 @@
 
 .att-list-select {
   position: relative;
-  background: $color-light-grey-sss;
   height: 100%;
 
   &__list {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
+  }
+
+  &__wrapper {
+    height: 1000px;
   }
 
   &__title {
@@ -24,6 +27,8 @@
     display: flex;
     align-content: center;
     color: $color-dark-grey;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
 
     .att-media {
       border-radius: 100%;
@@ -31,9 +36,10 @@
     }
 
     &.is-active {
-      background: #FFF;
-      color: $color-primary;
+      // background: #FFF;
+      background: $color-primary-ss;
       font-weight: 600;
+      color: $color-primary;
     }
 
     &:hover {
@@ -44,12 +50,14 @@
 </style>
 <template>
   <div class="att-list-select">
-    <ul class="att-list-select__list">
-      <li class="att-list-select__item" :class="{'is-active': item.aid === value}" v-for="item in data" :key="item.id" @click="clickAttItem(item.aid)">
-        <att-media size="small" :medias="item.medias"></att-media>
-        <span class="att-list-select__title">{{item.name}}</span>
-      </li>
-    </ul>
+    <dm-scroll class="att-list-select__wrapper">
+      <ul class="att-list-select__list">
+        <li class="att-list-select__item" :class="{'is-active': item.aid === value}" v-for="item in data" :key="item.id" @click="clickAttItem(item.aid)">
+          <att-media size="small" :medias="item.medias"></att-media>
+          <span class="att-list-select__title">{{item.name}}</span>
+        </li>
+      </ul>
+    </dm-scroll>
   </div>
 </template>
 

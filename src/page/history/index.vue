@@ -16,51 +16,28 @@
   margin-right: 50px;
 }
 
-.select-daterange {
-  margin-bottom: 16px;
-}
-
-.att-history {
-  .title {
-    color: $color-gery;
-    font-size: 20px;
-    line-height: 20px;
-    padding-bottom: 16px;
-    margin-bottom: 16px;
-    border-bottom: 1px solid $color-light-grey-ss;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  .chart-att-count {
-    border-radius: 10px;
-    background-color: $color-primary-ss;
-    max-width: 500px;
-    margin: 0 auto;
-    margin-top: 32px;
-  }
+.att-date-select {
+  margin-bottom: 30px;
 }
 </style>
 <template>
   <div class="container">
     <el-aside width="320px">
-      <att-list-select @click-item="selectAtt" v-model="aid" :data="activeAttList"></att-list-select>
+      <att-list-select @click-item="handleAttSelect" v-model="aid" :data="activeAttList"></att-list-select>
     </el-aside>
     <dm-main>
-      <!-- <dm-scroll> -->
-      <!-- <select-date-range @click="handleClickDateRange" :select="calendar"></select-date-range> -->
-      <!-- </dm-scroll> -->
+      <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
       <ft-section>
         <div slot="header" class="clearfix">
           <span>等候时间日历</span>
         </div>
-        <calendar :data="attCount" :ym="calendar"></calendar>
+        <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
       </ft-section>
       <ft-section>
         <div slot="header" class="clearfix">
           <span>等候时间趋势</span>
         </div>
-        <charts-att-count xAxisKey="date" :indexList="['waitAvg']" :data="attCount"></charts-att-count>
+        <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
       </ft-section>
     </dm-main>
   </div>
@@ -77,17 +54,18 @@ import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
 
 import FtSection from '@/components/FtSection/FtSection'
+import SelectMonth from '@/components/SelectMonth/SelectMonth'
 
 export default {
-  components: { AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection },
+  components: { AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection, SelectMonth },
 
   mixins: [base],
   data() {
     return {
       aid: 'attExplorerCanoes',
-      dateRange: ['2018-05-01', '2018-05-31'],
+      dateRange: [],
       attCount: [],
-      calendar: '2018-05',
+      calendar: null,
       loading: true
     }
   },
@@ -107,27 +85,29 @@ export default {
   methods: {
     init() {
       this.getDestinationsList()
-      this.initAtt()
+      this.handleMonthSelect(moment().format('YYYY-MM'))
     },
-
     async initAtt() {
       this.loading = true
       const { local, aid } = this
       const [st, et] = this.dateRange
-      this.attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
 
-      setTimeout(() => {
+      setTimeout( async () => {
+        this.attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
         this.loading = false
       }, 500)
     },
-
-    selectAtt(id) {
+    // 选择项目
+    handleAttSelect(id) {
       this.aid = id
       this.initAtt()
     },
-    handleClickDateRange(val) {
-      this.dateRange = val
-      this.calendar = moment(val, 'YYYY-MM-DD').format('YYYY-MM')
+    // 选择月份
+    handleMonthSelect(val) {
+      const dateRange = [moment(val, 'YYYY-MM').startOf('month').format('YYYY-MM-DD'), moment(val, 'YYYY-MM').endOf('month').format('YYYY-MM-DD')]
+
+      this.dateRange = dateRange
+      this.calendar = val
       this.initAtt()
     }
   }

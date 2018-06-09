@@ -52,8 +52,6 @@ export default {
     }
   },
   methods: {
-
-
     init() {
       this.chart = echarts.init(document.getElementById(this.id))
       const { data } = this

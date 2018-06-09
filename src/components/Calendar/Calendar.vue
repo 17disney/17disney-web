@@ -5,8 +5,8 @@
   background: #FFF;
   border-radius: 10px;
   overflow: hidden;
-  max-width: 500px;
-  margin: 0 auto;
+  min-height: 300px;
+  background: $color-primary-ss;
 
   &__table {
     width: 100%;
@@ -33,7 +33,7 @@
         td {
           position: relative;
           padding: 1px;
-          border: 1px solid #FFF
+          border: 1px solid #FFF;
           background: $color-primary-ss;
         }
       }

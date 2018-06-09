@@ -1,32 +1,32 @@
+<style lang="stylus" scoped>
+.chart-wrapper {
+  width: 100%;
+  height: 350px;
+}
+</style>
+
 <template>
-  <div class="chart chart-att-count">
-    <div class="inner" :id="id"></div>
-  </div>
+  <div class="chart-wrapper" :id="id"></div>
 </template>
 
 <script>
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
+import moment from 'moment'
+
+const NAME = 'charts-att-count'
 
 export default {
+  name: NAME,
+
   props: {
     id: {
       type: String,
-      default: 'charts-att-count'
+      default: NAME
     },
     data: {
       type: Array,
       default: []
-    },
-    indexList: {
-      type: Array,
-      default: function () {
-        return ['num']
-      }
-    },
-    xAxisKey: {
-      type: String,
-      default: 'key'
     }
   },
   data() {
@@ -43,56 +43,21 @@ export default {
     }
   },
   methods: {
-    initSeries(data, key) {
-      // const name = this.Filters.fieldName(key)
-      const series = {
-        // name,
-        data,
-        type: 'bar',
-        smooth: true,
-        // symbol: 'circle',
-        symbolSize: 2,
-        showSymbol: false,
-        barWidth: '35%',
-        lineStyle: {
-          width: 3
-        },
-        itemStyle: {
-          normal: {
-            // color: '#2492D7',
-            color: Color.colorPrimary
-            // borderWidth: 3
-          }
-        }
-      }
-      return series
-    },
-
     init() {
       this.chart = echarts.init(document.getElementById(this.id))
-      const { data, xAxisKey, indexList } = this
 
-      // 设置x轴数据
-      const xAxisData = data.map(_ => _[xAxisKey])
-      const series = []
-      indexList.forEach(item => {
-        const _data = data.map(_ => _[item])
-        const _series = this.initSeries(_data, item)
-        series.push(_series)
-      })
-
-      if (!data) return
+      const { data } = this
+      const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D月'))
 
       let option = {
-        // grid: {
-        //   top: 50,
-        //   left: '2%',
-        //   right: '2%',
-        //   bottom: '2%',
-        //   containLabel: true
-        // },
+        grid: {
+          top: 50,
+          left: 30,
+          right: 25,
+          bottom: 25
+        },
         legend: {
-          show: false,
+          // show: false,
         },
         visualMap: {
           top: 10,
@@ -130,62 +95,69 @@ export default {
           },
           max: 250,
           axisLine: {
-            lineStyle: {
-              color: '#5C6B80'
-            }
+            show: false
           },
-          // axisLabel: {
-          //   margin: 10,
-          //   textStyle: {
-          //     fontSize: 12
-          //   }
-          // },
           splitLine: {
             lineStyle: {
-              color: '#EDF1F4'
+              color: Color.colorLightGreySS
             }
+          },
+          axisLabel: {
+            showMinLabel: false,
+            color: Color.colorDarkGrey,
           }
         }],
         xAxis: [{
           type: 'category',
           // boundaryGap: false,
+          data: xAxisData,
           axisLine: {
             lineStyle: {
-              color: '#5C6B80'
+              color: Color.colorLightGreyS
             }
           },
-          data: xAxisData
+          axisLabel: {
+            color: Color.colorLightGrey
+          }
         }],
-        series
+        series: [{
+          name: '平均等候',
+          data: data.map(_ => _['waitAvg']),
+          type: 'bar',
+          smooth: true,
+          symbolSize: 2,
+          showSymbol: false,
+          barWidth: '35%',
+          lineStyle: {
+            width: 3
+          },
+          itemStyle: {
+            normal: {
+              // color: '#2492D7',
+              color: Color.colorPrimary
+              // borderWidth: 3
+            }
+          }
+        },
+        {
+          name: '最高等候',
+          data: data.map(_ => _['waitMax']),
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          showSymbol: false,
+          lineStyle: {
+            width: 2,
+            type: 'dashed'
+          },
+          itemStyle: {
+            normal: {
+              color: Color.colorPrimary
+            }
+          }
+        }]
       }
 
-      // option = {
-      //   legend: {
-      //     show: false,
-      //   },
-      //   xAxis: [
-      //     {
-      //       type: 'category',
-      //       boundaryGap: false,
-      //       data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      //     }
-      //   ],
-      //   yAxis: [
-      //     {
-      //       type: 'value'
-      //     }
-      //   ],
-      //   series: [
-      //     {
-      //       name: '邮件营销',
-      //       type: 'line',
-      //       stack: '总量',
-      //       areaStyle: { normal: {} },
-      //       data: [120, 132, 101, 134, 90, 230, 210]
-      //     }
-      //   ]
-      // };
-      // console.log(option)
 
       this.chart.setOption(option)
     }
