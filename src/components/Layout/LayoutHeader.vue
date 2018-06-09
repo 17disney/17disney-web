@@ -114,16 +114,16 @@
       <ul class="nav">
         <li @mouseenter="enter" @mouseleave="leave" class="nav-item">
           <a class="insert">
-            <span class="name">上海迪士尼乐园</span>
+            <span class="name">{{$t('ds.disneyLand.' + local)}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
             <div class="header__detail" v-show="detail">
               <div class="container">
                 <div class="park-list">
-                  <div class="park-list-item" :class="{'is-close': !item.open}" v-for="item in PARK_LIST">
-                    <el-tooltip effect="dark" :content="item.open ? item.nameCN : '敬请期待'" placement="bottom">
-                      <a>
+                  <div class="park-list-item" :class="{'is-close': !item.open}" v-for="item in LOCAL">
+                    <el-tooltip effect="dark" :content="item.open ? $t(item.label) : '敬请期待'" placement="bottom">
+                      <a @click="handleLocalSelect(item.value)">
                         <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
-                        <div class="park-list-item__name">{{item.nameCN}}</div>
+                        <div class="park-list-item__name">{{$t(item.label)}}</div>
                       </a>
                     </el-tooltip>
                   </div>
@@ -150,17 +150,20 @@
 
 <script>
 import LogoText from './LogoText.vue'
-import PARK_LIST from '@/common/data/park-list'
+import LOCAL from 'package/17disney-common/const/local'
+import base from '@/common/mixins/base'
 
 export default {
   components: { LogoText },
+
+  mixins: [base],
 
   props: {
   },
 
   data() {
     return {
-      PARK_LIST,
+      LOCAL,
       detail: false,
       timeout: null,
       visible: false,
@@ -174,6 +177,13 @@ export default {
   },
 
   methods: {
+    handleLocalSelect(val) {
+      const localInfo = LOCAL.find(_ => _.value === val)
+      if (!localInfo.open) return
+
+      this.$store.dispatch('setLocal', val)
+      location.reload()
+    },
     enter() {
       this.detail = true
     },

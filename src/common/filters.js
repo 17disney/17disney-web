@@ -47,3 +47,7 @@ export function formatNumber(n){
   var r=len%3;
   return r>0?b.slice(0,r)+","+b.slice(r,len).match(/\d{3}/g).join(","):b.slice(r,len).match(/\d{3}/g).join(",");
 }
+
+export function locale(value) {
+  return LOCALE.find(_ => _.value === value)['label']
+}

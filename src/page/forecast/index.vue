@@ -19,7 +19,7 @@
 
 .dm-card-att-list {
   .att-list-wrapper {
-    height: 640px;
+    height: 630px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -109,7 +109,6 @@ export default {
 
   methods: {
     async init() {
-      this.getDestinationsList()
       const data = await this.$Api.forecast.forecastReport('shanghai')
 
       this.forecast = data['data']

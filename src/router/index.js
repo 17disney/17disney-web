@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout/Layout'
+import Lockr from 'lockr'
 
 Vue.use(Router)
 
@@ -32,8 +33,14 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  router.app.$options.store.dispatch('setLocal', 'shanghai')
+router.beforeEach(async (to, from, next) => {
+
+  const local = Lockr.get('local') || 'shanghai'
+
+  router.app.$options.store.dispatch('setLocal', local)
+  router.app.$options.store.dispatch('setLocale', 'zh-hans')
+
+  await router.app.$options.store.dispatch('getDestinationsList')
   next()
 })
 

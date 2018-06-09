@@ -9,6 +9,10 @@
   .dm-main {
     flex: 1;
   }
+
+  .ft-index {
+    margin-top: 30px;
+  }
 }
 
 .el-aside {
@@ -19,11 +23,17 @@
 .att-date-select {
   margin-bottom: 30px;
 }
+
+.att-list-scroll-wrapper {
+  height: 900px;
+}
 </style>
 <template>
   <div class="container">
     <el-aside width="320px">
-      <att-list-select @click-item="handleAttSelect" v-model="aid" :data="activeAttList"></att-list-select>
+      <dm-scroll class="att-list-scroll-wrapper">
+        <att-list-select @click-item="handleAttSelect" v-model="aid" :data="activeAttList"></att-list-select>
+      </dm-scroll>
     </el-aside>
     <dm-main>
       <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
@@ -32,6 +42,7 @@
           <span>等候时间日历</span>
         </div>
         <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
+        <!-- <ft-index :data="attIndex"></ft-index> -->
       </ft-section>
       <ft-section>
         <div slot="header" class="clearfix">
@@ -39,6 +50,12 @@
         </div>
         <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
       </ft-section>
+      <!-- <ft-section>
+        <div slot="header" class="clearfix">
+          <span>历史最高等候</span>
+        </div>
+        {{attRank}}
+      </ft-section> -->
     </dm-main>
   </div>
 </template>
@@ -47,32 +64,36 @@
 import base from '@/common/mixins/base'
 import moment from 'moment'
 import { mapState, mapActions, mapGetters } from 'vuex'
-import AttListSelect from '@/components/AttList/AttListSelect'
 
+import FtIndex from '@/components/FtIndex/FtIndex'
+import AttListSelect from '@/components/AttList/AttListSelect'
 import Calendar from '@/components/Calendar/Calendar'
 import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
-
 import FtSection from '@/components/FtSection/FtSection'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 
 export default {
-  components: { AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection, SelectMonth },
+  components: { FtIndex, AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection, SelectMonth },
 
   mixins: [base],
   data() {
     return {
-      aid: 'attExplorerCanoes',
-      dateRange: [],
+      aid: null,
+      attIndex: [],
       attCount: [],
-      calendar: null,
+      attRank: [],
+      calendar: moment().format('YYYY-MM'),
+      dateRange: [],
       loading: true
     }
   },
 
   computed: {
     activeAttList() {
-      return this.attListFilter('attraction', 3)
+      const list = this.attListFilter('attraction', 3)
+      this.aid = list[0]['aid']
+      return list
     }
   },
 
@@ -82,24 +103,49 @@ export default {
     }, 1000)
   },
 
+  watch: {
+    'calendar': function (val, oVal) {
+      this.initAtt()
+    }
+  },
+
   methods: {
     init() {
-      this.getDestinationsList()
-      this.handleMonthSelect(moment().format('YYYY-MM'))
+      this.handleMonthSelect(this.calendar)
+      this.initAtt()
     },
+    // 读取项目
     async initAtt() {
       this.loading = true
       const { local, aid } = this
       const [st, et] = this.dateRange
 
-      setTimeout( async () => {
-        this.attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
+      setTimeout(async () => {
+        const attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
+        this.attCount = attCount
+
+        let avgList = attCount.map(_ => _['waitAvg'])
+        avgList = avgList.filter(_ => _ > 0)
+
+        this.attIndex = [
+          {
+            label: '最低等候',
+            value: Math.min(...avgList)
+          },
+          {
+            label: '最高等候',
+            value: Math.max(...avgList)
+          }
+        ]
         this.loading = false
       }, 500)
     },
     // 选择项目
-    handleAttSelect(id) {
-      this.aid = id
+    async handleAttSelect(aid) {
+      const { local } = this
+      this.aid = aid
+
+      // this.attRank = await this.$Api.waitTimes.attractions(local, aid, { sort: 'wait-avg' })
       this.initAtt()
     },
     // 选择月份
@@ -108,7 +154,6 @@ export default {
 
       this.dateRange = dateRange
       this.calendar = val
-      this.initAtt()
     }
   }
 }

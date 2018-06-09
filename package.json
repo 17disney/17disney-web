@@ -21,6 +21,7 @@
     "disney-ui": "1.0.5",
     "echarts": "^4.0.4",
     "element-ui": "^2.3.6",
+    "lockr": "^0.8.4",
     "moment": "^2.20.1",
     "postcss-loader": "^2.1.1",
     "proj4": "^2.4.4",

@@ -4489,6 +4489,10 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lockr@^0.8.4:
+  version "0.8.4"
+  resolved "http://r.cnpmjs.org/lockr/download/lockr-0.8.4.tgz#7614f9c7c98a60bc4ac45f44567d1d03d8fb493c"
+
 lodash._arraycopy@^3.0.0:
   version "3.0.0"
   resolved "http://r.cnpmjs.org/lodash._arraycopy/download/lodash._arraycopy-3.0.0.tgz#76e7b7c1f1fb92547374878a562ed06a3e50f6e1"

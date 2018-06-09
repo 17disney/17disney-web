@@ -8,38 +8,34 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
-  }
-
-  &__wrapper {
-    height: 1000px;
   }
 
   &__title {
     font-size: 15px;
-    line-height: 32px;
+    flex: 1;
+    line-height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__item {
-    padding: 8px 16px;
+    padding: 8px 24px;
+    // padding-left: 48px;
     width: 100%;
     cursor: pointer;
     display: flex;
     align-content: center;
     color: $color-dark-grey;
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 10px;
 
     .att-media {
-      border-radius: 100%;
       margin-right: 16px;
     }
 
     &.is-active {
-      // background: #FFF;
-      background: $color-primary-ss;
-      font-weight: 600;
+      background: $color-light-grey-sss;
       color: $color-primary;
+      font-weight: 600;
     }
 
     &:hover {
@@ -50,22 +46,21 @@
 </style>
 <template>
   <div class="att-list-select">
-    <dm-scroll class="att-list-select__wrapper">
-      <ul class="att-list-select__list">
-        <li class="att-list-select__item" :class="{'is-active': item.aid === value}" v-for="item in data" :key="item.id" @click="clickAttItem(item.aid)">
+    <ul class="att-list-select__list">
+      <el-tooltip v-for="item in data" :key="item.id" class="item" effect="dark" :content="item.name" placement="right">
+        <li class="att-list-select__item" :class="{'is-active': item.aid === value}" @click="clickAttItem(item.aid)">
           <att-media size="small" :medias="item.medias"></att-media>
           <span class="att-list-select__title">{{item.name}}</span>
         </li>
-      </ul>
-    </dm-scroll>
+      </el-tooltip>
+    </ul>
   </div>
 </template>
 
 <script>
-import AttListItem from '@/components/AttList/AttListItem'
 import { mapState } from 'vuex'
 export default {
-  components: { AttListItem },
+  components: { },
 
   props: {
     data: {
@@ -80,7 +75,10 @@ export default {
   },
 
   computed: {
-
+    ...mapState({
+      attsWait: state => state.wait.attsWait,
+      schedules: state => state.explorer.schedules
+    })
   },
 
   mounted() {

@@ -176,7 +176,7 @@ export default {
     clickBtn(type) {
       var value
       if (type === 'previous') {
-        value = moment(this.list[0]['value'], DATE_FORMAT).subtract(this.size, 'month').format(DATE_FORMAT)
+        value = moment(this.list[this.size - 1]['value'], DATE_FORMAT).subtract(this.size, 'month').format(DATE_FORMAT)
         this.initList(value, 'list')
       } else {
         value = moment(this.list[this.size - 1]['value'], DATE_FORMAT).add(this.size, 'month').format(DATE_FORMAT)

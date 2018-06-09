@@ -4,11 +4,11 @@
     <div class="ds-first">
       <div class="ds-first__cover"></div>
       <div class="container">
-        <div class="ds-first__icon icon--pep icon__shanghai-disney-resort"></div>
-        <h1 class="ds-first__title">上海迪士尼乐园</h1>
+        <div class="ds-first__icon icon--pep" :class="'icon__' + localInfo.icon "></div>
+        <h1 class="ds-first__title">{{$t('ds.disneyLand.' + local)}}</h1>
         <ds-tab-home :routes="homeTab"></ds-tab-home>
       </div>
-      <ds-map></ds-map>
+      <ds-map :local="local" :center="localInfo.coordinates"></ds-map>
     </div>
 
     <div class="layout-main">
@@ -25,25 +25,45 @@ import LayoutHeader from '@/components/Layout/LayoutHeader'
 import LayoutFooter from '@/components/Layout/LayoutFooter'
 import DsMap from '@/components/DsMap/DsMap.vue'
 import DsTabHome from '@/components/DsTab/DsTabHome'
+import LOCAL from 'package/17disney-common/const/local'
+import base from '@/common/mixins/base'
+
 export default {
   name: 'layout',
+
+  mixins: [base],
+
   components: {
     LayoutHeader, LayoutFooter, DsMap, DsTabHome
   },
+
+  mounted() {
+    const { local } = this
+
+    const homeTab = []
+
+    if (local === 'shanghai') {
+      homeTab.push({
+        'name': '客流预测',
+        'icon': 'business-excellence',
+        'to': '/forecast'
+      })
+    }
+
+    homeTab.push({
+      'name': '历史等候',
+      'icon': 'magic-morning',
+      'to': '/history'
+    })
+
+    this.homeTab = homeTab
+    this.localInfo = LOCAL.find(_ => _.value === local)
+  },
+
   data() {
     return {
-      homeTab: [
-        {
-          'name': '客流预测',
-          'icon': 'business-excellence',
-          'to': '/forecast'
-        },
-        {
-          'name': '历史等候',
-          'icon': 'magic-morning',
-          'to': '/history'
-        }
-      ]
+      homeTab: [],
+      localInfo: {}
     }
   },
   computed: {

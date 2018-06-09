@@ -2,6 +2,7 @@ import moment from 'moment'
 import Local from 'package/17disney-common/const/local'
 import WaitTimes from 'package/17disney-common/api/wait-times'
 import { lineToObject } from '@/utils/tool'
+import Lockr from 'lockr'
 
 const explorer = {
   state: {
@@ -15,8 +16,9 @@ const explorer = {
     attractionList: (state, getters) => {
       return state.attList.filter(item => item.type === 'attraction')
     },
-    attListFilter: (state, getters) => type => {
-      return state.attList.filter(item => item.type === type && item.hotLevel >= 3)
+    attListFilter: (state, getters) => (type) => {
+      const hotLevel = 0
+      return state.attList.filter(item => item.type === type && item.hotLevel >= hotLevel)
     },
     attFind: (state, getters) => aid => {
       return state.attList.find(item => item.aid === aid)
@@ -26,6 +28,7 @@ const explorer = {
   mutations: {
     // 设置地区
     SET_LOCAL: (state, data) => {
+      console.log(data)
       const { utc } = Local.find(_ => _.value === data)
       state.utc = utc
       state.local = data
@@ -52,6 +55,7 @@ const explorer = {
     },
     // 设置地区
     setLocal({ commit }, data) {
+      Lockr.set('local', data)
       commit('SET_LOCAL', data)
     }
   }

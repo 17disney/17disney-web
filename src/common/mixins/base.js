@@ -4,19 +4,7 @@ export default {
   computed: {
     ...mapState({
       local: state => state.explorer.local,
-      attType: state => state.explorer.attType,
-      playType: state => state.explorer.playType,
-
-      ticketList: state => state.forecast.ticketList,
-      tickets: state => state.forecast.tickets,
-      dayList: state => state.forecast.dayList,
-      days: state => state.forecast.days,
       schedules: state => state.explorer.schedules,
-
-      weatherHistoryList: state => state.forecast.weatherHistoryList,
-      weatherHistorys: state => state.forecast.weatherHistorys,
-      weatherForecastList: state => state.forecast.weatherForecastList,
-      weatherForecasts: state => state.forecast.weatherForecasts
     }),
     ...mapGetters(['attListFilter', 'attractionList', 'attFind'])
   },
