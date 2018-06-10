@@ -37,7 +37,7 @@ export default {
   computed: {},
 
   mounted() {
-    // this.init()
+    this.init()
   },
 
   methods: {

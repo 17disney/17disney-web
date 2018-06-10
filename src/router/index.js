@@ -34,7 +34,7 @@ const router = new Router({
   ]
 })
 
-async function init() {
+async function init(to) {
   let loadingInstance = Loading.service({})
   const local = Lockr.get('local') || 'shanghai'
   const locale = Lockr.get('locale') || 'zh-hans'
@@ -44,10 +44,14 @@ async function init() {
   await router.app.$options.store.dispatch('getDestinationsList')
 
   loadingInstance.close()
+
+  if (local !== 'shanghai' && to.path === '/forecast') {
+    router.push({ path: 'history' })
+  }
 }
 
 router.beforeEach(async (to, from, next) => {
-  await init()
+  await init(to)
   next()
 })
 
