@@ -50,6 +50,16 @@ export default {
       const DATE_FORMAT = this.$t('ds.dateFormat.monthDay')
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format(DATE_FORMAT))
 
+      let maxList = data.map(_ => _['waitMax'])
+      maxList = maxList.filter( _ => _)
+      let XMax = Math.max(...maxList) + 20
+
+      if (!XMax) {
+        XMax = undefined
+      }
+      // console.log(XMax)
+
+
       let option = {
         grid: {
           top: 50,
@@ -94,7 +104,7 @@ export default {
           axisTick: {
             show: false
           },
-          max: 250,
+          max: XMax,
           axisLine: {
             show: false
           },

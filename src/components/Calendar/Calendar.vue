@@ -2,6 +2,7 @@
 @require '../../styles/disney/var/color.styl';
 
 .calendar {
+  position: relative;
   background: #FFF;
   border-radius: 10px;
   overflow: hidden;

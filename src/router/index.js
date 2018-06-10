@@ -35,13 +35,19 @@ const router = new Router({
 })
 
 async function init(to) {
+  const { dispatch, state } = router.app.$options.store
+
+  if (state.app.init) return
+
   let loadingInstance = Loading.service({})
+
   const local = Lockr.get('local') || 'shanghai'
   const locale = Lockr.get('locale') || 'zh-hans'
-  router.app.$options.store.dispatch('setLocal', local)
-  router.app.$options.store.dispatch('setLocale', locale)
 
-  await router.app.$options.store.dispatch('getDestinationsList')
+  dispatch('setLocal', local)
+  dispatch('setLocale', locale)
+
+  await dispatch('getDestinationsList')
 
   loadingInstance.close()
 

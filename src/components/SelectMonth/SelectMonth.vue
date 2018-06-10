@@ -21,6 +21,11 @@ $height = 68px;
     font-size: 20px;
     color: #999;
 
+    &.is-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
     &:hover {
       color: $color-primary;
     }
@@ -101,19 +106,18 @@ $height = 68px;
 </style>
 <template>
   <div class="att-date-select">
-    <div @click="clickBtn('previous')" class="att-date-select__btn btn-previous">
+    <a :class="{'is-disabled' : !canPrev}" @click="clickBtn('previous')" class="att-date-select__btn btn-previous">
       <att-icon name="previous"></att-icon>
-    </div>
-
+    </a>
     <div class="att-date-select-list-wrapper">
       <select-month-list v-show="status === 'list'" @click="handleClick" :list="list" v-model="value"></select-month-list>
       <select-month-list v-show="status === 'prev'" @click="handleClick" :list="prev" v-model="value"></select-month-list>
       <select-month-list v-show="status === 'next'" @click="handleClick" :list="next" v-model="value"></select-month-list>
     </div>
 
-    <div @click="clickBtn('next')" class="att-date-select__btn btn-after">
+    <a :class="{'is-disabled' : !canNext}" @click="clickBtn('next')" class="att-date-select__btn btn-after">
       <att-icon name="next"></att-icon>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -141,7 +145,9 @@ export default {
       size: 8,
       status: 'list',
       canNext: false,
-      canPrev: true
+      canPrev: true,
+      maxMonth: this.value,
+      minMonth: '2017-04'
     }
   },
 
@@ -174,6 +180,19 @@ export default {
           value: moment(item).format(DATE_FORMAT)
         })
       })
+
+      if (list[this.size - 1]['value'] >= this.maxMonth) {
+        this.canNext = false
+      } else {
+        this.canNext = true
+      }
+
+      if (list[0]['value'] <= this.minMonth) {
+        this.canPrev = false
+      } else {
+        this.canPrev = true
+      }
+
       this[type] = list
     },
 

@@ -10,7 +10,7 @@
   &__header {
     width: 250px;
     color: $color-grey;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
   }
 

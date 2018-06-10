@@ -25,7 +25,7 @@
 }
 
 .att-list-scroll-wrapper {
-  height: 900px;
+  height: 1000px;
 }
 
 .ft-section-list {
@@ -54,7 +54,7 @@
     </el-aside>
     <dm-main>
       <div class="ft-section-list">
-        <h2 class="ft-section-list__title">{{info.name}}</h2>
+        <h2 class="ft-section-list__title">{{info.name || '——————'}}</h2>
         <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
 
         <ft-section>

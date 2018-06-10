@@ -19,7 +19,7 @@
 
 .dm-card-att-list {
   .att-list-wrapper {
-    height: 630px;
+    height: 645px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -28,6 +28,14 @@
       width: 100%;
     }
   }
+}
+
+.forecast-time {
+  font-size: 13px;
+  color: $color-light-grey;
+  border-top: 1px solid $color-light-grey-ss;
+  padding-top: 15px;
+  margin-bottom: 15px;
 }
 </style>
 <template>
@@ -48,6 +56,7 @@
             <charts-ticket-week v-loading="loading" :data="forecast"></charts-ticket-week>
           </div>
         </dm-card>
+        <div class="forecast-time" v-if="data.utime">{{$t('ds.label.forecastTime')}}{{data.utime | timeFormat('YYYY-MM-DD hh:mm:ss', 'x')}}</div>
       </el-col>
       <el-col :span="14">
         <dm-card class="dm-card-att-list">
@@ -89,6 +98,7 @@ export default {
       loading: true,
       forecast: [],
       date: null,
+      data: {},
       attractions: null,
       focuesData: null,
       focuesIndex: []
@@ -110,7 +120,7 @@ export default {
   methods: {
     async init() {
       const data = await this.$Api.forecast.forecastReport('shanghai')
-
+      this.data = data
       this.forecast = data['data']
       this.handleClickDate(0)
       this.loading = false
