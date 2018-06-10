@@ -53,9 +53,9 @@
       </dm-scroll>
     </el-aside>
     <dm-main>
-      <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
       <div class="ft-section-list">
         <h2 class="ft-section-list__title">{{info.name}}</h2>
+        <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
 
         <ft-section>
           <div slot="header" class="clearfix">
@@ -127,7 +127,7 @@ export default {
 
   watch: {
     'calendar': function (val, oVal) {
-      // this.initAtt()
+      this.initAtt()
     }
   },
 
@@ -166,7 +166,6 @@ export default {
     async handleAttSelect(aid) {
       const { local } = this
       this.aid = aid
-      console.log(this.activeAttList)
       this.info = this.activeAttList.find(_ => _.aid === aid)
 
       // this.attRank =  await this.$Api.waitTimes.attractions(local, aid, { sort: 'wait-avg' })

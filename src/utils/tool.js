@@ -63,7 +63,6 @@ export function utcDate (utc) {
 
 // 时间去0
 export function simTime (time) {
-  console.log(time)
   let data = moment(time, 'HH:mm:ss').format('H:mm')
   return data
 }

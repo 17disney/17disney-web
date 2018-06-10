@@ -121,6 +121,7 @@ $height = 68px;
 import moment from 'moment'
 import SelectMonthList from './SelectMonthList'
 
+const MONTHS = [null, 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 const DATE_FORMAT = 'YYYY-MM'
 
 export default {
@@ -166,8 +167,9 @@ export default {
       const MONTH_FORMAT = this.$t('ds.dateFormat.month')
 
       dateList.forEach(item => {
+        const MONTH = MONTHS[moment(item).format('M')]
         list.push({
-          view: moment(item).format(MONTH_FORMAT),
+          view: this.$t('el.datepicker.months.' + MONTH),
           year: moment(item).format('YYYY'),
           value: moment(item).format(DATE_FORMAT)
         })

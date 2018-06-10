@@ -6,14 +6,16 @@
   height: 60px;
 
   &.is-pointer {
-    cursor: pointer
-    &:hover{
-      .calendar-item{
-        &__day{
-          color: $color-primary
+    cursor: pointer;
+
+    &:hover {
+      .calendar-item {
+        &__day {
+          color: $color-primary;
         }
       }
-      background-color rgba($color-primary-s, .2);
+
+      background-color: rgba($color-primary-s, 0.2);
     }
   }
 
@@ -57,30 +59,78 @@
     }
   }
 }
+
+.popover-att {
+  padding: 10px 0 !important;
+  // display: flex;
+  // flex-direction: column;
+  text-align: center;
+
+  &__charts {
+    width: 200px !important;
+    margin: 10px auto;
+    margin-top: 15px;
+  }
+
+  &__schedule {
+    color: $color-grey;
+  }
+
+  &__num {
+    width: 185px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    color: $color-grey;
+    font-size: 13px;
+  }
+
+  &__wait {
+    flex: 1;
+    text-align: left;
+  }
+}
 </style>
 <template>
-  <el-tooltip :disabled="tipDisabled" effect="dark" :content="tipContent" placement="top">
-    <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
-      <p class="calendar-item__day">{{day}}</p>
-        <div v-if="data && data.waitAvg" class="badge"></div>
-      <!-- <att-wait-time :wait="data"></att-wait-time> -->
+  <el-popover popper-class="popover-att" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
+    <div class="popover-att__num">
+      <div class="popover-att__wait">
+        {{tipContent}}
+      </div>
+      <att-status v-if="data.status" :status="data.status"></att-status>
     </div>
-  </el-tooltip>
+    <charts-att-base v-if="data && data.waitHour" class="popover-att__charts" :id="'att' + id" :data="data.waitHour"></charts-att-base>
+    <div class="popover-att__schedule" v-if="data">{{data.startTime}} - {{data.endTime}}</div>
+    <div class="insert" slot="reference" href="">
+      <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
+        <p class="calendar-item__day">{{day}}</p>
+        <div v-if="data && data.waitAvg" class="badge"></div>
+      </div>
+    </div>
+  </el-popover>
+
 </template>
 
 <script>
 import { ATT_WAIT_CLASS } from '@/common/data/const'
+import ChartsAttBase from '@/components/Charts/ChartsAttBase'
 export default {
-  components: {},
+  components: { ChartsAttBase },
 
   props: {
     day: [String, Number],
-    data: Object
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
 
   data() {
     return {
-      tipDisabled: false
+      tipDisabled: false,
+      id: Math.random()
     }
   },
 
@@ -90,7 +140,7 @@ export default {
         this.tipDisabled = false
         return `${this.data.waitAvg} ${this.$t('ds.label.minute')}`
       } else {
-         this.tipDisabled = true
+        this.tipDisabled = true
       }
     },
 

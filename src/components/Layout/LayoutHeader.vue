@@ -154,6 +154,23 @@
             </a>
           </el-popover>
         </li>
+        <!-- 小程序 -->
+        <li class="nav-item">
+          <a href="http://www.17shenqi.com" target="_blank" class="insert">
+            <span class="name">{{$t('ds.label.timesguide')}}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <el-popover placement="bottom-end" width="250" trigger="hover">
+            <div class="popover-wxapp">
+              <img src="static/wxapp_17disney.jpg" alt="">
+              <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
+            </div>
+            <div class="insert" slot="reference" href="">
+              <span class="name">{{$t('ds.label.miniProgram')}}</span>
+            </div>
+          </el-popover>
+        </li>
         <!-- 语言选择 -->
         <li class="nav-item">
           <el-popover popper-class="popover-locale" placement="bottom" width="100" trigger="hover">
@@ -166,17 +183,6 @@
               <span class="name">{{locale | locale}}</span>
               <i class="el-icon-arrow-down el-icon--right"></i>
             </a>
-          </el-popover>
-        </li>
-        <li class="nav-item">
-          <el-popover placement="bottom-end" width="200" trigger="hover">
-            <div class="popover-wxapp">
-              <img src="static/wxapp_17disney.jpg" alt="">
-              <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
-            </div>
-            <div class="insert" slot="reference" href="">
-              <span class="name">{{$t('ds.label.miniProgram')}}</span>
-            </div>
           </el-popover>
         </li>
       </ul>

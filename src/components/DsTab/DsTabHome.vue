@@ -69,7 +69,7 @@
         <div class="ds-tab-item__name">{{item.name}}</div>
       </router-link>
     </div>
-    <el-popover popper-class="ds-tab-item" placement="bottom" width="200" trigger="hover">
+    <el-popover popper-class="ds-tab-item" placement="bottom" width="250" trigger="hover">
       <div class="popover-wxapp">
         <img src="static/wxapp_17disney.jpg" alt="">
         <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
