@@ -1,12 +1,5 @@
 import moment from 'moment'
 import LOCALE from 'package/17disney-common/const/locale'
-// import { lineToObject } from './tool'
-// import { landArr } from './land-arr'
-
-// export function landName (id) {
-//   let aid = lineToObject(id)['__id__']
-//   return landArr[aid]
-// }
 
 export function timeSim(time) {
   let ret

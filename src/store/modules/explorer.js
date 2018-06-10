@@ -1,4 +1,3 @@
-import moment from 'moment'
 import Local from 'package/17disney-common/const/local'
 import WaitTimes from 'package/17disney-common/api/wait-times'
 import { lineToObject } from '@/utils/tool'
@@ -8,19 +7,20 @@ const explorer = {
   state: {
     local: null,
     utc: null,
-    date: moment().format('YYYY-MM-DD'),
     attList: []
   },
 
   getters: {
-    attractionList: (state, getters) => {
+    attractionList: state => {
       return state.attList.filter(item => item.type === 'attraction')
     },
-    attListFilter: (state, getters) => (type) => {
+    attListFilter: state => type => {
       const hotLevel = 3
-      return state.attList.filter(item => item.type === type && item.hotLevel >= hotLevel)
+      return state.attList.filter(
+        item => item.type === type && item.hotLevel >= hotLevel
+      )
     },
-    attFind: (state, getters) => aid => {
+    attFind: state => aid => {
       return state.attList.find(item => item.aid === aid)
     }
   },
