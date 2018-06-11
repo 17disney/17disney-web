@@ -16,7 +16,6 @@
   <div class="ds-map">
     <v-map v-if="local === 'shanghai'" :crs="crsBaidu" ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center"></v-map>
     <v-map v-else ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center"></v-map>
-
   </div>
 </template>
 
@@ -64,9 +63,6 @@ export default {
     }
   },
 
-  methods: {
-
-  },
   mounted() {
     const { local } = this
 
@@ -86,8 +82,6 @@ export default {
     const url = TILE_LAYER[local]
     const map = this.$refs.map.mapObject
     webdogTileLayer(url, options).addTo(map)
-  },
-  created() {
   }
 }
 </script>

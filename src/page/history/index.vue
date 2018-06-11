@@ -82,6 +82,14 @@
 </template>
 
 <script>
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| History - index
+| 历史查询 - 主页
+*/
+
 import base from '@/common/mixins/base'
 import moment from 'moment'
 import { mapState, mapActions, mapGetters } from 'vuex'
