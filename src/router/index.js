@@ -28,6 +28,10 @@ const router = new Router({
         {
           path: 'live',
           component: () => import('@/page/live/index')
+        },
+        {
+          path: 'about',
+          component: () => import('@/page/about/index')
         }
       ]
     }

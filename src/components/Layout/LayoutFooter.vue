@@ -181,7 +181,7 @@
                 <a href="https://www.teambition.com/project/599a9f9057a52125393e005a/tasks/scrum/599a9f9031a0652c018a5626" target="_blank">teambition</a>
               </div>
               <div class="footer-nav-item">
-                <a href="http://xank.cn" target="_blank">Xank</a>
+                <a href="http://xank.cn" target="_blank">Xank Blog</a>
               </div>
             </div>
           </el-col>

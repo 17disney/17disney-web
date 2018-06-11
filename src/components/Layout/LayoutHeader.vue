@@ -83,6 +83,10 @@
       color: $color-primary;
     }
 
+    &:active {
+      color: $color-primary-s;
+    }
+
     &__icon {
       font-size: 30px;
     }
@@ -139,6 +143,11 @@
         <logo-text></logo-text>
       </h1>
       <ul class="nav">
+        <!-- <li class="nav-item">
+          <a href="http://www.17shenqi.com" target="_blank" class="insert">
+            <span class="name">{{$t('ds.label.timesguide')}}</span>
+          </a>
+        </li> -->
         <!-- 地区选择 -->
         <li class="nav-item">
           <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="hover">
@@ -156,14 +165,9 @@
         </li>
         <!-- 小程序 -->
         <li class="nav-item">
-          <a href="http://www.17shenqi.com" target="_blank" class="insert">
-            <span class="name">{{$t('ds.label.timesguide')}}</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <el-popover placement="bottom-end" width="250" trigger="hover">
             <div class="popover-wxapp">
-              <img src="static/wxapp_17disney.jpg" alt="">
+              <img src="//17disney.com/static/wxapp_17disney.jpg" alt="">
               <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
             </div>
             <div class="insert" slot="reference" href="">
