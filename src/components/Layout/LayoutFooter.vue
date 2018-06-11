@@ -4,8 +4,7 @@
 .footer {
   margin-top: 32px;
   text-align: center;
-  padding: 30px;
-  background: $color-primary-ss;
+  background: $color-grey;
 
   .logo-text {
     color: $color-light-grey;
@@ -18,6 +17,10 @@
     margin-bottom: 50px;
 
     &:hover {
+      path {
+        fill: rgba(255, 255, 255, 0.9);
+      }
+
       transform: scale(1.07) rotate(-1deg);
     }
 
@@ -26,7 +29,7 @@
     }
 
     path {
-      fill: $color-primary !important;
+      fill: rgba(255, 255, 255, 0.65) !important;
     }
   }
 }
@@ -98,21 +101,121 @@
       }
     }
   }
+
+  &-wrap {
+    padding: 75px 24px;
+    background-color: $color-grey;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  &-end {
+    &-wrap {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 25px 0;
+    }
+
+    &-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+  }
+
+  &-nav {
+    &-list {
+      margin: 0 auto;
+      text-align: left;
+
+      h2 {
+        color: #FFF;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 30px;
+      }
+    }
+
+    &-item {
+      font-size: 14px;
+      margin: 12px 0;
+
+      a {
+        color: hsla(0, 0%, 100%, 0.9);
+        transition: color 0.3s ease;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          color: $color-primary;
+        }
+
+        &:active {
+          color: $color-pick;
+        }
+      }
+    }
+  }
 }
 </style>
 <template>
   <div class="footer">
+    <div class="footer-wrap">
+      <div class="container">
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <div class="footer-nav-list">
+              <h2>迪士尼乐园</h2>
+              <div class="footer-nav-item" v-for="item in LOCAL" :Key="item.value">
+                <a v-show="item.open" @click="handleLocalSelect(item.value)" href="">{{$t(item.label )}}</a>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="footer-nav-list">
+              <h2>社区</h2>
+              <div class="footer-nav-item">
+                <a href="#/about">关于我们</a>
+              </div>
+              <div class="footer-nav-item">
+                <a href="https://github.com/17disney" target="_blank">Github</a>
+              </div>
+              <div class="footer-nav-item">
+                <a href="https://www.teambition.com/project/599a9f9057a52125393e005a/tasks/scrum/599a9f9031a0652c018a5626" target="_blank">teambition</a>
+              </div>
+              <div class="footer-nav-item">
+                <a href="http://xank.cn" target="_blank">Xank</a>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="footer-nav-list">
+              <h2>相关网站</h2>
+              <div class="footer-nav-item">
+                <a href="https://www.shanghaidisneyresort.com/" target="_blank">上海迪士尼度假区</a>
+              </div>
+              <div class="footer-nav-item">
+                <a href="http://17shenqi.com" target="_blank">一起神奇网</a>
+              </div>
+              <!-- <div class="footer-nav-item">
+                <a href="">度假区实况</a>
+              </div> -->
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="footer-nav-list">
+              <h2>语言</h2>
+              <div class="footer-nav-item" v-for="item in LOCALE" :key="item.value">
+                <a @click="handleLocaleSelect(item.value)">
+                  {{item.label}}
+                </a>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
     <div class="container">
       <logo-text></logo-text>
-      <!-- <div class="nav-list">
-        <ul>
-          <li class="nav-list-item" v-for="(item, index) in navList" :key="index">
-            <a :href=" item.url">{{item.name}}</a>
-          </li>
-        </ul>
-      </div> -->
       <div class="wxapp-list">
-        <el-tooltip effect="dark" :content="item.name" placement="bottom" v-for="(item, index) in qrList" :key="index">
+        <el-tooltip effect="light" :content="item.name" placement="top" v-for="(item, index) in qrList" :key="index">
           <div :class="{ 'is-blur': qrHover}" class="wxapp-list-item" @mouseenter="qrEnter" @mouseleave="qrLeave">
             <img class="wxapp-list-item__img" :src="item.picUrl" :alt="item.desc">
             <!-- <div class="wxapp-list-item__name">{{item.name}}</div> -->
@@ -121,9 +224,9 @@
         </el-tooltip>
       </div>
     </div>
-    <div class="footer__end">
+    <div class="footer-end-wrap">
       <div class="container">
-        <div class="footer__text">
+        <div class="footer-end-text">
           ©2018 17Disney · 一起迪士尼
         </div>
       </div>
@@ -133,6 +236,9 @@
 
 <script>
 import LogoText from '@/components/Layout/LogoText'
+import LOCAL from 'package/17disney-common/const/local'
+import LOCALE from 'package/17disney-common/const/locale'
+
 export default {
   components: { LogoText },
 
@@ -141,6 +247,8 @@ export default {
 
   data() {
     return {
+      LOCAL,
+      LOCALE,
       qrHover: false,
       navList: [
         {
@@ -174,9 +282,24 @@ export default {
 
   computed: {},
 
-  mounted() { },
+  mounted() {
+
+  },
 
   methods: {
+    // 语言选择
+    handleLocaleSelect(value) {
+      this.$store.dispatch('setLocale', value)
+      location.reload()
+    },
+    // 地区选择
+    handleLocalSelect(val) {
+      const localInfo = LOCAL.find(_ => _.value === val)
+      if (!localInfo.open) return
+      this.$store.dispatch('setLocal', val)
+      location.reload()
+    },
+
     qrEnter() {
       this.qrHover = true
     },
