@@ -18,6 +18,7 @@
 
   p {
     line-height: 1.5;
+    margin-bottom: 10px;
   }
 
   ul {
@@ -52,11 +53,21 @@
   <div class="container">
     <div class="content">
       <h2>关于我们</h2>
-      <p>17Disney 创建于 2017年4月，致力于提供迪士尼乐园等候时间查询及预测，以及相关互动社区服务，创办至今已上线了 17Disney（www.17disney.com），一起神奇网（www.17shenqi.com），微信小程序 “17俱乐部” 和 “乐园时间表”。</p>
+      <p>17Disney 创建于 2017年4月，致力于提供迪士尼乐园等候时间查询及预测，以及相关互动社区服务。
+        <p>创办至今已上线了 17Disney（www.17disney.com），一起神奇网（www.17shenqi.com），微信小程序 “17俱乐部” 和 “乐园时间表”。</p>
+      </p>
+      <h2>开发进度</h2>
+      <ul>
+        <li v-for="item in timeline" :key="item.date">
+          <p class="date">{{item.date}}</p>
+          <dl v-for="(text, key) in item.content" :key="key">{{text}}</dl>
+        </li>
+      </ul>
       <h2>参与贡献</h2>
       <p>
-        我们非常希望您能加入我们参与贡献
+        我们的前端使用 VueJS，React Native（正在开发），mpvue，Echart 等技术，后端使用 Docker，NodeJS，eggJS，MongoDB，Redis，Python，Scikit-Learn 等技术。
       </p>
+      <p><strong>我们非常希望你能加入我们参与贡献！</strong></p>
       <p>
         Github:
         <a href="https://github.com/17disney" target="_blank">17Disney Github</a> - 参与代码贡献
@@ -66,13 +77,6 @@
         <a href="https://www.teambition.com/project/599a9f9057a52125393e005a/tasks/scrum/599a9f9031a0652c018a5626" target="_blank">17Disney teambition</a>
         - 查看项目计划
       </p>
-      <h2>开发进度</h2>
-      <ul>
-        <li v-for="item in timeline" :key="item.date">
-          <p class="date">{{item.date}}</p>
-          <dl v-for="(text, key) in item.content" :key="key">{{text}}</dl>
-        </li>
-      </ul>
       <h2>联系站长</h2>
       <p>
         <img class="qrcode" src="http://cdn.17disney.com/_20180612005536.jpg" alt="">

@@ -50,7 +50,6 @@ new Vue({
 })
 
 // 错误提交
-
 function formatComponentName(vm) {
   if (vm.$root === vm) return 'root'
 
@@ -65,7 +64,6 @@ function formatComponentName(vm) {
       : '')
   )
 }
-
 
 Vue.config.errorHandler = function(err, vm, info) {
   var componentName = formatComponentName(vm)
