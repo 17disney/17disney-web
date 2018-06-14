@@ -192,6 +192,9 @@
                 <a href="https://www.shanghaidisneyresort.com/" target="_blank">上海迪士尼度假区</a>
               </div>
               <div class="footer-nav-item">
+                <a href="http://tieba.baidu.com/f?kw=%C9%CF%BA%A3%B5%CF%CA%BF%C4%E1" target="_blank">上海迪士尼贴吧</a>
+              </div>
+              <div class="footer-nav-item">
                 <a href="http://17shenqi.com" target="_blank">一起神奇网</a>
               </div>
               <!-- <div class="footer-nav-item">

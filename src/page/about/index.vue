@@ -164,7 +164,8 @@ export default {
         {
           date: '2018-05-03',
           content: [
-            '“一起神奇吧” 官网上线（www.17disney.com）'
+            '“一起神奇吧” 官网上线（www.17shenqi.com）',
+            '“一起神奇吧” 支持乐园时间表、乐园指南等查询'
           ]
         },
         {
