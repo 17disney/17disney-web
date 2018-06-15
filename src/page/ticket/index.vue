@@ -119,8 +119,9 @@ export default {
   computed: {},
 
   mounted() {
-    this.handleMonthSelect(this.calendar)
-
+    setTimeout(() => {
+      this.handleMonthSelect(this.calendar)
+    }, 1000)
   },
 
   methods: {

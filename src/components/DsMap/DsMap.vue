@@ -15,21 +15,7 @@
 <template>
   <div class="ds-map">
     <v-map v-if="local === 'shanghai'" :crs="crsBaidu" ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center">
-
-      <v-marker v-for="(item, index) in attractionList" :icon="item.icon" :key="index" :lat-lng="item.coordinates">
-        <v-popup :options="popupOption">
-          <div class="inner" @click="handleClickAtt(item.id)">
-            <div class="att-popup__avatar">
-              <att-media :medias="item.medias"></att-media>
-            </div>
-            <div class="att-popup__body">
-              <h3 class="att-popup__title">{{item.name}}</h3>
-              <p class="att-popup__desc">{{item.landName}}</p>
-              <attWaittime :item="item" :wait="waits[item.aid]"></attWaittime>
-            </div>
-          </div>
-        </v-popup>
-      </v-marker>
+      <slot></slot>
 
     </v-map>
     <v-map v-else ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center"></v-map>

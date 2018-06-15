@@ -244,11 +244,11 @@
               <span>历史等候</span>
             </router-link>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <router-link to="/live" class="insert">
               <span>乐园实况</span>
             </router-link>
-          </li> -->
+          </li>
           <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/ticket" class="insert">
               <span>售票量</span>
