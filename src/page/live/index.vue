@@ -157,7 +157,8 @@ export default {
 
   methods: {
     async init() {
-      this.data = await this.$Api.waitTimes.parkDate(this.local, this.date)
+      const data = await this.$Api.waitTimes.parkDate(this.local, this.date)
+      this.data = data || {}
     },
 
     async getWaits() {

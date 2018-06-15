@@ -145,7 +145,7 @@
         </div>
         <div class="att-popup__body">
           <h3 class="att-popup__title">{{data.name}}</h3>
-          <att-wait-time :text="true" :wait="waits[data.aid]"></att-wait-time>
+          <att-wait-time mode="live" :text="true" :wait="waits[data.aid]"></att-wait-time>
         </div>
       </div>
     </v-popup>

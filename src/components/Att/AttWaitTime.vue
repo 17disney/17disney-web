@@ -10,7 +10,8 @@
   <div class="att-wait-time" v-if="wait && wait['waitAvg']">
     <div class="att-wait-time__num" v-if="wait.status == 'Operating'">
       <span class="att-wait-time__text" v-if="text">等候</span>
-      <strong class="strong">{{wait.waitAvg || 0}}</strong>
+      <strong v-if="mode === 'avg'" class="strong">{{wait.waitAvg || 0}}</strong>
+      <strong v-else>{{wait.waitList[0][1]}}</strong>
       <span class="att-wait-time__text" v-if="text">分钟</span>
     </div>
     <div class="att-wait-time__text is-red" v-else>
@@ -25,6 +26,10 @@ export default {
     text: {
       type: Boolean,
       default: false
+    },
+    mode: {
+      type: String,
+      default: 'avg'
     },
     wait: {
       type: Object
