@@ -1,22 +1,20 @@
-<style lang="stylus" scoped>
-.chart-wrapper {
-  width: 100%;
-  height: 350px;
-}
-</style>
-
 <template>
-  <div class="chart-wrapper" :id="id"></div>
+  <charts :options="options" :id="id"></charts>
 </template>
 
 <script>
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
+import Charts from './Charts'
 import moment from 'moment'
 const NAME = 'charts-ticket-week'
 
 export default {
   name: NAME,
+
+  components: {
+    Charts
+  },
 
   props: {
     id: {
@@ -26,21 +24,11 @@ export default {
     data: {
       type: Array,
       default: []
-    },
-    indexList: {
-      type: Array,
-      default: function () {
-        return ['ticketNumFT']
-      }
-    },
-    xAxisKey: {
-      type: String,
-      default: 'date'
     }
   },
   data() {
     return {
-      chart: null
+      options: null
     }
   },
   mounted() {
@@ -53,16 +41,10 @@ export default {
   },
   methods: {
     init() {
-      this.chart = echarts.init(document.getElementById(this.id))
       const { data } = this
-
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
-      const ftData = data.map(_ => _['ticketNumFT'])
-      const numData = data.map(_ => _['ticketNum'])
-      const option = {
-        title: {
-          show: false
-        },
+
+      const options = {
         grid: {
           top: 50,
           left: 30,
@@ -72,19 +54,6 @@ export default {
           type: 'category',
           boundaryGap: false,
           data: xAxisData,
-          axisLine: {
-            lineStyle: {
-              color: Color.colorLightGreyS
-            }
-          },
-          axisLabel: {
-            color: Color.colorLightGrey
-          }
-        },
-        axisPointer: {
-          lineStyle: {
-            color: Color.colorPrimary
-          }
         },
         yAxis: {
           type: 'value',
@@ -95,18 +64,12 @@ export default {
             show: false,
             inside: true,
           },
-          splitLine: {
-            lineStyle: {
-              color: Color.colorLightGreySS
-            }
-          },
           axisLine: {
             show: false
           },
           axisLabel: {
             inside: true,
             showMinLabel: false,
-            color: Color.colorDarkGrey,
             verticalAlign: 'top',
             margin: -20,
             padding: [5, 0, 5, 0]
@@ -144,7 +107,7 @@ export default {
                 }])
               }
             },
-            data: numData
+            data: data.map(_ => _['ticketNum'])
           },
           {
             name: this.$t('ds.label.forecastTicket'),
@@ -160,12 +123,12 @@ export default {
               width: 3,
               type: 'dashed'
             },
-            data: ftData
+            data: data.map(_ => _['ticketNumFT'])
           }
         ]
       };
 
-      this.chart.setOption(option)
+      this.options = options
     }
   }
 }

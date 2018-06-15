@@ -1,12 +1,5 @@
-<style lang="stylus" scoped>
-.chart-wrapper {
-  width: 100%;
-  height: 350px;
-}
-</style>
-
 <template>
-  <charts v-if="options" :options="options" :id="id"></charts>
+  <charts :options="options" :id="id"></charts>
 </template>
 
 <script>
@@ -37,9 +30,6 @@ export default {
     return {
       options: null
     }
-  },
-  mounted() {
-    this.init()
   },
   watch: {
     'data': function (val) {

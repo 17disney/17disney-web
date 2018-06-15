@@ -1,23 +1,29 @@
-<style lang="stylus" scoped>
-.chart-wrapper {
-  width: 100%;
-  height: 350px;
-}
-</style>
-
 <template>
-  <div class="chart-wrapper" :id="id"></div>
+  <charts :options="options" :id="id"></charts>
 </template>
 
 <script>
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| Charts-Flow
+| 客流量预测图表
+*/
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
+import Charts from './Charts'
 import moment from 'moment'
 
 const NAME = 'charts-flow'
 
 export default {
   name: NAME,
+
+  components: {
+    Charts
+  },
+
   props: {
     id: {
       type: String,
@@ -31,7 +37,8 @@ export default {
 
   data() {
     return {
-      chart: null
+      chart: null,
+      options: null
     }
   },
 
@@ -47,15 +54,11 @@ export default {
 
   methods: {
     init() {
-      this.chart = echarts.init(document.getElementById(this.id))
       const { data } = this
-
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
       const _data = data.map(_ => _['flowMaxFT'])
-      const option = {
-        title: {
-          show: false
-        },
+
+      const options = {
         grid: {
           top: 50,
           left: 30,
@@ -65,14 +68,6 @@ export default {
           type: 'category',
           boundaryGap: false,
           data: xAxisData,
-          axisLine: {
-            lineStyle: {
-              color: Color.colorLightGreyS
-            }
-          },
-          axisLabel: {
-            color: Color.colorLightGrey
-          }
         },
         yAxis: {
           type: 'value',
@@ -81,11 +76,6 @@ export default {
             show: false,
             inside: true
           },
-          splitLine: {
-            lineStyle: {
-              color: Color.colorLightGreySS
-            }
-          },
           axisLine: {
             show: false
           },
@@ -93,7 +83,6 @@ export default {
           axisLabel: {
             inside: true,
             showMinLabel: false,
-            color: Color.colorDarkGrey,
             verticalAlign: 'top',
             margin: -20,
             padding: [5, 0, 5, 0]
@@ -101,11 +90,6 @@ export default {
         },
         legend: {
           top: 0
-        },
-        axisPointer: {
-          lineStyle: {
-            color: Color.colorPrimary
-          }
         },
         tooltip: {
           trigger: 'axis',
@@ -137,8 +121,7 @@ export default {
         ]
       };
 
-
-      this.chart.setOption(option)
+      this.options = options
     }
   }
 }
