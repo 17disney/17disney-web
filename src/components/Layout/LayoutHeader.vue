@@ -14,18 +14,18 @@
 
   #logo {
     float: left;
-    margin-top: 15px;
-    height: 40px;
+    margin-top: 10px;
+    height: 45px;
 
     path {
       fill: $color-pick;
     }
   }
 
+  // 顶部导航
   &__top {
-    height: 30px;
-    font-size: 13px;
-    line-height: 30px;
+    height: 32px;
+    font-size: 12px;
 
     .container {
       border-bottom: 1px solid $color-light-grey-sss;
@@ -34,26 +34,49 @@
 
     a {
       cursor: pointer;
-      color: $color-light-grey;
+      color: $color-primary;
+      line-height: 32px;
+      transition: 0.3s;
 
-      &:hover {
-        color: $color-primary;
+      .att-icon {
+        font-size: 12px;
       }
     }
 
     .nav-top-left {
       float: left;
+
+      a {
+        color: $color-light-grey;
+
+        .att-icon {
+          font-size: 9px;
+          padding-left: 3px;
+        }
+      }
     }
 
     .nav-top {
       float: right;
 
       &-item {
+        position: relative;
         margin: 0;
         float: left;
         list-style: none;
         cursor: pointer;
-        padding-left: 20px;
+        padding-left: 18px;
+        margin-left: 18px;
+
+        &:not(:first-child):after {
+          content: '';
+          position: absolute;
+          left: 0px;
+          top: 10px;
+          bottom: 10px;
+          width: 1px;
+          background: $color-light-grey-s;
+        }
       }
     }
   }
@@ -111,6 +134,7 @@
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
+  font-size: 12px;
 
   &-item {
     width: 150px;
@@ -162,7 +186,7 @@
     list-style: none;
     cursor: pointer;
     line-height: 32px;
-    font-size: 13px;
+    font-size: 12px;
     padding: 0 12px;
 
     &:hover {
@@ -184,7 +208,9 @@
             <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
           </div>
           <div class="nav-top-left" slot="reference">
-            <a>{{$t('ds.label.miniProgram')}}</a>
+            <a>{{$t('ds.label.miniProgram')}}
+              <att-icon name="next"></att-icon>
+            </a>
           </div>
         </el-popover>
         <ul class="nav-top">
@@ -198,23 +224,23 @@
                 </div>
               </div>
               <a slot="reference" class="insert">
+                <att-icon name="maps"></att-icon>
                 <span>{{$t('ds.disneyLand.' + local)}}</span>
-                <i class="el-icon-arrow-down el-icon--right"></i>
               </a>
             </el-popover>
           </li>
 
           <!-- 语言选择 -->
           <li class="nav-top-item">
-            <el-popover popper-class="popover-locale" placement="bottom" width="90" trigger="hover">
+            <el-popover popper-class="popover-locale" placement="bottom-end" width="50" trigger="hover">
               <ul class="locale-select">
                 <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
                   {{item.label}}
                 </li>
               </ul>
               <a slot="reference" class="insert">
+                <att-icon name="global-languages"></att-icon>
                 <span>{{locale | locale}}</span>
-                <i class="el-icon-arrow-down el-icon--right"></i>
               </a>
             </el-popover>
           </li>
@@ -236,7 +262,7 @@
           </li> -->
           <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/forecast" class="insert">
-              <span>客流预测</span>
+              <span>客流预报</span>
             </router-link>
           </li>
           <li class="nav-item">

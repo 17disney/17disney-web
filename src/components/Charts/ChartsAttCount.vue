@@ -3,6 +3,14 @@
 </template>
 
 <script>
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| Charts-Att-Count
+| 项目月趋势图表
+*/
+
 import Charts from './Charts'
 import Color from 'package/17disney-common/const/color'
 import moment from 'moment'

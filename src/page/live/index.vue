@@ -25,22 +25,7 @@
     <dm-main>
       <div class="ds-map-wrap">
         <ds-map v-if="local" :local="local" :center="localInfo.coordinates">
-
-          <v-marker v-for="(item, index) in attractionList" :icon="item.icon" :key="index" :lat-lng="item.coordinates">
-            <v-popup :options="popupOption">
-              <div class="inner" @click="handleClickAtt(item.id)">
-                <div class="att-popup__avatar">
-                  <att-media :medias="item.medias"></att-media>
-                </div>
-                <div class="att-popup__body">
-                  <h3 class="att-popup__title">{{item.name}}</h3>
-                  <p class="att-popup__desc">{{item.landName}}</p>
-                  <!-- <attWaittime :item="item" :wait="waits[item.aid]"></attWaittime> -->
-                </div>
-              </div>
-            </v-popup>
-          </v-marker>
-
+          <att-marker v-for="(item, index) in attractionList" :icon="item.icon" :key="index" :coordinates="item.coordinates" :data="item"></att-marker>
         </ds-map>
       </div>
     </dm-main>
@@ -52,11 +37,12 @@ import moment from 'moment'
 import base from '@/common/mixins/base'
 import DsMap from '@/components/DsMap/DsMap.vue'
 import LOCAL from 'package/17disney-common/const/local'
+import AttMarker from '@/components/DsMap/AttMarker'
 
 export default {
   mixins: [base],
 
-  components: { DsMap },
+  components: { DsMap, AttMarker },
 
   data() {
     return {
@@ -71,11 +57,18 @@ export default {
   mounted() {
     this.localInfo = LOCAL.find(_ => _.value === this.local)
     this.init()
+    this.getWaits()
   },
 
   methods: {
     async init() {
       this.data = await this.$Api.waitTimes.parkDate(this.local, this.date)
+    },
+
+    async getWaits() {
+      const data = await this.$Api.waitTimes.waitsHome(this.local, this.date)
+      console.log(data)
+
     }
   }
 }
