@@ -27,23 +27,6 @@
 .att-list-scroll-wrapper {
   height: 1000px;
 }
-
-.ft-section-list {
-  .ft-section {
-    &:last-child {
-      border: none;
-    }
-  }
-
-  &__title {
-    color: $color-grey;
-    border-bottom: 1px solid $color-light-grey-ss;
-    padding-bottom: 35px;
-    margin-bottom: 35px;
-    line-height: 23px;
-    font-size: 23px;
-  }
-}
 </style>
 <template>
   <div class="container">
@@ -53,16 +36,14 @@
       </dm-scroll>
     </el-aside>
     <dm-main>
-      <div class="ft-section-list">
+      <ft-section-list>
         <h2 class="ft-section-list__title">{{info.name || '——————'}}</h2>
         <select-month @click="handleMonthSelect" v-model="calendar"></select-month>
-
         <ft-section>
           <div slot="header" class="clearfix">
             <span>{{$t('ds.label.waitsCalendar')}}</span>
           </div>
           <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
-          <!-- <ft-index :data="attIndex"></ft-index> -->
         </ft-section>
         <ft-section>
           <div slot="header" class="clearfix">
@@ -70,7 +51,8 @@
           </div>
           <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
         </ft-section>
-      </div>
+      </ft-section-list>
+
       <!-- <ft-section>
         <div slot="header" class="clearfix">
           <span>历史最高等候</span>
@@ -101,10 +83,11 @@ import CalendarItem from '@/components/Calendar/CalendarItem'
 import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
 import FtSection from '@/components/FtSection/FtSection'
+import FtSectionList from '@/components/FtSection/FtSectionList'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 
 export default {
-  components: { FtIndex, AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection, SelectMonth },
+  components: { FtIndex, AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
 
   mixins: [base],
   data() {

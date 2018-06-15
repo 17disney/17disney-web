@@ -63,8 +63,10 @@ async function init(to) {
 
   loadingInstance.close()
 
-  if (local !== 'shanghai' && to.path === '/forecast') {
-    router.push({ path: 'history' })
+  if (local !== 'shanghai') {
+    if (to.path === '/forecast' || to.path === '/ticket') {
+      router.push({ path: 'history' })
+    }
   }
 }
 

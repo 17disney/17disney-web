@@ -11,11 +11,9 @@
   }
 }
 
-.dialog-shop{
-
-  img{
-
-    width 100%
+.dialog-shop {
+  img {
+    width: 100%;
   }
 }
 
@@ -42,19 +40,21 @@
       </div>
     </el-aside>
     <dm-main>
-      <select-month min-month="2018-03" @click="handleMonthSelect" v-model="calendar"></select-month>
-      <ft-section>
-        <div slot="header" class="clearfix">
-          <span>售票量日历</span>
-        </div>
-        <calendar mode="ticket" v-loading="loading" :data="ticketData" :ym="calendar"></calendar>
-      </ft-section>
-      <ft-section>
-        <div slot="header" class="clearfix">
-          <span>售票量趋势</span>
-        </div>
-        <charts-ticket-month :data="ticketData"></charts-ticket-month>
-      </ft-section>
+      <ft-section-list>
+        <select-month min-month="2018-03" @click="handleMonthSelect" v-model="calendar"></select-month>
+        <ft-section>
+          <div slot="header" class="clearfix">
+            <span>售票量日历</span>
+          </div>
+          <calendar mode="ticket" v-loading="loading" :data="ticketData" :ym="calendar"></calendar>
+        </ft-section>
+        <ft-section>
+          <div slot="header" class="clearfix">
+            <span>售票量趋势</span>
+          </div>
+          <charts-ticket-month :data="ticketData"></charts-ticket-month>
+        </ft-section>
+      </ft-section-list>
     </dm-main>
 
     <el-dialog class="dialog-shop" :visible.sync="dialogVisible" width="50%">
@@ -78,11 +78,12 @@ import moment from 'moment'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 import Calendar from '@/components/Calendar/Calendar'
 import FtSection from '@/components/FtSection/FtSection'
+import FtSectionList from '@/components/FtSection/FtSectionList'
 import ChartsTicketMonth from '@/components/Charts/ChartsTicketMonth'
 import TicketItem from '@/components/Ticket/TicketItem'
 
 export default {
-  components: { SelectMonth, Calendar, FtSection, ChartsTicketMonth, TicketItem },
+  components: { SelectMonth, Calendar, FtSection, FtSectionList, ChartsTicketMonth, TicketItem },
 
   mixins: [base],
 

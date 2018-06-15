@@ -8,7 +8,6 @@
   width: 100%;
   z-index: 100;
   position: relative;
-  // position: absolute;
   z-index: 200;
   background: #FFF;
   border-bottom: 1px solid rgba($color-grey, 0.2);
@@ -55,9 +54,6 @@
         list-style: none;
         cursor: pointer;
         padding-left: 20px;
-
-        .insert {
-        }
       }
     }
   }
@@ -165,9 +161,9 @@
   &-item {
     list-style: none;
     cursor: pointer;
-    line-height: 36px;
-    font-size: 14px;
-    padding: 0 16px;
+    line-height: 32px;
+    font-size: 13px;
+    padding: 0 12px;
 
     &:hover {
       background-color: $color-light-grey-sss;
@@ -182,7 +178,7 @@
     <div class="header__top">
       <div class="container">
         <!-- 小程序 -->
-        <el-popover placement="bottom" width="230" trigger="hover">
+        <el-popover placement="bottom-start" width="230" trigger="hover">
           <div class="popover-wxapp">
             <img src="//17disney.com/static/wxapp_17disney.jpg" alt="">
             <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
@@ -210,7 +206,7 @@
 
           <!-- 语言选择 -->
           <li class="nav-top-item">
-            <el-popover popper-class="popover-locale" placement="bottom" width="100" trigger="hover">
+            <el-popover popper-class="popover-locale" placement="bottom" width="90" trigger="hover">
               <ul class="locale-select">
                 <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
                   {{item.label}}
@@ -233,12 +229,12 @@
           </a>
         </h1>
         <ul class="nav">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/home" class="insert">
               <span>首页</span>
             </router-link>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/forecast" class="insert">
               <span>客流预测</span>
             </router-link>
@@ -248,12 +244,12 @@
               <span>历史等候</span>
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/live" class="insert">
               <span>乐园实况</span>
             </router-link>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/ticket" class="insert">
               <span>售票量</span>
             </router-link>
