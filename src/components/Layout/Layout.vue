@@ -1,12 +1,15 @@
 <style lang="stylus">
 @require '../../styles/disney/var/color.styl';
 
+.layout {
+  margin: 0 auto;
+}
+
 .ds-first {
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
   background-color: #FFF;
-
 
   // .ds-map {
   // left: 0px;
@@ -157,12 +160,15 @@ export default {
 <style lang="stylus">
 @require '../../styles/disney/var/color.styl';
 
+.layout {
+  margin: 0 auto;
+}
+
 .ds-first {
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
-  background: #FFF;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #FFF;
 
   // .ds-map {
   // left: 0px;

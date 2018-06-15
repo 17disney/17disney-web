@@ -14,7 +14,7 @@ export default {
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei";
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei';
 }
 
 * {
@@ -24,4 +24,7 @@ html {
   box-sizing: border-box;
 }
 
+#app {
+  display: flex;
+}
 </style>
