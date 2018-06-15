@@ -6,11 +6,11 @@
 </style>
 
 <template>
-  <div class="chart-wrapper" :id="id"></div>
+  <charts v-if="options" :options="options" :id="id"></charts>
 </template>
 
 <script>
-import echarts from 'echarts'
+import Charts from './Charts'
 import Color from 'package/17disney-common/const/color'
 import moment from 'moment'
 
@@ -19,6 +19,10 @@ const NAME = 'charts-att-count'
 export default {
   name: NAME,
 
+  components: {
+    Charts
+  },
+
   props: {
     id: {
       type: String,
@@ -26,12 +30,12 @@ export default {
     },
     data: {
       type: Array,
-      default: []
+      default: null
     }
   },
   data() {
     return {
-      chart: null
+      options: null
     }
   },
   mounted() {
@@ -44,23 +48,19 @@ export default {
   },
   methods: {
     init() {
-      this.chart = echarts.init(document.getElementById(this.id))
-
       const { data } = this
       const DATE_FORMAT = this.$t('ds.dateFormat.monthDay')
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format(DATE_FORMAT))
 
       let maxList = data.map(_ => _['waitMax'])
-      maxList = maxList.filter( _ => _)
-      let XMax = Math.max(...maxList) + 20
+      maxList = maxList.filter(_ => _)
 
+      let XMax = Math.max(...maxList) + 20
       if (!XMax) {
         XMax = undefined
       }
-      // console.log(XMax)
 
-
-      let option = {
+      const options = {
         grid: {
           top: 50,
           left: 30,
@@ -93,11 +93,6 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
-          axisPointer: {
-            lineStyle: {
-              color: '#243247'
-            }
-          }
         },
         yAxis: [{
           type: 'value',
@@ -107,29 +102,12 @@ export default {
           max: XMax,
           axisLine: {
             show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: Color.colorLightGreySS
-            }
-          },
-          axisLabel: {
-            showMinLabel: false,
-            color: Color.colorDarkGrey,
           }
         }],
         xAxis: [{
           type: 'category',
           // boundaryGap: false,
           data: xAxisData,
-          axisLine: {
-            lineStyle: {
-              color: Color.colorLightGreyS
-            }
-          },
-          axisLabel: {
-            color: Color.colorLightGrey
-          }
         }],
         series: [{
           name: this.$t('ds.label.waitsAvg'),
@@ -144,9 +122,7 @@ export default {
           },
           itemStyle: {
             normal: {
-              // color: '#2492D7',
               color: Color.colorPrimary
-              // borderWidth: 3
             }
           }
         },
@@ -160,17 +136,11 @@ export default {
           lineStyle: {
             width: 2,
             type: 'dashed'
-          },
-          itemStyle: {
-            normal: {
-              color: Color.colorPrimary
-            }
           }
         }]
       }
 
-
-      this.chart.setOption(option)
+      this.options = options
     }
   }
 }
