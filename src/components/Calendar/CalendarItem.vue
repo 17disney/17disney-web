@@ -1,9 +1,43 @@
 <style lang='stylus'>
 @require '../../styles/disney/var/color.styl';
 
+.popover-att {
+  padding: 10px 0 !important;
+  // display: flex;
+  // flex-direction: column;
+  text-align: center;
+
+  &__charts {
+    width: 200px !important;
+    margin: 10px auto;
+    margin-top: 15px;
+  }
+
+  &__schedule {
+    color: $color-grey;
+  }
+
+  &__num {
+    width: 185px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    color: $color-grey;
+    font-size: 13px;
+  }
+
+  &__wait {
+    flex: 1;
+    text-align: left;
+  }
+}
+
 .calendar-item {
   position: relative;
   height: 60px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: $color-primary-ss;
 
   &.is-pointer {
     cursor: pointer;
@@ -17,13 +51,6 @@
 
       background-color: rgba($color-primary-s, 0.2);
     }
-  }
-
-  &__day {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    color: $color-light-grey-s;
   }
 
   .badge {
@@ -58,56 +85,51 @@
       background-color: $color-red;
     }
   }
-}
 
-.popover-att {
-  padding: 10px 0 !important;
-  // display: flex;
-  // flex-direction: column;
-  text-align: center;
-
-  &__charts {
-    width: 200px !important;
-    margin: 10px auto;
-    margin-top: 15px;
-  }
-
-  &__schedule {
-    color: $color-grey;
-  }
-
-  &__num {
-    width: 185px;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    display: flex;
-    color: $color-grey;
+  &__day {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    color: $color-light-grey-s;
     font-size: 13px;
   }
 
-  &__wait {
-    flex: 1;
-    text-align: left;
+  &__num {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: $color-light-grey;
+    font-size: 14px;
   }
 }
 </style>
 <template>
-  <el-popover popper-class="popover-att" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
-    <div class="popover-att__num">
-      <div class="popover-att__wait">
-        {{tipContent}}
+  <div>
+    <el-popover v-if="mode === 'waits'" popper-class="popover-att" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
+      <div class="popover-att__num">
+        <div class="popover-att__wait">
+          {{tipContent}}
+        </div>
+        <att-status v-if="data.status" :status="data.status"></att-status>
       </div>
-      <att-status v-if="data.status" :status="data.status"></att-status>
-    </div>
-    <charts-att-base v-if="data && data.waitHour" class="popover-att__charts" :id="'att' + id" :data="data.waitHour"></charts-att-base>
-    <div class="popover-att__schedule" v-if="data">{{data.startTime}} - {{data.endTime}}</div>
-    <div class="insert" slot="reference" href="">
-      <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
+      <charts-att-base v-if="data && data.waitHour" class="popover-att__charts" :id="'att' + id" :data="data.waitHour"></charts-att-base>
+      <div class="popover-att__schedule" v-if="data">{{data.startTime}} - {{data.endTime}}</div>
+      <div slot="reference" href="">
+        <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
+          <p class="calendar-item__day">{{day}}</p>
+          <div v-if="data && data.waitAvg" class="badge"></div>
+        </div>
+      </div>
+    </el-popover>
+    <div v-else class="calendar-item">
+      <div class="calendar-item">
         <p class="calendar-item__day">{{day}}</p>
-        <div v-if="data && data.waitAvg" class="badge"></div>
+        <div class="calendar-item__num" v-if="data.ticketNum">
+          {{data.ticketNum | formatNumber}}
+        </div>
       </div>
     </div>
-  </el-popover>
+  </div>
 
 </template>
 
@@ -119,6 +141,7 @@ export default {
 
   props: {
     day: [String, Number],
+    mode: String,
     data: {
       type: Object,
       default: () => {

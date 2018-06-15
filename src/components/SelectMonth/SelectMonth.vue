@@ -8,6 +8,8 @@ $height = 68px;
   border: 1px solid $color-light-grey-ss;
   border-radius: 5px;
   color: $color-primary-dark;
+  width: 100%;
+  height: 68px;
 
   &__btn {
     display: flex;

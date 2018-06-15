@@ -33,9 +33,8 @@
       tr {
         td {
           position: relative;
-          padding: 1px;
-          border: 1px solid #FFF;
           background: $color-primary-ss;
+          border: 1.5px solid #FFF;
         }
       }
     }
@@ -55,7 +54,7 @@
       <tbody>
         <tr v-for="(item, index) in calendar" :key="index">
           <td v-for="(day, index) in item" :key="index">
-            <calendar-item v-if="day.day" :day="day.day" :data="data[day.index]"></calendar-item>
+            <calendar-item :mode="mode" v-if="day.day" :day="day.day" :data="data[day.index]"></calendar-item>
           </td>
         </tr>
       </tbody>
@@ -76,7 +75,11 @@ export default {
   },
   props: {
     data: Array,
-    ym: String
+    ym: String,
+    mode: {
+      type: String,
+      default: 'waits'
+    }
   },
   data() {
     return {
