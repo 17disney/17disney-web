@@ -82,7 +82,7 @@
   }
 
   &__main {
-    height: 68px;
+    height: 65px;
   }
 
   .nav {
@@ -99,7 +99,7 @@
       cursor: pointer;
 
       .insert {
-        margin-top: 12px;
+        margin-top: 9px;
         font-size: 15px;
         line-height: 40px;
         padding: 8px 10px;

@@ -5,10 +5,6 @@
   width: 100%;
   position: relative;
   color: #FFF;
-
-  .leaflet-control-container {
-    display: none;
-  }
 }
 </style>
 
@@ -16,17 +12,24 @@
   <div class="ds-map">
     <v-map v-if="local === 'shanghai'" :crs="crsBaidu" ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center">
       <slot></slot>
-
     </v-map>
-    <v-map v-else ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center"></v-map>
+    <v-map v-else ref="map" :zoom="18" :min-zoom=5 :max-zoom=18 :center="center">
+      <slot></slot>
+    </v-map>
   </div>
 </template>
 
 <script>
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| Ds-Map
+| 迪士尼地图组件
+*/
 import { handleId } from '@/utils/tool'
 import crsBaidu from '@/lib/crs.baidu'
 import webdogTileLayer from '@/lib/webdogTileLayer'
-import base from '@/common/mixins/base'
 
 const NAME = 'ds-map'
 const TILE_LAYER = {
@@ -39,8 +42,6 @@ const TILE_LAYER = {
 
 export default {
   name: NAME,
-
-  mixins: [base],
 
   components: {
   },
