@@ -18,6 +18,14 @@ const router = new Router({
       name: 'home',
       children: [
         {
+          path: 'home',
+          component: () => import('@/page/home/index')
+        },
+        {
+          path: 'ticket',
+          component: () => import('@/page/ticket/index')
+        },
+        {
           path: 'forecast',
           component: () => import('@/page/forecast/index')
         },

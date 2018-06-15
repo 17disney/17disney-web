@@ -1,7 +1,7 @@
 <style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
-.ds-main {
+.container {
   margin-top: 32px;
 }
 
@@ -39,7 +39,7 @@
 }
 </style>
 <template>
-  <div class="container ds-main">
+  <div class="container">
     <el-row :gutter="50">
       <el-col :span="10">
         <dm-card>

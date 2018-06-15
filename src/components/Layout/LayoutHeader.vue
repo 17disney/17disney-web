@@ -2,26 +2,68 @@
 @require '../../styles/disney/var/color.styl';
 
 .header {
-  height: 80px;
   color: #fff;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
   position: relative;
-  position: absolute;
+  // position: absolute;
   z-index: 200;
+  background: #FFF;
+  border-bottom: 1px solid rgba($color-grey, 0.2);
 
-  .container {
-    height: 100%;
+  #logo {
+    float: left;
+    margin-top: 15px;
+    height: 40px;
+
+    path {
+      fill: $color-pick;
+    }
   }
 
-  .logo {
-    margin: 0;
-    float: left;
-    font-size: 32px;
-    font-weight: 400;
-    text-shadow: 0px 2px 2px rgba($color-grey, 0.87);
+  &__top {
+    height: 30px;
+    font-size: 13px;
+    line-height: 30px;
+
+    .container {
+      border-bottom: 1px solid $color-light-grey-sss;
+      overflow: hidden;
+    }
+
+    a {
+      cursor: pointer;
+      color: $color-light-grey;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    .nav-top-left {
+      float: left;
+    }
+
+    .nav-top {
+      float: right;
+
+      &-item {
+        margin: 0;
+        float: left;
+        list-style: none;
+        cursor: pointer;
+        padding-left: 20px;
+
+        .insert {
+        }
+      }
+    }
+  }
+
+  &__main {
+    height: 68px;
   }
 
   .nav {
@@ -30,35 +72,38 @@
     padding: 0;
     margin: 0;
     z-index: 10;
-  }
 
-  .nav-item {
-    margin: 0;
-    float: left;
-    list-style: none;
-    cursor: pointer;
+    &-item {
+      margin: 0;
+      float: left;
+      list-style: none;
+      cursor: pointer;
 
-    .insert {
-      margin-top: 16px;
-      font-size: 16px;
-      text-decoration: none;
-      color: #FFF;
-      display: block;
-      padding-left: 25px;
-      opacity: 0.9;
-      transition: 0.15s;
+      .insert {
+        margin-top: 12px;
+        font-size: 15px;
+        line-height: 40px;
+        padding: 8px 10px;
+        text-decoration: none;
+        color: $color-grey;
+        display: block;
+        margin-left: 25px;
+        opacity: 0.9;
+        transition: 0.15s;
+        border-bottom: 1px solid rgba(0, 0, 0, 0);
 
-      &:hover {
-        opacity: 0.7;
-      }
+        &.router-link-active {
+          color: $color-primary;
+          border-bottom-color: $color-primary;
+        }
 
-      .name {
-        line-height: 36px;
-        text-shadow: 0px 1px 5px rgba($color-grey, 0.87);
-      }
+        &:hover {
+          color: $color-primary;
+        }
 
-      .el-icon--right {
-        font-size: 12px;
+        .el-icon--right {
+          font-size: 12px;
+        }
       }
     }
   }
@@ -89,10 +134,6 @@
 
     &__icon {
       font-size: 30px;
-    }
-
-    &__name {
-      font-size: 13px;
     }
 
     &.is-close {
@@ -138,58 +179,92 @@
 
 <template>
   <div class="header">
-    <div class="container">
-      <h1 class="logo">
-        <logo-text></logo-text>
-      </h1>
-      <ul class="nav">
-        <!-- <li class="nav-item">
-          <a href="http://www.17shenqi.com" target="_blank" class="insert">
-            <span class="name">{{$t('ds.label.timesguide')}}</span>
-          </a>
-        </li> -->
-        <!-- 地区选择 -->
-        <li class="nav-item">
-          <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="hover">
-            <div class="park-list">
-              <div @click="handleLocalSelect(item.value)" class="park-list-item" :class="{'is-close': !item.open, 'is-active': item.value === local}" v-for="item in LOCAL">
-                <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
-                <div class="park-list-item__name">{{$t(item.label)}}</div>
-              </div>
-            </div>
-            <a slot="reference" class="insert">
-              <span class="name">{{$t('ds.disneyLand.' + local)}}</span>
-              <i class="el-icon-arrow-down el-icon--right"></i>
-            </a>
-          </el-popover>
-        </li>
+    <div class="header__top">
+      <div class="container">
         <!-- 小程序 -->
-        <li class="nav-item">
-          <el-popover placement="bottom-end" width="250" trigger="hover">
-            <div class="popover-wxapp">
-              <img src="//17disney.com/static/wxapp_17disney.jpg" alt="">
-              <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
-            </div>
-            <div class="insert" slot="reference" href="">
-              <span class="name">{{$t('ds.label.miniProgram')}}</span>
-            </div>
-          </el-popover>
-        </li>
-        <!-- 语言选择 -->
-        <li class="nav-item">
-          <el-popover popper-class="popover-locale" placement="bottom" width="100" trigger="hover">
-            <ul class="locale-select">
-              <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
-                {{item.label}}
-              </li>
-            </ul>
-            <a slot="reference" class="insert">
-              <span class="name">{{locale | locale}}</span>
-              <i class="el-icon-arrow-down el-icon--right"></i>
-            </a>
-          </el-popover>
-        </li>
-      </ul>
+        <el-popover placement="bottom" width="230" trigger="hover">
+          <div class="popover-wxapp">
+            <img src="//17disney.com/static/wxapp_17disney.jpg" alt="">
+            <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
+          </div>
+          <div class="nav-top-left" slot="reference">
+            <a>{{$t('ds.label.miniProgram')}}</a>
+          </div>
+        </el-popover>
+        <ul class="nav-top">
+          <!-- 地区选择 -->
+          <li class="nav-top-item">
+            <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="hover">
+              <div class="park-list">
+                <div @click="handleLocalSelect(item.value)" class="park-list-item" :class="{'is-close': !item.open, 'is-active': item.value === local}" v-for="item in LOCAL">
+                  <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
+                  <div class="park-list-item__name">{{$t(item.label)}}</div>
+                </div>
+              </div>
+              <a slot="reference" class="insert">
+                <span>{{$t('ds.disneyLand.' + local)}}</span>
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </a>
+            </el-popover>
+          </li>
+
+          <!-- 语言选择 -->
+          <li class="nav-top-item">
+            <el-popover popper-class="popover-locale" placement="bottom" width="100" trigger="hover">
+              <ul class="locale-select">
+                <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
+                  {{item.label}}
+                </li>
+              </ul>
+              <a slot="reference" class="insert">
+                <span>{{locale | locale}}</span>
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </a>
+            </el-popover>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="header__main">
+      <div class="container">
+        <h1 class="logo">
+          <a href="/">
+            <logo-text></logo-text>
+          </a>
+        </h1>
+        <ul class="nav">
+          <li class="nav-item">
+            <router-link to="/home" class="insert">
+              <span>首页</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/forecast" class="insert">
+              <span>客流预测</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/history" class="insert">
+              <span>历史等候</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/live" class="insert">
+              <span>乐园实况</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/ticket" class="insert">
+              <span>售票量</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/about" class="insert">
+              <span>关于</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -240,7 +315,6 @@ export default {
     handleLocalSelect(val) {
       const localInfo = LOCAL.find(_ => _.value === val)
       if (!localInfo.open) return
-
       this.$store.dispatch('setLocal', val)
       location.reload()
     },
@@ -250,7 +324,6 @@ export default {
     leave() {
       this.detail = false
     },
-
     show() {
       clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {

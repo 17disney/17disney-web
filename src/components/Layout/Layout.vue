@@ -1,16 +1,97 @@
+<style lang="stylus">
+@require '../../styles/disney/var/color.styl';
+
+.ds-first {
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  background-color: #FFF;
+
+
+  // .ds-map {
+  // left: 0px;
+  // top: 0px;
+  // right: 0px;
+  // bottom: 0px;
+  // z-index: 150;
+  // position: absolute;
+  // }
+  &__cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10;
+    background: rgba($color-primary, 0.45);
+  }
+
+  &.is-live {
+    .container {
+      height: 800px;
+
+      .text-wrap {
+        display: none;
+      }
+    }
+
+    .ds-first__cover {
+      display: none;
+    }
+  }
+
+  .container {
+    height: 350px;
+    padding-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 111;
+    position: relative;
+    color: #FFF;
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 70px;
+    text-shadow: 0px 1px 5px rgba($color-grey, 0.87);
+  }
+
+  &__title {
+    font-size: 23px;
+    font-weight: 500;
+    text-shadow: 0px 1px 5px rgba($color-grey, 0.87);
+    letter-spacing: 2px;
+  }
+
+  .card-forecast {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
+  }
+
+  .ds-tab-home {
+    margin-top: 45px;
+  }
+}
+</style>
+
 <template>
   <div class="layout">
     <layout-header></layout-header>
-    <div class="ds-first">
+    <!-- <div class="ds-first" :class="{'is-live': isLive}">
       <div class="ds-first__cover"></div>
       <div class="container">
-        <div class="ds-first__icon icon--pep" :class="'icon__' + localInfo.icon "></div>
-        <h1 class="ds-first__title">{{$t('ds.disneyLand.' + local)}}</h1>
-        <ds-tab-home :routes="homeTab"></ds-tab-home>
+        <div class="text-wrap">
+          <div class="ds-first__icon icon--pep" :class="'icon__' + localInfo.icon "></div>
+          <h1 class="ds-first__title">{{$t('ds.disneyLand.' + local)}}</h1>
+          <ds-tab-home :routes="homeTab"></ds-tab-home>
+        </div>
       </div>
       <ds-map :local="local" :center="localInfo.coordinates"></ds-map>
-    </div>
-
+    </div> -->
     <div class="layout-main">
       <transition name="fade" mode="out-in">
         <router-view></router-view>
@@ -63,7 +144,8 @@ export default {
   data() {
     return {
       homeTab: [],
-      localInfo: {}
+      localInfo: {},
+      isLive: true
     }
   },
   computed: {
@@ -73,24 +155,81 @@ export default {
 </script>
 
 <style lang="stylus">
-.layout {
-  &-main {
-    overflow: hidden;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+@require '../../styles/disney/var/color.styl';
+
+.ds-first {
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  background: #FFF;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  // .ds-map {
+  // left: 0px;
+  // top: 0px;
+  // right: 0px;
+  // bottom: 0px;
+  // z-index: 150;
+  // position: absolute;
+  // }
+  &__cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10;
+    background: rgba($color-primary, 0.45);
   }
 
-  &-content {
-    flex-grow: 1;
+  &.is-live {
+    .container {
+      height: 800px;
+
+      .text-wrap {
+        display: none;
+      }
+    }
+
+    .ds-first__cover {
+      display: none;
+    }
+  }
+
+  .container {
+    height: 350px;
+    padding-top: 80px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+    z-index: 111;
     position: relative;
-    height: 100%;
-    overflow: auto;
+    color: #FFF;
+    text-align: center;
   }
 
-  &-footer {
+  &__icon {
+    font-size: 70px;
+    text-shadow: 0px 1px 5px rgba($color-grey, 0.87);
+  }
+
+  &__title {
+    font-size: 23px;
+    font-weight: 500;
+    text-shadow: 0px 1px 5px rgba($color-grey, 0.87);
+    letter-spacing: 2px;
+  }
+
+  .card-forecast {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
+  }
+
+  .ds-tab-home {
+    margin-top: 45px;
   }
 }
 </style>
