@@ -1,6 +1,6 @@
 <template>
   <div class="att-date-select__list">
-    <div @click="handleClick(item.value)" class="att-date-select__item" :class="{'is-active': item.value === value}" v-for="item in list" :key="item.value">
+    <div @click="handleClick(item.value)" class="att-date-select__item" :class="{'is-active': item.value === value, 'is-disabled': item.disabled}" v-for="item in list" :key="item.value">
       <div class="att-date-select__year">
         {{item.year}}
       </div>

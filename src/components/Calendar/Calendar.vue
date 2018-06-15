@@ -24,6 +24,7 @@
           background: $color-primary;
           border-bottom: none;
           line-height: 40px;
+          font-size: 14px;
           font-weight: 500;
         }
       }

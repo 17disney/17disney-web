@@ -11,6 +11,11 @@ $height = 68px;
   width: 100%;
   height: 68px;
 
+  .is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   &__btn {
     display: flex;
     flex-direction: column;
@@ -22,11 +27,6 @@ $height = 68px;
     transition: 0.3s;
     font-size: 20px;
     color: #999;
-
-    &.is-disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
 
     &:hover {
       color: $color-primary;
@@ -136,7 +136,11 @@ export default {
   components: { SelectMonthList },
 
   props: {
-    value: String
+    value: String,
+    minMonth: {
+      type: String,
+      default: '2017-04'
+    }
   },
 
   data() {
@@ -148,8 +152,7 @@ export default {
       status: 'list',
       canNext: false,
       canPrev: true,
-      maxMonth: this.value,
-      minMonth: '2017-04'
+      maxMonth: this.value
     }
   },
 
@@ -176,10 +179,14 @@ export default {
 
       dateList.forEach(item => {
         const MONTH = MONTHS[moment(item).format('M')]
+        const value = moment(item).format(DATE_FORMAT)
+        const disabled = value < this.minMonth
+
         list.push({
           view: this.$t('el.datepicker.months.' + MONTH),
           year: moment(item).format('YYYY'),
-          value: moment(item).format(DATE_FORMAT)
+          value,
+          disabled
         })
       })
 
