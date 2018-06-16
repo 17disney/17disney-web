@@ -18,7 +18,7 @@
     height: 45px;
 
     path {
-      fill: $color-pick;
+      fill: $color-primary;
     }
   }
 

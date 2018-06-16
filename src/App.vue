@@ -15,6 +15,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei';
+  /* display: flex; */
 }
 
 * {
@@ -24,7 +25,11 @@ html {
   box-sizing: border-box;
 }
 
-#app {
+body {
   display: flex;
+}
+
+#app {
+  flex: 1;
 }
 </style>

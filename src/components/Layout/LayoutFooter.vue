@@ -14,7 +14,7 @@
     height: 65px !important;
     margin: 0 auto;
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 
     &:hover {
       path {
@@ -35,7 +35,7 @@
 }
 
 .wxapp-list {
-  margin-bottom: 50px;
+  margin-bottom: 45px;
   display: flex;
   justify-content: center;
   transition: 0.15s;
@@ -48,7 +48,7 @@
     background: rgba(255, 255, 255, 1);
     border-radius: 5px;
     padding: 16px;
-    margin: 0 20px;
+    margin: 0 16px;
     border: 1px solid rgba(0, 0, 0, 0);
     transition: 0.15s;
     cursor: pointer;
@@ -60,17 +60,11 @@
     }
 
     &__img {
-      width: 100px;
-    }
-
-    &__name {
-      font-size: 12px;
-      color: $color-light-grey-s;
-      margin-top: 8px;
+      width: 95px;
     }
 
     &__desc {
-      font-size: 15px;
+      font-size: 13px;
       color: $color-grey;
     }
   }
@@ -103,14 +97,14 @@
   }
 
   &-wrap {
-    padding: 75px 24px;
+    padding: 70px 24px;
     background-color: $color-grey;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   &-end {
     &-wrap {
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 25px 0;
     }
 
