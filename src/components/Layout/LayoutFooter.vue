@@ -156,7 +156,7 @@
         <el-row :gutter="20">
           <el-col :span="6">
             <div class="footer-nav-list">
-              <h2>迪士尼乐园</h2>
+              <h2>{{$t('ds.disneyLand.name')}}</h2>
               <div class="footer-nav-item" v-for="item in LOCAL" :Key="item.value">
                 <a v-show="item.open" @click="handleLocalSelect(item.value)" href="">{{$t(item.label )}}</a>
               </div>
@@ -164,9 +164,9 @@
           </el-col>
           <el-col :span="6">
             <div class="footer-nav-list">
-              <h2>社区</h2>
+              <h2>{{$t('ds.navbar.community')}}</h2>
               <div class="footer-nav-item">
-                <a href="#/about">关于我们</a>
+                <a href="#/about">{{$t('ds.navbar.aboutUs')}}</a>
               </div>
               <div class="footer-nav-item">
                 <a href="https://github.com/17disney" target="_blank">Github</a>
@@ -181,7 +181,7 @@
           </el-col>
           <el-col :span="6">
             <div class="footer-nav-list">
-              <h2>相关网站</h2>
+              <h2>{{$t('ds.navbar.related')}}</h2>
               <div class="footer-nav-item">
                 <a href="https://www.shanghaidisneyresort.com/" target="_blank">上海迪士尼度假区</a>
               </div>
@@ -191,14 +191,11 @@
               <div class="footer-nav-item">
                 <a href="http://17shenqi.com" target="_blank">一起神奇网</a>
               </div>
-              <!-- <div class="footer-nav-item">
-                <a href="">度假区实况</a>
-              </div> -->
             </div>
           </el-col>
           <el-col :span="6">
             <div class="footer-nav-list">
-              <h2>语言</h2>
+              <h2>{{$t('ds.navbar.language')}}</h2>
               <div class="footer-nav-item" v-for="item in LOCALE" :key="item.value">
                 <a @click="handleLocaleSelect(item.value)">
                   {{item.label}}
