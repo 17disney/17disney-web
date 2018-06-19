@@ -35,7 +35,7 @@
   <div class="container">
     <el-aside width="350px">
       <div class="shop-wrapper">
-        <h2 class="title">购买门票</h2>
+        <h2 class="title">{{$t('ds.title.buyTickets')}}</h2>
         <ticket-item @click="handleTicketClick" v-for="(item, index) in shop" :key="index" :data="item"></ticket-item>
       </div>
     </el-aside>
@@ -44,13 +44,13 @@
         <select-month min-month="2018-03" @click="handleMonthSelect" v-model="calendar"></select-month>
         <ft-section>
           <div slot="header" class="clearfix">
-            <span>售票量日历</span>
+            <span>{{$t('ds.title.ticketingCalendar')}}</span>
           </div>
           <calendar mode="ticket" v-loading="loading" :data="ticketData" :ym="calendar"></calendar>
         </ft-section>
         <ft-section>
           <div slot="header" class="clearfix">
-            <span>售票量趋势</span>
+            <span>{{$t('ds.title.ticketingTrend')}}</span>
           </div>
           <charts-ticket-month :data="ticketData"></charts-ticket-month>
         </ft-section>

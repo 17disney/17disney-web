@@ -83,15 +83,15 @@
         <div class="live-time__clock">
 
           <div class="live-open-time">
-            <h3 class="title">乐园开放时间</h3>
+            <h3 class="title">{{$t('ds.title.parkOpentime')}}</h3>
             <span class="open-time">
-              {{data.startTime | timeFormat('H:mm', 'HH:mm:ss')}} 至 {{data.endTime | timeFormat('H:mm', 'HH:mm:ss')}}
+              {{data.startTime | timeFormat('H:mm', 'HH:mm:ss')}} - {{data.endTime | timeFormat('H:mm', 'HH:mm:ss')}}
             </span>
           </div>
 
           <div class="live-clock">
             <div class="live-clock__time">{{time}}</div>
-            <div @click="getWaits" class="live-clock__btn">刷新</div>
+            <div @click="getWaits" class="live-clock__btn">{{$t('ds.label.refresh')}}</div>
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@
         <el-col :span="12" v-if="local === 'shanghai'">
           <dm-card>
             <div slot="header" class="clearfix">
-              <span>乐园客流量</span>
+              <span>{{$t('ds.label.parkFlow')}}</span>
             </div>
             <charts-flow-day :height="200" :data="data.flowHour"></charts-flow-day>
           </dm-card>
@@ -112,7 +112,7 @@
         <el-col :span="12">
           <dm-card>
             <div slot="header" class="clearfix">
-              <span>乐园指数</span>
+              <span>{{$t('ds.label.parkIndex')}}</span>
             </div>
             <charts-park-mark :height="200" :data="data.markHour"></charts-park-mark>
           </dm-card>
