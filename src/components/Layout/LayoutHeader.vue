@@ -218,7 +218,7 @@
           <li class="nav-top-item">
             <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="hover">
               <div class="park-list">
-                <div @click="handleLocalSelect(item.value)" class="park-list-item" :class="{'is-close': !item.open, 'is-active': item.value === local}" v-for="item in LOCAL">
+                <div @click="handleLocalSelect(item.value)" class="park-list-item" :class="{'is-close': !item.open, 'is-active': item.value === local}" v-for="item in LOCAL" :key="item.value">
                   <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
                   <div class="park-list-item__name">{{$t(item.label)}}</div>
                 </div>
@@ -262,27 +262,27 @@
           </li> -->
           <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/forecast" class="insert">
-              <span>客流预报</span>
+              <span>{{$t('ds.navbar.flowOperia')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/history" class="insert">
-              <span>历史等候</span>
+              <span>{{$t('ds.label.historicalWait')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/live" class="insert">
-              <span>乐园实况</span>
+              <span>{{$t('ds.label.parkLive')}}</span>
             </router-link>
           </li>
           <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/ticket" class="insert">
-              <span>售票量</span>
+              <span>{{$t('ds.label.ticketSales')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/about" class="insert">
-              <span>关于</span>
+              <span>{{$t('ds.navbar.about')}}</span>
             </router-link>
           </li>
         </ul>
