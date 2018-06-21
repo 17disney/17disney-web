@@ -11,10 +11,9 @@ import App from './App'
 import router from './router'
 
 // CSS
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css' // CDN
 import '@/styles/disney/index.styl'
 import 'leaflet/dist/leaflet.css'
-import * as Filters from '@/common/filters'
 
 // UI
 import ElementUI from 'element-ui'
@@ -26,6 +25,7 @@ Vue.use(DmUi)
 Vue.use(AttUi)
 
 // tools
+import * as Filters from '@/common/filters'
 import initLocale from './utils/locale'
 import initLeaflet from './utils/leaflet'
 import * as Api from 'package/17disney-common/api'
