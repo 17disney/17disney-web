@@ -92,7 +92,6 @@ export default {
 
   methods: {
     handleClickAtt() {
-      console.log('ds')
     }
   }
 }

@@ -46,14 +46,14 @@
           <div slot="header" class="clearfix">
             <span>{{this.$t('ds.label.forecastflow')}}</span>
           </div>
-          <charts-flow v-loading="loading" :data="forecast"></charts-flow>
+          <charts-flow :delay="200" :data="forecast"></charts-flow>
         </dm-card>
         <dm-card>
           <div slot="header" class="clearfix">
             <span>{{this.$t('ds.label.ticketTrend')}}</span>
           </div>
           <div class="charts-flow">
-            <charts-ticket-week v-loading="loading" :data="forecast"></charts-ticket-week>
+            <charts-ticket-week :delay="400" :data="forecast"></charts-ticket-week>
           </div>
         </dm-card>
         <div class="forecast-time" v-if="data.utime">{{$t('ds.label.forecastTime')}}{{data.utime | timeFormat('YYYY-MM-DD H:mm:ss', 'x')}}</div>
@@ -123,6 +123,7 @@ export default {
       this.data = data
       this.forecast = data['data']
       this.handleClickDate(0)
+
       this.loading = false
     },
     handleClickDate(index) {

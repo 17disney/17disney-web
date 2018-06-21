@@ -1,5 +1,5 @@
 <template>
-  <charts :options="options" :id="id"></charts>
+  <charts :delay="delay" :options="options" :id="id"></charts>
 </template>
 
 <script>
@@ -17,6 +17,7 @@ export default {
   },
 
   props: {
+    delay: Number,
     id: {
       type: String,
       default: NAME
@@ -44,6 +45,8 @@ export default {
       const { data } = this
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
       const ticketData = data.map(_ => _['ticketNumFT'])
+
+      if (ticketData.length === 0 ) return
 
       const _max = Math.max(...ticketData)
       const max = (Math.ceil(_max / 10000) + 1) * 10000

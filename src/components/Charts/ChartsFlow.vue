@@ -1,5 +1,5 @@
 <template>
-  <charts :options="options" :id="id"></charts>
+  <charts :delay="delay" :options="options" :id="id"></charts>
 </template>
 
 <script>
@@ -10,7 +10,6 @@
 | Charts-Flow
 | 客流量预测图表
 */
-
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import Charts from './Charts'
@@ -26,6 +25,7 @@ export default {
   },
 
   props: {
+    delay: Number,
     id: {
       type: String,
       default: NAME
@@ -58,6 +58,8 @@ export default {
       const { data } = this
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
       const _data = data.map(_ => _['flowMaxFT'])
+
+      if (_data.length === 0 ) return
 
       const options = {
         grid: {

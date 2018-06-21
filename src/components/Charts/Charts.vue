@@ -4,7 +4,9 @@
 }
 </style>
 <template>
-  <div v-loading="loading" :style="{height: height + 'px'}" class="chart-wrapper" :id="id"></div>
+  <div class="chart-wrapper" v-loading="loading" :style="{height: height + 'px'}">
+    <div :style="{height: height + 'px'}" :id="id"></div>
+  </div>
 </template>
 
 <script>
@@ -26,6 +28,10 @@ export default {
   props: {
     id: String,
     options: Object,
+    delay: {
+      type: Number,
+      default: 200
+    },
     height: {
       type: Number,
       default: 350
@@ -34,7 +40,8 @@ export default {
 
   data() {
     return {
-      loading: true
+      loading: true,
+      isDraw: false
     }
   },
 
@@ -48,8 +55,17 @@ export default {
   methods: {
     init() {
       const chart = echarts.init(document.getElementById(this.id), theme)
-      chart.setOption(this.options)
-      this.loading = false
+
+      if (!this.isDraw) {
+        setTimeout(() => {
+          chart.setOption(this.options)
+          this.loading = false
+          this.isDraw = true
+        }, this.delay)
+      } else {
+        chart.setOption(this.options)
+        this.loading = false
+      }
     }
   }
 }
