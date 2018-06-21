@@ -43,6 +43,10 @@ export default {
     init() {
       const { data } = this
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
+      const ticketData = data.map(_ => _['ticketNumFT'])
+
+      const _max = Math.max(...ticketData)
+      const max = (Math.ceil(_max / 10000) + 1) * 10000
 
       const options = {
         grid: {
@@ -59,7 +63,7 @@ export default {
           type: 'value',
           boundaryGap: [0, '100%'],
           splitNumber: 4,
-          max: 40000,
+          max,
           axisTick: { // 刻度粗线
             show: false,
             inside: true,
@@ -123,7 +127,7 @@ export default {
               width: 3,
               type: 'dashed'
             },
-            data: data.map(_ => _['ticketNumFT'])
+            data: ticketData
           }
         ]
       };

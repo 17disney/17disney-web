@@ -56,7 +56,7 @@
             <charts-ticket-week v-loading="loading" :data="forecast"></charts-ticket-week>
           </div>
         </dm-card>
-        <div class="forecast-time" v-if="data.utime">{{$t('ds.label.forecastTime')}}{{data.utime | timeFormat('YYYY-MM-DD hh:mm:ss', 'x')}}</div>
+        <div class="forecast-time" v-if="data.utime">{{$t('ds.label.forecastTime')}}{{data.utime | timeFormat('YYYY-MM-DD H:mm:ss', 'x')}}</div>
       </el-col>
       <el-col :span="14">
         <dm-card class="dm-card-att-list">
