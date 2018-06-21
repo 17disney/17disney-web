@@ -59,7 +59,7 @@ async function init(to) {
   dispatch('setLocal', local)
   dispatch('setLocale', locale)
 
-  await dispatch('getDestinationsList')
+  dispatch('getDestinationsList')
 
   loadingInstance.close()
 
