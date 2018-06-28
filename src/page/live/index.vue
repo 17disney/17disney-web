@@ -96,9 +96,9 @@
         </div>
       </div>
       <div class="ds-map-wrap">
-        <ds-map v-if="local" :local="local" :center="localInfo.coordinates">
+        <att-map v-if="local" :local="local" :center="localInfo.coordinates">
           <att-marker v-for="(item, index) in attractionList" :icon="item.icon" :key="index" :coordinates="item.coordinates" :data="item"></att-marker>
-        </ds-map>
+        </att-map>
       </div>
       <el-row :gutter="30">
         <el-col :span="12" v-if="local === 'shanghai'">
@@ -127,14 +127,13 @@ import moment from 'moment'
 import base from '@/common/mixins/base'
 import DsMap from '@/components/DsMap/DsMap.vue'
 import LOCAL from 'package/17disney-common/const/local'
-import AttMarker from '@/components/DsMap/AttMarker'
 import ChartsFlowDay from '@/components/Charts/ChartsFlowDay'
 import ChartsParkMark from '@/components/Charts/ChartsParkMark'
 
 export default {
   mixins: [base],
 
-  components: { DsMap, AttMarker, ChartsFlowDay, ChartsParkMark },
+  components: { DsMap, ChartsFlowDay, ChartsParkMark },
 
   data() {
     return {

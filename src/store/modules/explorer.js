@@ -3,24 +3,36 @@ import ATT_TYPE from 'package/17disney-common/const/att-type'
 import WaitTimes from 'package/17disney-common/api/wait-times'
 import { lineToObject } from '@/utils/tool'
 import Lockr from 'lockr'
+import moment from 'moment'
+import LAND_NAME from 'package/17disney-common/const'
 
 const explorer = {
   state: {
     local: null,
     utc: null,
     attList: [],
-    waits: {}
+    waits: {},
+    park: null,
+    date: moment().format('YYYY-MM-DD')
   },
 
   getters: {
     attractionList: state => {
       return state.attList.filter(item => item.type === 'attraction')
     },
-    attListFilter: state => type => {
-      const hotLevel = 3
-      return state.attList.filter(
-        item => item.type === type && item.hotLevel >= hotLevel
+    // 项目过滤器
+    attListFilter: state => (type, hotLevel = 0) => {
+      // let hotLevel = 0
+      let list = state.attList.filter(
+        item => item.type === type
       )
+
+      if (type === 'attraction') {
+        list = list.filter(
+          item => item.hotLevel >= 3
+        )
+      }
+      return list
     },
     attFind: state => aid => {
       return state.attList.find(item => item.aid === aid)
@@ -42,6 +54,13 @@ const explorer = {
       })
       state.attList = data
     },
+    // 设置乐园数据
+    SET_PARK: (state, data) => {
+      const {flowList} = data
+      const flow = flowList[flowList.length - 1][1]
+      data.flow = flow
+      state.park = data
+    },
     // 设置等候时间
     SET_WAITS: (state, data) => {
       const waits = {}
@@ -51,10 +70,17 @@ const explorer = {
 
       state.attList.forEach(item => {
         let wait = waits[item.aid]
-        if (wait && wait['waitList'] && wait.status == 'Operating') {
+        if (
+          wait &&
+          wait['waitList'] &&
+          wait.status == 'Operating' &&
+          wait.waitList[0] &&
+          wait.waitList[0][1] > 0
+        ) {
           item.icon = L.divIcon({
-            className: 'att-marker att-marker--wait',
-            popupAnchor: [17, 57],
+            className: 'att-marker att-marker--detail',
+            popupAnchor: [17, 17],
+            iconAnchor: [20, 55],
             html: `
               <div class="att-marker__content">
                 <div class="att-marker__desc">等候</div>
@@ -76,7 +102,7 @@ const explorer = {
     // 获取项目列表
     async getDestinationsList({ commit, state }) {
       const data = await WaitTimes.destinations(state.local, {
-        type: 'attraction'
+        // type: 'attraction'
       })
       data.forEach(item => {
         // 提取坐标
@@ -90,8 +116,6 @@ const explorer = {
           let coordinates = item.relatedLocations[0]['coordinates'][0]
           let { latitude, longitude } = coordinates
           coordinates = [latitude, longitude].map(parseFloat)
-          coordinates[0] = coordinates[0] + 0.0003
-          coordinates[1] = coordinates[1] - 0.0001
           _coordinates = coordinates
           item.coordinates = _coordinates
         }
@@ -102,14 +126,27 @@ const explorer = {
           item.icon = L.divIcon({
             className:
               'att-marker att-marker--icon icon--pep icon__' + iconData['icon'],
-            popupAnchor: [12, 42]
+            popupAnchor: [0, 14],
+            iconAnchor: [17.5, 35]
           })
         }
+
+        // 提取关联
+        const { ancestors } = item
+        ancestors.forEach(arr => {
+          const { id, type } = arr
+          if (type === 'land') {
+            const _id = lineToObject(id)['__id__']
+            item.landName = LAND_NAME[_id]
+          }
+        })
       })
 
       if (data) {
         commit('SET_ATT_LIST', data)
       }
+
+      this.dispatch('getAttractionsWait')
     },
     // 设置地区
     setLocal({ commit }, data) {
@@ -117,9 +154,13 @@ const explorer = {
       commit('SET_LOCAL', data)
     },
     // 获取等待时间
-    async getAttractionsWait({ commit, state }, date) {
-      const data = await WaitTimes.waitsHome(state.local, date)
+    async getAttractionsWait({ commit, state }) {
+      const data = await WaitTimes.waitsHome(state.local, state.date)
       commit('SET_WAITS', data)
+    },
+    async getParkDate({ commit, state}, date = state.date) {
+      const data = await WaitTimes.parkDate(state.local, date)
+      commit('SET_PARK', data)
     }
   }
 }
