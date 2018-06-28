@@ -105,7 +105,7 @@ export default {
     init() {
       const year = moment(this.ym, 'YYYY-MM').format('YYYY')
       const month = moment(this.ym, 'YYYY-MM').format('MM')
-      const MONTH_DAYS = [31, 28 + this.isLeap(year), 31, 30, 31, 31, 30, 31, 30, 31, 30, 31]
+      const MONTH_DAYS = [31, 28 + this.isLeap(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
       const m = month - 1
       const firstDay = new Date(year, m, 1)

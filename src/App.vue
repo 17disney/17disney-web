@@ -6,7 +6,11 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+
+  mounted() {
+    document.body.removeChild(document.getElementById('wp-loading'))
+  }
 }
 </script>
 

@@ -99,6 +99,7 @@ export default {
       dateRange: [],
       loading: false,
       ticketData: [],
+      maxMonth: moment().add(45, 'days').format('YYYY-MM'),
       shop: [
         {
           title: '3 日票',
