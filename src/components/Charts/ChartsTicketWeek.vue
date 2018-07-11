@@ -3,6 +3,14 @@
 </template>
 
 <script>
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| Charts-Ticket-Week
+| 周售票量图表
+*/
+
 import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import Charts from './Charts'

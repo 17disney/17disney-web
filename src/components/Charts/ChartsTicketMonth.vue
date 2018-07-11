@@ -10,6 +10,14 @@
 </template>
 
 <script>
+/*
++-----------------------------------------------------------------------------------------------------------------------
+| Author: xank <xank@qq.com>  Blog：https://www.xank.cn
++-----------------------------------------------------------------------------------------------------------------------
+| Charts-Ticket-Month
+| 月售票量图表
+*/
+
 import Charts from './Charts'
 import Color from 'package/17disney-common/const/color'
 import moment from 'moment'
