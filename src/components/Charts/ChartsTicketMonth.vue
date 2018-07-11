@@ -63,7 +63,6 @@ export default {
       let maxList = data.map(_ => _['ticketNum'])
       maxList = maxList.filter(_ => _)
 
-
       let XMax = 40000
       // let XMax = Math.max(...maxList) + 20
       // if (!XMax) {

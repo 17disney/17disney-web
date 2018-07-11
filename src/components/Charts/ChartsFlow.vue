@@ -123,7 +123,7 @@ export default {
             data: _data
           }
         ]
-      };
+      }
 
       this.options = options
     }

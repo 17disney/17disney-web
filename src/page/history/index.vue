@@ -72,9 +72,9 @@
 | 历史查询 - 主页
 */
 
+import { mapState, mapActions, mapGetters } from 'vuex'
 import base from '@/common/mixins/base'
 import moment from 'moment'
-import { mapState, mapActions, mapGetters } from 'vuex'
 
 import FtIndex from '@/components/FtIndex/FtIndex'
 import AttListSelect from '@/components/AttList/AttListSelect'
@@ -92,6 +92,7 @@ export default {
   mixins: [base],
   data() {
     return {
+      isInit: false,
       aid: null,
       info: {},
       attIndex: [],
@@ -106,20 +107,28 @@ export default {
   computed: {
     activeAttList() {
       const list = this.attListFilter('attraction', 3)
-      this.aid = list[0]['aid']
-      return list
+      if (list && list[0]) {
+        const { aid } = list[0]
+        this.aid = aid
+        return list
+      }
     }
   },
 
   async mounted() {
     setTimeout(() => {
-      this.init()
+      // this.init()
     }, 1000)
   },
 
   watch: {
+    'aid': function (val) {
+      if (val && !this.isInit) {
+        this.init()
+      }
+    },
     'calendar': function (val, oVal) {
-      this.initAtt()
+      // this.initAtt()
     }
   },
 
@@ -127,11 +136,14 @@ export default {
     init() {
       this.handleMonthSelect(this.calendar)
       this.handleAttSelect(this.aid)
+      this.isInit = true
     },
     // 读取项目
     async initAtt() {
-      this.loading = true
       const { local, aid } = this
+      if (!aid || !local) return
+
+      this.loading = true
       const [st, et] = this.dateRange
 
       setTimeout(async () => {
@@ -156,11 +168,8 @@ export default {
     },
     // 选择项目
     async handleAttSelect(aid) {
-      const { local } = this
       this.aid = aid
       this.info = this.activeAttList.find(_ => _.aid === aid)
-
-      // this.attRank =  await this.$Api.waitTimes.attractions(local, aid, { sort: 'wait-avg' })
       this.initAtt()
     },
     // 选择月份
