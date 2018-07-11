@@ -128,7 +128,9 @@ export default {
       }
     },
     'calendar': function (val, oVal) {
-      // this.initAtt()
+      setTimeout(() => {
+        this.initAtt()
+      }, 100)
     }
   },
 
