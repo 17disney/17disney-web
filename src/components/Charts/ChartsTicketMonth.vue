@@ -21,6 +21,7 @@
 import Charts from './Charts'
 import Color from 'package/17disney-common/const/color'
 import moment from 'moment'
+import { markMax } from '@/utils/array'
 
 const NAME = 'charts-ticket-month'
 
@@ -60,14 +61,8 @@ export default {
       const DATE_FORMAT = this.$t('ds.dateFormat.monthDay')
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format(DATE_FORMAT))
 
-      let maxList = data.map(_ => _['ticketNum'])
-      maxList = maxList.filter(_ => _)
-
-      let XMax = 40000
-      // let XMax = Math.max(...maxList) + 20
-      // if (!XMax) {
-      //   XMax = undefined
-      // }
+      const maxList = data.map(_ => _['ticketNum'])
+      const XMax = markMax(maxList, 5000)
 
       const options = {
         grid: {

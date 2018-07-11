@@ -15,6 +15,7 @@ import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import Charts from './Charts'
 import moment from 'moment'
+import { markMax } from '@/utils/array'
 
 const NAME = 'charts-ticket-week'
 
@@ -57,9 +58,7 @@ export default {
 
       if (ticketData.length === 0 ) return
 
-      const _max = Math.max(...ticketData)
-      const max = (Math.ceil(_max / 10000) + 1) * 10000
-
+      const max = markMax(ticketData, 5000)
       const options = {
         grid: {
           top: 50,

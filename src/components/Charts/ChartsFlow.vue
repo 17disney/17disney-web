@@ -15,6 +15,7 @@ import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import Charts from './Charts'
 import moment from 'moment'
+import { markMax } from '@/utils/array'
 
 const NAME = 'charts-flow'
 
@@ -59,7 +60,7 @@ export default {
       const { data } = this
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format('M月D日'))
       const _data = data.map(_ => _['flowMaxFT'])
-
+      const XMax = markMax(_data, 5000, 1)
       if (_data.length === 0 ) return
 
       const options = {
@@ -80,6 +81,7 @@ export default {
             show: false,
             inside: true
           },
+          max: XMax,
           axisLine: {
             show: false
           },

@@ -14,6 +14,7 @@
 import Charts from './Charts'
 import Color from 'package/17disney-common/const/color'
 import moment from 'moment'
+import { markMax } from '@/utils/array'
 
 const NAME = 'charts-att-count'
 
@@ -51,12 +52,7 @@ export default {
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format(DATE_FORMAT))
 
       let maxList = data.map(_ => _['waitMax'])
-      maxList = maxList.filter(_ => _)
-
-      let XMax = Math.max(...maxList) + 20
-      if (!XMax) {
-        XMax = undefined
-      }
+      let XMax = markMax(maxList, 50)
 
       const options = {
         grid: {
