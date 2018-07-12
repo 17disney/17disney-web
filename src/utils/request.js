@@ -1,27 +1,21 @@
 import axios from 'axios'
-// MessageBox
 import { Message } from 'element-ui'
 
-// 创建axios实例
 const service = axios.create({
   baseURL: 'http://api.17disney.com/',
   // baseURL: '/',
-  timeout: 15000 // 请求超时时间
+  timeout: 15000
 })
 
-// respone拦截器
+// 拦截器
 service.interceptors.response.use(
   response => {
-    /**
-     * code为非20000是抛错 可结合自己业务进行修改
-     */
     const res = response
-    // console.log(res)
     const { status } = res
 
+    // 正常返回
     if (status === 200) {
       const { message } = response.data
-
       if (message) {
         Message({
           message,
@@ -29,26 +23,17 @@ service.interceptors.response.use(
           duration: 5 * 1000
         })
       }
-
       return response.data
-    } else if (status === 204) {
-      Message({
-        message: '无内容',
-        type: 'warning',
-        duration: 5 * 1000
-      })
     } else {
       Message({
         message: res.data,
         type: 'error',
         duration: 5 * 1000
       })
-
-      return Promise.reject('error')
+      return Promise.reject(res.data)
     }
   },
   error => {
-    console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',

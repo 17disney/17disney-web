@@ -1,3 +1,8 @@
+/*
+| Leaflet
+| Leaflet 初始化
+*/
+
 import Vue2Leaflet from 'vue2-leaflet'
 
 export default function init(Vue) {

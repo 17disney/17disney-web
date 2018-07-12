@@ -24,7 +24,7 @@ Vue.use(ElementUI)
 Vue.use(DmUi)
 Vue.use(AttUi)
 
-// tools
+// Tools
 import * as Filters from '@/common/filters'
 import initLocale from './utils/locale'
 import initLeaflet from './utils/leaflet'

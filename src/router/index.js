@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Layout from '@/components/Layout/Layout'
-import Lockr from 'lockr'
-import { Loading } from 'element-ui'
-
+import Layout from '@/components/Layout/Layout';
+import { Loading } from 'element-ui';
+import Lockr from 'lockr';
+import Vue from 'vue';
+import Router from 'vue-router';
+/*  */
 Vue.use(Router)
 
 const router = new Router({
