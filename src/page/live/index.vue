@@ -137,6 +137,7 @@ export default {
 
   data() {
     return {
+      isInit: false,
       data: {},
       date: moment().format('YYYY-MM-DD'),
       localInfo: {},
@@ -162,11 +163,15 @@ export default {
 
     async getWaits() {
       this.$store.dispatch('getAttractionsWait', this.date)
+
+      if (!this.isInit) {
+        this.isInit = true
+        return
+      }
       this.$message({
         message: '已更新',
         type: 'success'
-      });
-
+      })
     },
 
     updateTime() {
