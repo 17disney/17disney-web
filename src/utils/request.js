@@ -26,7 +26,7 @@ service.interceptors.response.use(
       return response.data
     } else {
       Message({
-        message: res.data,
+        message: res.error,
         type: 'error',
         duration: 5 * 1000
       })

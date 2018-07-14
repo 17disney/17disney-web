@@ -36,6 +36,9 @@
 
 <script>
 import LOCAL from 'package/17disney-common/const/local'
+import { today } from '@/utils/time'
+import { deepClone } from '@/utils/util'
+
 export default {
   components: {},
 
@@ -55,7 +58,25 @@ export default {
   },
 
   methods: {
-    init() {
+    async init() {
+      const list = []
+
+      const localList = deepClone(LOCAL)
+      for (let i = 0; i < localList.length; i++) {
+        const item = localList[i]
+        const date = today(item.utc)
+
+        if (item.open) {
+          item.data = await this.$Api.waitTimes.parkDate(item.value, date)
+        }
+      }
+      console.log(item)
+
+      console.log(localList)
+
+      LOCAL.forEach(item => {
+      })
+
 
     }
   }
