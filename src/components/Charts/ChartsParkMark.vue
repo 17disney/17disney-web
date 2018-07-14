@@ -32,10 +32,7 @@ export default {
       default: NAME
     },
     height: Number,
-    data: {
-      type: Array,
-      default: []
-    }
+    data: Array
   },
 
   data() {
@@ -57,6 +54,11 @@ export default {
   methods: {
     init() {
       const { data } = this
+      if (!data || data.length === 0) {
+        this.options = false
+        return
+      }
+
       const _data = data.map(_ => _[1])
 
       const XMax = markMax(_data, 500, 1)

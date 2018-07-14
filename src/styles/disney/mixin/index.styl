@@ -1,0 +1,17 @@
+// flex 上下左右居中
+flex-cc() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// absolute 层覆盖
+cover-color($color = rgba(0, 0, 0, 0), $index = 1) {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: $index;
+  background: $color;
+}

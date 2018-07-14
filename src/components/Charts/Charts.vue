@@ -1,11 +1,30 @@
 <style lang='stylus'>
-.chart-wrapper {
-  width: 100%;
+@require '../../styles/disney/var/color.styl';
+@require '../../styles/disney/mixin';
+
+.chart {
+  &-wrapper {
+    width: 100%;
+    position: relative;
+  }
+
+  &-null {
+    cover-color(rgba($color-light-grey-sss,.2));
+    flex-cc();
+
+    &__text {
+      font-size: 12px;
+      color: $color-light-grey;
+    }
+  }
 }
 </style>
 <template>
   <div class="chart-wrapper" v-loading="loading" :style="{height: height + 'px'}">
     <div :style="{height: height + 'px'}" :id="id"></div>
+    <div class="chart-null" v-if="isNull">
+      <div class="chart-null__text">暂无数据</div>
+    </div>
   </div>
 </template>
 
@@ -27,7 +46,11 @@ export default {
 
   props: {
     id: String,
-    options: Object,
+    options: [Object, Boolean],
+    // isNull: {
+    //   type: Boolean,
+    //   default: false
+    // },
     delay: {
       type: Number,
       default: 200
@@ -41,7 +64,8 @@ export default {
   data() {
     return {
       loading: true,
-      isDraw: false
+      isDraw: false,
+      isNull: false
     }
   },
 
@@ -52,18 +76,33 @@ export default {
     }
   },
 
+  mounted() {
+    if (!this.isDraw) {
+      this.init()
+    }
+  },
+
   methods: {
     init() {
       const chart = echarts.init(document.getElementById(this.id), theme)
+      const { options, delay } = this
 
+      if (!options) {
+        this.loading = false
+        this.isNull = true
+        return
+      }
+
+      this.isNull = false
+      // 首次渲染增加延迟（性能优化)
       if (!this.isDraw) {
         setTimeout(() => {
-          chart.setOption(this.options)
-          this.loading = false
           this.isDraw = true
-        }, this.delay)
+          this.loading = false
+          chart.setOption(options)
+        }, delay)
       } else {
-        chart.setOption(this.options)
+        chart.setOption(options)
         this.loading = false
       }
     }

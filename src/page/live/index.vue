@@ -102,6 +102,7 @@
       </div>
       <el-row :gutter="30">
         <el-col :span="12" v-if="local === 'shanghai'">
+          <!-- 乐园客流量 -->
           <dm-card>
             <div slot="header" class="clearfix">
               <span>{{$t('ds.label.parkFlow')}}</span>
@@ -110,6 +111,7 @@
           </dm-card>
         </el-col>
         <el-col :span="12">
+          <!-- 乐园指数 -->
           <dm-card>
             <div slot="header" class="clearfix">
               <span>{{$t('ds.label.parkIndex')}}</span>
