@@ -40,6 +40,10 @@ const router = new Router({
         {
           path: 'about',
           component: () => import('@/page/about/index')
+        },
+        {
+          path: 'report',
+          component: () => import('@/page/report/index')
         }
       ]
     }
