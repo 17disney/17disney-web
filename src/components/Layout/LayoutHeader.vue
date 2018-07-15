@@ -216,7 +216,7 @@
         <ul class="nav-top">
           <!-- 地区选择 -->
           <li class="nav-top-item">
-            <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="hover">
+            <el-popover popper-class="popover-park-list" placement="bottom" width="500" trigger="click">
               <div class="park-list">
                 <div @click="handleLocalSelect(item.value)" class="park-list-item" :class="{'is-close': !item.open, 'is-active': item.value === local}" v-for="item in LOCAL" :key="item.value">
                   <div class="park-list-item__icon icon--pep" :class="'icon__' + item.icon"></div>
@@ -232,7 +232,7 @@
 
           <!-- 语言选择 -->
           <li class="nav-top-item">
-            <el-popover popper-class="popover-locale" placement="bottom-end" width="50" trigger="hover">
+            <el-popover popper-class="popover-locale" placement="bottom-end" width="50" trigger="click">
               <ul class="locale-select">
                 <li @click="handleLocaleSelect(item.value)" class="locale-select-item" v-for="item in LOCALE" :key="item.value">
                   {{item.label}}

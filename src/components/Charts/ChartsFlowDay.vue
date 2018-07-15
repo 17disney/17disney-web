@@ -19,6 +19,28 @@ import { markMax } from '@/utils/array'
 
 const NAME = 'charts-flow-day'
 
+const VISUAL_MAP = {
+  top: 0,
+  right: 0,
+  show: false,
+  pieces: [{
+    gt: 0,
+    lte: 30000,
+    color: Color.colorGreen
+  }, {
+    gt: 30000,
+    lte: 45000,
+    color: Color.colorYellow
+  }, {
+    gt: 45000,
+    lte: 60000,
+    color: Color.colorOrange
+  }, {
+    gt: 60000,
+    color: Color.colorRed
+  }]
+}
+
 export default {
   name: NAME,
 
@@ -56,14 +78,25 @@ export default {
       const { data } = this
       if (!data) return
 
-      const _data = data.map(_ => _[1])
+      let _data = data.map(_ => _[1])
+
+      // 去除右空值
+      for (let i = _data.length; i > 0; i--) {
+        const val = _data[i]
+        if (val > 0) {
+          _data.length = i + 1
+          break
+        }
+      }
+
       const XMax = markMax(_data, 5000)
 
       const options = {
         grid: {
           top: 0,
           left: 30,
-          right: 20
+          right: 20,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
@@ -90,6 +123,7 @@ export default {
             padding: [5, 0, 5, 0]
           }
         },
+        visualMap: VISUAL_MAP,
         legend: {
           show: false
         },
@@ -109,13 +143,13 @@ export default {
             },
             areaStyle: {
               normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: Color.colorPrimary
-                }, {
-                  offset: 1,
-                  color: Color.colorPrimaryS
-                }])
+                // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                //   offset: 0,
+                //   color: Color.colorPrimary
+                // }, {
+                //   offset: 1,
+                //   color: Color.colorPrimaryS
+                // }])
               }
             },
             data: _data

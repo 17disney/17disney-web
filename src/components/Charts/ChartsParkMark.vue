@@ -19,6 +19,29 @@ import { markMax } from '@/utils/array'
 
 const NAME = 'charts-park-mark'
 
+const VISUAL_MAP = {
+  top: 0,
+  right: 0,
+  show: false,
+  pieces: [{
+    gt: 0,
+    lte: 500,
+    color: Color.colorGreen
+  }, {
+    gt: 500,
+    lte: 1000,
+    color: Color.colorYellow
+  }, {
+    gt: 1000,
+    lte: 1500,
+    color: Color.colorOrange
+  }, {
+    gt: 1500,
+    color: Color.colorRed
+  }]
+}
+
+
 export default {
   name: NAME,
 
@@ -59,15 +82,17 @@ export default {
         return
       }
 
-      const _data = data.map(_ => _[1])
+      let _data = data.map(_ => _[1])
+      _data = _data.filter(_ => _ > 0)
 
-      const XMax = markMax(_data, 500, 1)
+      const XMax = markMax(_data, 500)
 
       const options = {
         grid: {
           top: 0,
           left: 30,
-          right: 20
+          right: 20,
+          bottom: 20
         },
         xAxis: {
           type: 'category',
@@ -94,6 +119,7 @@ export default {
             padding: [5, 0, 5, 0]
           }
         },
+        visualMap: VISUAL_MAP,
         legend: {
           show: false
         },
@@ -112,15 +138,15 @@ export default {
               }
             },
             areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: Color.colorPrimary
-                }, {
-                  offset: 1,
-                  color: Color.colorPrimaryS
-                }])
-              }
+              // normal: {
+              //   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              //     offset: 0,
+              //     color: Color.colorPrimary
+              //   }, {
+              //     offset: 1,
+              //     color: Color.colorPrimaryS
+              //   }])
+              // }
             },
             data: _data
           }
