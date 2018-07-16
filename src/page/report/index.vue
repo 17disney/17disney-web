@@ -11,7 +11,21 @@
       <el-col :span="12">
         <h1>乐园日报</h1>
         <!-- <charts-day-flow-mark></charts-day-flow-mark> -->
-        <day-park-mark-charts :data="data.markHour"></day-park-mark-charts>
+        <dm-card>
+          <div slot="header" class="clearfix">
+            <span>乐园指数</span>
+          </div>
+          <day-park-mark-charts :height="200" :data="dataPark.markHour"></day-park-mark-charts>
+        </dm-card>
+
+
+        <dm-card>
+          <div slot="header" class="clearfix">
+            <span>热门项目等候时间</span>
+          </div>
+          <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
+        </dm-card>
+
       </el-col>
     </el-row>
   </div>
@@ -21,11 +35,15 @@
 import base from '@/common/mixins/base'
 import ChartsDayFlowMark from '@/components/Charts/ChartsDayFlowMark'
 import DayParkMarkCharts from '@/components/Charts/DayParkMarkCharts'
+import DayAttRankCharts from '@/components/Charts/DayAttRankCharts'
+
+import { lineToObject } from '@/utils/tool'
+import { arrayToHash, compare } from '@/utils/array'
 
 export default {
   mixins: [base],
 
-  components: { ChartsDayFlowMark, DayParkMarkCharts },
+  components: { ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts },
 
   props: {
   },
@@ -33,7 +51,8 @@ export default {
   data() {
     return {
       date: '2018-07-14',
-      data: {}
+      dataPark: {},
+      dataAtt: []
     }
   },
 
@@ -45,8 +64,30 @@ export default {
 
   methods: {
     async init() {
-      const data = await this.$Api.waitTimes.parkDate(this.local, this.date)
-      this.data = data || {}
+      let dataPark = await this.$Api.waitTimes.parkDate(this.local, this.date)
+      this.dataPark = dataPark || {}
+
+      // 读取项目等候时间
+      let waitsData = await this.$Api.waitTimes.waitsHome(this.local, this.date)
+      waitsData = arrayToHash(waitsData, 'id')
+
+      // 合并等候时间
+      let dataAtt = await this.$Api.waitTimes.destinations(this.local)
+      dataAtt = dataAtt.filter(item => item.type === 'attraction')
+      dataAtt.forEach(item => {
+        item.aid = lineToObject(item.id)['__id__']
+
+        item.waitAvg = 0
+        if (waitsData[item.aid]) {
+          item.waitAvg = waitsData[item.aid]['waitAvg']
+        }
+      })
+
+      dataAtt = dataAtt.sort(compare('waitAvg'))
+
+      dataAtt.length = 10
+
+      this.dataAtt = dataAtt
     }
   }
 }

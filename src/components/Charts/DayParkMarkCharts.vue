@@ -15,7 +15,7 @@ import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import Charts from './Charts'
 import moment from 'moment'
-import { markMax } from '@/utils/array'
+import { markMax, compare } from '@/utils/array'
 
 const NAME = 'charts-flow-day'
 
@@ -75,8 +75,9 @@ export default {
 
   methods: {
     init() {
-      const { data } = this
+      let { data } = this
       if (!data) return
+
 
       let _data = data.map(_ => _[1])
 
@@ -89,7 +90,7 @@ export default {
         }
       }
 
-      const XMax = markMax(_data, 5000)
+      const XMax = markMax(_data, 500)
 
       const options = {
         grid: {
