@@ -15,6 +15,13 @@
           <div slot="header" class="clearfix">
             <span>乐园指数</span>
           </div>
+          <day-park-num-charts :data="dataAtt"></day-park-num-charts>
+        </dm-card>
+
+        <dm-card>
+          <div slot="header" class="clearfix">
+            <span>热门时刻</span>
+          </div>
           <day-park-mark-charts :height="200" :data="dataPark.markHour"></day-park-mark-charts>
         </dm-card>
 
@@ -35,15 +42,15 @@
 import base from '@/common/mixins/base'
 import ChartsDayFlowMark from '@/components/Charts/ChartsDayFlowMark'
 import DayParkMarkCharts from '@/components/Charts/DayParkMarkCharts'
+import DayParkNumCharts from '@/components/Charts/DayParkNumCharts'
 import DayAttRankCharts from '@/components/Charts/DayAttRankCharts'
-
 import { lineToObject } from '@/utils/tool'
 import { arrayToHash, compare } from '@/utils/array'
 
 export default {
   mixins: [base],
 
-  components: { ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts },
+  components: { ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts },
 
   props: {
   },
