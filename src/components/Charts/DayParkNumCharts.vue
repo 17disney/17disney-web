@@ -8,7 +8,7 @@
 | Author: xank <xank@qq.com>  Blog：https://www.xank.cn
 +-----------------------------------------------------------------------------------------------------------------------
 | day-park-num-charts
-| 客流量预测图表
+| 乐园指数图表
 */
 
 import echarts from 'echarts'
@@ -54,7 +54,7 @@ export default {
   methods: {
     init() {
       let { data } = this
-      if (!data) return
+      if (!data || data.length === 0) return
 
       const indicator = []
       data.forEach(item => {
@@ -63,9 +63,14 @@ export default {
       })
 
       const options = {
+        // grid: {
+        //   top: 100,
+        //   bottom: 100,
+        // },
         tooltip: {},
         legend: {
-          data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+          bottom: 0,
+          right: 0
         },
         radar: {
           splitNumber: 0,
@@ -89,8 +94,20 @@ export default {
         },
         series: [{
           type: 'radar',
-
           data: [
+            {
+              value: data.map(item => item.today),
+              name: '今日指数',
+              areaStyle: {
+                color: Color.colorPrimary,
+                opacity: 0.6
+              },
+              lineStyle: {
+                width: 1,
+                color: Color.colorPrimary,
+                opacity: 0.6
+              }
+            },
             {
               value: data.map(item => item.history),
               name: '历史均值',
@@ -104,23 +121,9 @@ export default {
                 opacity: 0.6
               }
             },
-            {
-              value: data.map(item => item.today),
-              name: '今日指数',
-              areaStyle: {
-                color: Color.colorPrimary,
-                opacity: 0.6
-              },
-              lineStyle: {
-                width: 1,
-                color: Color.colorPrimary,
-                opacity: 0.6
-              }
-            }
           ]
         }]
-      };
-
+      }
 
       this.options = options
     }

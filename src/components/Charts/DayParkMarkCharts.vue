@@ -19,28 +19,6 @@ import { markMax, compare } from '@/utils/array'
 
 const NAME = 'charts-flow-day'
 
-const VISUAL_MAP = {
-  top: 0,
-  right: 0,
-  show: false,
-  pieces: [{
-    gt: 0,
-    lte: 30000,
-    color: Color.colorGreen
-  }, {
-    gt: 30000,
-    lte: 45000,
-    color: Color.colorYellow
-  }, {
-    gt: 45000,
-    lte: 60000,
-    color: Color.colorOrange
-  }, {
-    gt: 60000,
-    color: Color.colorRed
-  }]
-}
-
 export default {
   name: NAME,
 
@@ -53,12 +31,13 @@ export default {
       type: String,
       default: NAME
     },
-    height: Number,
+
     data: Array
   },
 
   data() {
     return {
+      height: 330,
       options: null
     }
   },
@@ -87,7 +66,7 @@ export default {
           top: 0,
           left: 20,
           right: 20,
-          bottom: 20
+          bottom: 60
         },
         xAxis: {
           splitLine: {
@@ -122,40 +101,14 @@ export default {
           }
         },
         legend: {
-          show: false
+          right: 0,
+          bottom: 0
         },
         tooltip: {
           trigger: 'axis',
         },
         series: [
-          {
-            name: '乐园指数',
-            type: 'line',
-            smooth: true,
-            showSymbol: false,
-            markPoint: {
-              data: [
-                { type: 'max', name: '最大值' }
-              ]
-            },
-            itemStyle: {
-              normal: {
-                color: Color.colorPrimary
-              }
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: Color.colorPrimary
-                }, {
-                  offset: 1,
-                  color: Color.colorPrimaryS
-                }])
-              }
-            },
-            data: markData
-          },
+
           {
             name: '客流量',
             type: 'line',
@@ -163,13 +116,55 @@ export default {
             showSymbol: false,
             markPoint: {
               data: [
-                { type: 'max', name: '最大值' }
+                {
+                  type: 'max',
+                  name: '最大值',
+                  symbolSize: 80,
+                  itemStyle: {
+                    color: Color.colorOrange
+                  }
+                }
               ]
             },
             areaStyle: {
-
+              color: Color.colorPick,
+              opacity: 0.6
+            },
+            lineStyle: {
+              width: 2,
+              color: Color.colorPick,
+              opacity: 0.85
             },
             data: flowData
+          },
+          {
+
+            name: '乐园指数',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            markPoint: {
+              data: [
+                {
+                  type: 'max',
+                  name: '最大值',
+                  symbolSize: 80,
+                  itemStyle: {
+                    color: Color.colorOrange
+                  }
+                }
+              ]
+            },
+            areaStyle: {
+              color: Color.colorPrimary,
+              opacity: 0.6
+            },
+            lineStyle: {
+              width: 2,
+              color: Color.colorPrimary,
+              opacity: 0.85
+            },
+            data: markData
           }
         ]
       };
