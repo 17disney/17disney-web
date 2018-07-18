@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      height: 400,
+      height: 470,
       options: null
     }
   },
@@ -72,25 +72,25 @@ export default {
 
       const options = {
         grid: {
-          top: 0,
+          top: 50,
           left: 150,
           right: 20,
           bottom: 20
         },
 
         xAxis: {
-
-          // axisTick: {
-          //   show: false
-          // },
-          // axisLine: {
-          //   show: false
-          // },
-          // z: 10
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            formatter: function (value, index) {
+              return value + "''"
+            }
+          }
         },
         yAxis: {
           data: dataAxis,
-          axisLine: {
+          splitLine: {
             show: false
           },
           axisTick: {
@@ -103,31 +103,41 @@ export default {
           },
           inverse: true
         },
-        dataZoom: [
-          {
-            type: 'inside'
-          }
-        ],
         series: [
           {
             type: 'bar',
-            itemStyle: {
-              normal: { color: 'rgba(0,0,0,0.05)' }
+            barWidth: 16,
+            markLine: {
+              symbolSize: [8, 8],
+              symbol: ['circle', 'circle'],
+              label: {
+                position: 'start',
+                formatter: function (params) {
+                  const { value, name } = params.data
+                  return `${name} ${parseInt(value)} 分钟`
+                }
+              },
+              lineStyle: {
+                normal: {
+                  barBorderRadius: 5,
+                  type: 'dashed',
+                  color: Color.colorPick
+                }
+              },
+              data: [
+                { type: 'average', name: '平均' },
+                { type: 'max', name: '最长' }
+              ]
             },
-            barGap: '-100%',
-            barCategoryGap: '40%',
-            data: dataShadow
-          },
-          {
-            type: 'bar',
             itemStyle: {
               normal: {
+                barBorderRadius: 20,
                 color: new echarts.graphic.LinearGradient(
                   0, 0, 1, 1,
                   [
-                    { offset: 0, color: '#83bff6' },
-                    { offset: 0.5, color: '#188df0' },
-                    { offset: 1, color: '#188df0' }
+                    { offset: 0, color: Color.colorPrimaryS },
+                    // { offset: 0.5, color: '#188df0' },
+                    { offset: 1, color: Color.colorPrimary }
                   ]
                 )
               },

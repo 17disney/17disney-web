@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      height: 400,
+      height: 350,
       options: null
     }
   },
@@ -81,21 +81,10 @@ export default {
             show: false
           },
           axisLabel: {
-            textStyle: {
-              color: '#999'
-            },
             formatter: function (value, index) {
-              // 格式化成月/日，只在第一个刻度显示年份
               return moment(value, 'x').format('H:mm')
-              // var date = new Date(value);
-              // var texts = [(date.getMonth() + 1), date.getDate()];
-              // if (index === 0) {
-              //   texts.unshift(date.getYear());
-              // }
-              // return texts.join('/');
-            },
+            }
           }
-
         },
         yAxis: {
           data: dataAxis,
@@ -141,7 +130,6 @@ export default {
           {
             type: 'bar',
             barWidth: 16,
-
             markLine: {
               symbolSize: [8, 8],
               symbol: ['circle', 'circle'],
