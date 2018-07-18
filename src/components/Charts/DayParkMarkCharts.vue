@@ -7,7 +7,7 @@
 +-----------------------------------------------------------------------------------------------------------------------
 | Author: xank <xank@qq.com>  Blog：https://www.xank.cn
 +-----------------------------------------------------------------------------------------------------------------------
-| Charts-Flow-Day
+| day-park-mark-charts
 | 客流量预测图表
 */
 
@@ -17,7 +17,7 @@ import Charts from './Charts'
 import moment from 'moment'
 import { markMax, compare } from '@/utils/array'
 
-const NAME = 'charts-flow-day'
+const NAME = 'day-park-mark-charts'
 
 export default {
   name: NAME,
@@ -65,7 +65,7 @@ export default {
         grid: {
           top: 0,
           left: 20,
-          right: 20,
+          right: 70,
           bottom: 60
         },
         xAxis: {
@@ -124,6 +124,27 @@ export default {
                 }
               ]
             },
+            // markLine: {
+            //   symbolSize: [8, 8],
+            //   symbol: ['circle', 'circle'],
+            //   label: {
+            //     position: 'end',
+            //     // formatter: function (params) {
+            //     //   const { value, name } = params.data
+            //     //   return moment(value, 'x').format('H:mm')
+            //     // }
+            //   },
+            //   lineStyle: {
+            //     normal: {
+            //       barBorderRadius: 5,
+            //       type: 'dashed',
+            //       color: Color.colorPick
+            //     }
+            //   },
+            //   data: [
+            //     { type: 'max', name: '热门' },
+            //   ]
+            // },
             areaStyle: {
               color: Color.colorPick,
               opacity: 0.6
@@ -133,25 +154,51 @@ export default {
               color: Color.colorPick,
               opacity: 0.85
             },
+
             data: flowData
           },
           {
-            name: '乐园指数',
+            name: '等候时间',
             type: 'line',
             smooth: true,
             showSymbol: false,
             markPoint: {
+              label: {
+                show: false
+              },
+              symbol: 'circle',
               data: [
                 {
                   type: 'max',
                   name: '最大值',
-                  symbolSize: 80,
+                  symbolSize: 10,
                   itemStyle: {
                     color: Color.colorOrange
                   }
                 }
               ]
             },
+            // markLine: {
+            //   symbolSize: [8, 8],
+            //   symbol: ['circle', 'circle'],
+            //   label: {
+            //     position: 'end',
+            //     // formatter: function (params) {
+            //     //   const { value, name } = params.data
+            //     //   return moment(value, 'x').format('H:mm')
+            //     // }
+            //   },
+            //   lineStyle: {
+            //     normal: {
+            //       barBorderRadius: 5,
+            //       type: 'dashed',
+            //       color: Color.colorPick
+            //     }
+            //   },
+            //   data: [
+            //     { type: 'max', name: '热门' },
+            //   ]
+            // },
             areaStyle: {
               color: Color.colorPrimary,
               opacity: 0.6

@@ -11,25 +11,35 @@
       <el-col :span="12">
         <dm-card type="report">
           <div slot="header">
+            <!-- <div class="icon--pep icon__shanghai-disney-resort"></div> -->
+            <div class="icon--pep icon__business-excellence"></div>
             <span>乐园指数</span>
+            <span>超过了 70% 的运营日</span>
           </div>
           <day-park-num-charts :data="dataParkNum"></day-park-num-charts>
         </dm-card>
         <dm-card type="report">
           <div slot="header">
+            <div class="icon--pep icon__personal-magic"></div>
             <span>热门时刻</span>
+            <span>在 10：00 和 10：00人数最多</span>
           </div>
           <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
         </dm-card>
         <dm-card type="report">
           <div slot="header">
+            <div class="icon--pep icon__shdr-fastpass"></div>
             <span>快速通行证</span>
           </div>
           <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
+          <p>开园仅 38 分钟，翱翔·飞跃地平线的快速通行证就被领完</p>
+          <p>最后一张快速通行证在 12:16 领完</p>
         </dm-card>
         <dm-card type="report">
           <div slot="header">
+            <div class="icon--pep icon__magic-morning"></div>
             <span>热门项目等候时间</span>
+            <span>超过了 80% 运营日</span>
           </div>
           <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
         </dm-card>
