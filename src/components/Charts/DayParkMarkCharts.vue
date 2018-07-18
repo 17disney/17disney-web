@@ -78,33 +78,30 @@ export default {
       let { data } = this
       if (!data) return
 
-
-      let _data = data.map(_ => _[1])
-
-      // 去除右空值
-      for (let i = _data.length; i > 0; i--) {
-        const val = _data[i]
-        if (val > 0) {
-          _data.length = i + 1
-          break
-        }
-      }
-
-      const XMax = markMax(_data, 500)
+      const markData = data.map(_ => _.mark * 10)
+      const flowData = data.map(_ => _.flow)
+      const XMax = markMax(flowData, 5000, 3)
 
       const options = {
         grid: {
           top: 0,
-          left: 30,
+          left: 20,
           right: 20,
           bottom: 20
         },
         xAxis: {
+          splitLine: {
+            show: false
+          },
           type: 'category',
           boundaryGap: false,
-          data: data.map(_ => _[0]),
+          data: data.map(_ => _.hour + ':00'),
+
         },
         yAxis: {
+          splitLine: {
+            show: false
+          },
           type: 'value',
           boundaryGap: [0, '100%'],
           axisTick: { // 刻度粗线
@@ -113,18 +110,17 @@ export default {
           },
           max: XMax,
           axisLine: {
-            show: false
+            // show: false
           },
           splitNumber: 4,
           axisLabel: {
-            inside: true,
+            show: false,
             showMinLabel: false,
             verticalAlign: 'top',
             margin: -20,
             padding: [5, 0, 5, 0]
           }
         },
-        visualMap: VISUAL_MAP,
         legend: {
           show: false
         },
@@ -136,7 +132,12 @@ export default {
             name: '乐园指数',
             type: 'line',
             smooth: true,
-            sampling: 'average',
+            showSymbol: false,
+            markPoint: {
+              data: [
+                { type: 'max', name: '最大值' }
+              ]
+            },
             itemStyle: {
               normal: {
                 color: Color.colorPrimary
@@ -144,16 +145,31 @@ export default {
             },
             areaStyle: {
               normal: {
-                // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                //   offset: 0,
-                //   color: Color.colorPrimary
-                // }, {
-                //   offset: 1,
-                //   color: Color.colorPrimaryS
-                // }])
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: Color.colorPrimary
+                }, {
+                  offset: 1,
+                  color: Color.colorPrimaryS
+                }])
               }
             },
-            data: _data
+            data: markData
+          },
+          {
+            name: '客流量',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            markPoint: {
+              data: [
+                { type: 'max', name: '最大值' }
+              ]
+            },
+            areaStyle: {
+
+            },
+            data: flowData
           }
         ]
       };

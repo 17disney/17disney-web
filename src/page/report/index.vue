@@ -9,30 +9,24 @@
   <div class="container">
     <el-row>
       <el-col :span="12">
-        <h1>乐园日报</h1>
-        <!-- <charts-day-flow-mark></charts-day-flow-mark> -->
-        <dm-card>
+        <dm-card type="report">
           <div slot="header" class="clearfix">
             <span>乐园指数</span>
           </div>
           <day-park-num-charts :data="dataParkNum"></day-park-num-charts>
         </dm-card>
-
-        <dm-card>
+        <dm-card type="report">
           <div slot="header" class="clearfix">
             <span>热门时刻</span>
           </div>
-          <day-park-mark-charts :height="200" :data="dataPark.markHour"></day-park-mark-charts>
+          <day-park-mark-charts :height="200" :data="dataParkFlow"></day-park-mark-charts>
         </dm-card>
-
-
-        <dm-card>
+        <dm-card type="report">
           <div slot="header" class="clearfix">
             <span>热门项目等候时间</span>
           </div>
           <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
         </dm-card>
-
       </el-col>
     </el-row>
   </div>
@@ -60,7 +54,9 @@ export default {
       date: '2018-07-14',
       dataPark: {},
       dataAtt: [],
-      dataOperate: {}
+      dataOperate: {},
+      dataParkNum: [],
+      dataParkFlow: []
     }
   },
 
@@ -75,7 +71,21 @@ export default {
       let dataPark = await this.$Api.waitTimes.parkDate(this.local, this.date)
       this.dataPark = dataPark || {}
 
-      const {flowMax, openAtt, markMax} = dataPark
+      const { flowMax, openAtt, markMax, markHour, flowHour } = dataPark
+
+      // 热门时刻表单
+      const dataParkFlow = []
+      markHour.forEach((item, index) => {
+        const [hour, mark] = item
+        dataParkFlow.push({
+          hour,
+          mark,
+          flow: flowHour[index][1]
+        })
+      })
+      this.dataParkFlow = dataParkFlow
+
+
 
       // 读取项目等候时间
       let waitsData = await this.$Api.waitTimes.waitsHome(this.local, this.date)
@@ -100,7 +110,7 @@ export default {
 
       let dataOperate = await this.$Api.waitTimes.operateCount(this.local)
 
-      const {flowMaxAvg, markMaxAvg} = dataOperate
+      const { flowMaxAvg, markMaxAvg } = dataOperate
 
       const dataParkNum = [
         {
