@@ -15,7 +15,7 @@
           <div slot="header" class="clearfix">
             <span>乐园指数</span>
           </div>
-          <day-park-num-charts :data="dataAtt"></day-park-num-charts>
+          <day-park-num-charts :data="dataParkNum"></day-park-num-charts>
         </dm-card>
 
         <dm-card>
@@ -59,7 +59,8 @@ export default {
     return {
       date: '2018-07-14',
       dataPark: {},
-      dataAtt: []
+      dataAtt: [],
+      dataOperate: {}
     }
   },
 
@@ -73,6 +74,8 @@ export default {
     async init() {
       let dataPark = await this.$Api.waitTimes.parkDate(this.local, this.date)
       this.dataPark = dataPark || {}
+
+      const {flowMax, openAtt, markMax} = dataPark
 
       // 读取项目等候时间
       let waitsData = await this.$Api.waitTimes.waitsHome(this.local, this.date)
@@ -91,10 +94,44 @@ export default {
       })
 
       dataAtt = dataAtt.sort(compare('waitAvg'))
-
       dataAtt.length = 10
 
       this.dataAtt = dataAtt
+
+      let dataOperate = await this.$Api.waitTimes.operateCount(this.local)
+
+      const {flowMaxAvg, markMaxAvg} = dataOperate
+
+      const dataParkNum = [
+        {
+          name: '客流量',
+          max: 80000,
+          today: flowMax,
+          history: flowMaxAvg
+        },
+        {
+          name: '演出场次',
+          max: 50,
+          today: 40,
+          history: 45
+        },
+        {
+          name: '等候时间',
+          max: 2000,
+          today: markMax,
+          history: markMaxAvg
+        },
+        {
+          name: '开放项目',
+          max: 40,
+          today: openAtt,
+          history: 30
+        }
+      ]
+      this.dataParkNum = dataParkNum
+      console.log(dataOperate)
+      this.dataOperate = dataOperate
+      //
     }
   }
 }
