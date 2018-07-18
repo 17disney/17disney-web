@@ -10,19 +10,25 @@
     <el-row>
       <el-col :span="12">
         <dm-card type="report">
-          <div slot="header" class="clearfix">
+          <div slot="header">
             <span>乐园指数</span>
           </div>
           <day-park-num-charts :data="dataParkNum"></day-park-num-charts>
         </dm-card>
         <dm-card type="report">
-          <div slot="header" class="clearfix">
+          <div slot="header">
             <span>热门时刻</span>
           </div>
-          <day-park-mark-charts :height="200" :data="dataParkFlow"></day-park-mark-charts>
+          <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
         </dm-card>
         <dm-card type="report">
-          <div slot="header" class="clearfix">
+          <div slot="header">
+            <span>快速通行证</span>
+          </div>
+          <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
+        </dm-card>
+        <dm-card type="report">
+          <div slot="header">
             <span>热门项目等候时间</span>
           </div>
           <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
@@ -34,17 +40,19 @@
 
 <script>
 import base from '@/common/mixins/base'
+import moment from 'moment'
 import ChartsDayFlowMark from '@/components/Charts/ChartsDayFlowMark'
 import DayParkMarkCharts from '@/components/Charts/DayParkMarkCharts'
 import DayParkNumCharts from '@/components/Charts/DayParkNumCharts'
 import DayAttRankCharts from '@/components/Charts/DayAttRankCharts'
+import DayAttFpCharts from '@/components/Charts/DayAttFpCharts'
 import { lineToObject } from '@/utils/tool'
 import { arrayToHash, compare } from '@/utils/array'
 
 export default {
   mixins: [base],
 
-  components: { ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts },
+  components: { ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts, DayAttFpCharts },
 
   props: {
   },
@@ -56,7 +64,8 @@ export default {
       dataAtt: [],
       dataOperate: {},
       dataParkNum: [],
-      dataParkFlow: []
+      dataParkFlow: [],
+      dataAttFp: []
     }
   },
 
@@ -85,8 +94,6 @@ export default {
       })
       this.dataParkFlow = dataParkFlow
 
-
-
       // 读取项目等候时间
       let waitsData = await this.$Api.waitTimes.waitsHome(this.local, this.date)
       waitsData = arrayToHash(waitsData, 'id')
@@ -94,22 +101,40 @@ export default {
       // 合并等候时间
       let dataAtt = await this.$Api.waitTimes.destinations(this.local)
       dataAtt = dataAtt.filter(item => item.type === 'attraction')
+
+      const dataAttFp = []
       dataAtt.forEach(item => {
         item.aid = lineToObject(item.id)['__id__']
 
         item.waitAvg = 0
         if (waitsData[item.aid]) {
-          item.waitAvg = waitsData[item.aid]['waitAvg']
+          const { fpFinish, waitAvg } = waitsData[item.aid]
+          if (fpFinish > 0) {
+            if (item.name === '抱抱龙冲天赛车') return
+
+            const _fpFinish = fpFinish - moment(this.date, 'YYYY-MM-DD').format('x') - 60 * 60 * 1000 * 7
+            dataAttFp.push({
+              name: item.name,
+              fpFinish: _fpFinish
+            })
+            console.log(_fpFinish)
+          }
+          item.waitAvg = waitAvg
+          item.fpFinish = fpFinish
         }
       })
+
+      this.dataAttFp = dataAttFp.sort(compare('fpFinish'))
+
+      console.log(dataAttFp)
 
       dataAtt = dataAtt.sort(compare('waitAvg'))
       dataAtt.length = 10
 
       this.dataAtt = dataAtt
 
+      // 处理乐园指数
       let dataOperate = await this.$Api.waitTimes.operateCount(this.local)
-
       const { flowMaxAvg, markMaxAvg } = dataOperate
 
       const dataParkNum = [
@@ -139,9 +164,10 @@ export default {
         }
       ]
       this.dataParkNum = dataParkNum
-      console.log(dataOperate)
-      this.dataOperate = dataOperate
-      //
+
+      // 快速通行证
+
+
     }
   }
 }

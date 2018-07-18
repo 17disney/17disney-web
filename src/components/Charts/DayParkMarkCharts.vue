@@ -55,7 +55,7 @@ export default {
   methods: {
     init() {
       let { data } = this
-      if (!data) return
+      if (!data || data.length === 0) return
 
       const markData = data.map(_ => _.mark * 10)
       const flowData = data.map(_ => _.flow)
@@ -75,7 +75,6 @@ export default {
           type: 'category',
           boundaryGap: false,
           data: data.map(_ => _.hour + ':00'),
-
         },
         yAxis: {
           splitLine: {
@@ -108,7 +107,6 @@ export default {
           trigger: 'axis',
         },
         series: [
-
           {
             name: '客流量',
             type: 'line',
@@ -138,7 +136,6 @@ export default {
             data: flowData
           },
           {
-
             name: '乐园指数',
             type: 'line',
             smooth: true,
