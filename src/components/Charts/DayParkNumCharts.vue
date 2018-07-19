@@ -63,10 +63,6 @@ export default {
       })
 
       const options = {
-        // grid: {
-        //   top: 100,
-        //   bottom: 100,
-        // },
         tooltip: {},
         legend: {
           bottom: 0,
@@ -96,31 +92,38 @@ export default {
           type: 'radar',
           data: [
             {
+              value: data.map(item => item.history),
+              name: '历史均值',
+              areaStyle: {
+                color: Color.colorGreen,
+                opacity: 0.5
+              },
+              lineStyle: {
+                width: 1,
+                color: Color.colorGreen,
+                opacity: 0.6
+              },
+              itemStyle: {
+                color: Color.colorGreen,
+              }
+            },
+            {
+              z: 2,
               value: data.map(item => item.today),
               name: '今日指数',
               areaStyle: {
                 color: Color.colorPrimary,
-                opacity: 0.6
+                opacity: 0.5
               },
               lineStyle: {
                 width: 1,
                 color: Color.colorPrimary,
                 opacity: 0.6
-              }
-            },
-            {
-              value: data.map(item => item.history),
-              name: '历史均值',
-              areaStyle: {
-                color: Color.colorPick,
-                opacity: 0.6
               },
-              lineStyle: {
-                width: 1,
-                color: Color.colorPick,
-                opacity: 0.6
+              itemStyle: {
+                color: Color.colorPrimary,
               }
-            },
+            }
           ]
         }]
       }

@@ -4,44 +4,127 @@
 .container {
   margin-top: 32px;
 }
+
+.ds-card--report-top {
+  text-align: center;
+  background: linear-gradient(to bottom, $color-primary-s, $color-primary);
+  border-radius: 10px;
+  padding: 10px 0;
+  padding-bottom: 20px;
+
+  .icon {
+    font-size: 65px;
+    color: #FFF;
+  }
+
+  .title {
+    margin-bottom: 4px;
+    color: $color-primary-ss;
+    font-size: 22px;
+
+    &--date {
+      font-size: 16px;
+      font-weight: 600;
+      color: $color-primary-ss;
+    }
+
+    &--desc {
+      font-size: 15px;
+      margin-bottom: 0px;
+      color: $color-primary-ss;
+    }
+  }
+
+  .image--qrcode {
+    width: 100px;
+    padding: 4px;
+    background: #FFF;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+}
+
+.ds-card-header--icon {
+  display: flex;
+  align-items: center;
+
+  .ds-card-header {
+    &__icon {
+      font-size: 50px;
+      color: $color-primary;
+      margin-right: 15px;
+    }
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 20px;
+    color: $color-grey;
+
+    &--desc {
+      margin-top: 5px;
+      color: $color-primary;
+    }
+  }
+}
 </style>
 <template>
   <div class="container">
     <el-row>
       <el-col :span="12">
+        <dm-card type="report" class="ds-card--report-top">
+          <div class="icon icon--pep icon__shanghai-disney-resort"></div>
+          <div class="title">上海迪士尼乐园运营日报</div>
+          <div class="title--date">{{date | timeFormat('YYYY 年 M 月 D 日')}}</div>
+        </dm-card>
+
         <dm-card type="report">
-          <div slot="header">
-            <!-- <div class="icon--pep icon__shanghai-disney-resort"></div> -->
-            <div class="icon--pep icon__business-excellence"></div>
-            <span>乐园指数</span>
-            <span>超过了 70% 的运营日</span>
+          <div slot="header" class="ds-card-header--icon">
+            <div class="ds-card-header__icon icon--pep icon__business-excellence"></div>
+            <div class="ds-card-header__text">
+              <div class="title">乐园综合指数</div>
+              <div class="title--desc">超过了 {{dataCount.flowRank}}% 运营日</div>
+            </div>
           </div>
           <day-park-num-charts :data="dataParkNum"></day-park-num-charts>
         </dm-card>
+
         <dm-card type="report">
-          <div slot="header">
-            <div class="icon--pep icon__personal-magic"></div>
-            <span>热门时刻</span>
-            <span>在 10：00 和 10：00人数最多</span>
+          <div slot="header" class="ds-card-header--icon">
+            <div class="ds-card-header__icon icon--pep icon__personal-magic"></div>
+            <div class="ds-card-header__text">
+              <div class="title">乐园热门时刻</div>
+              <div class="title--desc">最多 {{dataPark.flowMax | formatNumber}} 位游客同时在乐园</div>
+            </div>
           </div>
           <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
         </dm-card>
         <dm-card type="report">
-          <div slot="header">
-            <div class="icon--pep icon__shdr-fastpass"></div>
-            <span>快速通行证</span>
+          <div slot="header" class="ds-card-header--icon">
+            <div class="ds-card-header__icon icon--pep icon__shdr-fastpass"></div>
+            <div class="ds-card-header__text">
+              <div class="title">快速通行证领取速度</div>
+              <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后一张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领完</div>
+            </div>
           </div>
           <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
-          <p>开园仅 38 分钟，翱翔·飞跃地平线的快速通行证就被领完</p>
-          <p>最后一张快速通行证在 12:16 领完</p>
+          <!-- <p>开园仅 38 分钟，翱翔·飞跃地平线的快速通行证就被领完</p>
+          <p>最后一张快速通行证在 12:16 领完</p> -->
         </dm-card>
         <dm-card type="report">
-          <div slot="header">
-            <div class="icon--pep icon__magic-morning"></div>
-            <span>热门项目等候时间</span>
-            <span>超过了 80% 运营日</span>
+          <div slot="header" class="ds-card-header--icon">
+            <div class="ds-card-header__icon icon--pep icon__magic-morning"></div>
+            <div class="ds-card-header__text">
+              <div class="title">热门项目等候时间</div>
+              <div class="title--desc">超过了 {{dataCount.markRank}}% 运营日</div>
+            </div>
           </div>
           <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
+        </dm-card>
+        <dm-card type="report" class="ds-card--report-top">
+          <img src="//17disney.com/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
+          <div class="title--desc">本数据由 17Disney.com 统计发布</div>
         </dm-card>
       </el-col>
     </el-row>
@@ -69,13 +152,14 @@ export default {
 
   data() {
     return {
-      date: '2018-07-14',
+      date: '2018-07-19',
       dataPark: {},
       dataAtt: [],
       dataOperate: {},
       dataParkNum: [],
       dataParkFlow: [],
-      dataAttFp: []
+      dataAttFp: [],
+      dataCount: {}
     }
   },
 
@@ -90,7 +174,9 @@ export default {
       let dataPark = await this.$Api.waitTimes.parkDate(this.local, this.date)
       this.dataPark = dataPark || {}
 
-      const { flowMax, openAtt, markMax, markHour, flowHour } = dataPark
+      const { flowMax, openAtt, markMax, markHour, flowHour, show } = dataPark
+
+      const { allFlowDay, allMarkDay, rankMarkDay, rankFlowDay } = dataPark
 
       // 热门时刻表单
       const dataParkFlow = []
@@ -102,7 +188,13 @@ export default {
           flow: flowHour[index][1]
         })
       })
+
+      // dataParkFlow[7]['flow'] = 49565
+
       this.dataParkFlow = dataParkFlow
+
+      this.dataCount.flowRank = 100 - parseInt(rankMarkDay / allMarkDay * 100)
+      this.dataCount.markRank = 100 - parseInt(rankFlowDay / allFlowDay * 100)
 
       // 读取项目等候时间
       let waitsData = await this.$Api.waitTimes.waitsHome(this.local, this.date)
@@ -118,7 +210,7 @@ export default {
 
         item.waitAvg = 0
         if (waitsData[item.aid]) {
-          const { fpFinish, waitAvg } = waitsData[item.aid]
+          const { fpFinish, waitAvg, waitMax } = waitsData[item.aid]
           if (fpFinish > 0) {
             if (item.name === '抱抱龙冲天赛车') return
 
@@ -127,57 +219,51 @@ export default {
               name: item.name,
               fpFinish: _fpFinish
             })
-            console.log(_fpFinish)
           }
           item.waitAvg = waitAvg
+          item.waitMax = waitMax
           item.fpFinish = fpFinish
         }
       })
 
       this.dataAttFp = dataAttFp.sort(compare('fpFinish'))
 
-      console.log(dataAttFp)
-
-      dataAtt = dataAtt.sort(compare('waitAvg'))
+      dataAtt = dataAtt.sort(compare('waitMax'))
       dataAtt.length = 10
-
+      console.log(dataAtt)
       this.dataAtt = dataAtt
 
       // 处理乐园指数
       let dataOperate = await this.$Api.waitTimes.operateCount(this.local)
-      const { flowMaxAvg, markMaxAvg } = dataOperate
+      const { flowMaxAvg, markMaxAvg, showAvg, openAttAvg } = dataOperate
 
       const dataParkNum = [
         {
           name: '客流量',
-          max: 80000,
+          max: 70000,
           today: flowMax,
           history: flowMaxAvg
         },
         {
           name: '演出场次',
-          max: 50,
-          today: 40,
-          history: 45
+          max: 70,
+          today: show,
+          history: showAvg
         },
         {
           name: '等候时间',
-          max: 2000,
+          max: 2500,
           today: markMax,
           history: markMaxAvg
         },
         {
           name: '开放项目',
-          max: 40,
+          max: 50,
           today: openAtt,
-          history: 30
+          history: openAttAvg
         }
       ]
       this.dataParkNum = dataParkNum
-
-      // 快速通行证
-
-
     }
   }
 }

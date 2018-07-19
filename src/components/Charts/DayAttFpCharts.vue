@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      height: 350,
+      height: 400,
       options: null
     }
   },
@@ -73,10 +73,16 @@ export default {
           top: 50,
           left: 150,
           right: 20,
-          bottom: 20
+          bottom: 30
         },
 
         xAxis: {
+          axisLine: {
+            symbol: ['none', 'arrow'],
+            lineStyle: {
+              color: Color.colorPrimary
+            }
+          },
           splitLine: {
             show: false
           },
@@ -84,9 +90,16 @@ export default {
             formatter: function (value, index) {
               return moment(value, 'x').format('H:mm')
             }
-          }
+          },
         },
         yAxis: {
+          boundaryGap: ['20%', '20%'],
+          axisLine: {
+            symbol: ['none', 'arrow'],
+            lineStyle: {
+              color: Color.colorPrimary
+            }
+          },
           data: dataAxis,
           splitLine: {
             show: false
@@ -96,7 +109,7 @@ export default {
           },
           axisLabel: {
             textStyle: {
-              color: '#999'
+              color: Color.colorDarkGrey
             },
             // formatter: function (value, index) {
             //   // 格式化成月/日，只在第一个刻度显示年份

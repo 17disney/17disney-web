@@ -8,7 +8,7 @@
 | Author: xank <xank@qq.com>  Blog：https://www.xank.cn
 +-----------------------------------------------------------------------------------------------------------------------
 | day-att-rank-charts
-| 客流量预测图表
+| 乐园项目等候排名
 */
 
 import echarts from 'echarts'
@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      height: 470,
+      height: 520,
       options: null
     }
   },
@@ -56,14 +56,12 @@ export default {
       let { data } = this
       if (!data) return
 
-      let _data = data.map(_ => _['waitAvg'])
-
+      let _data = data.map(_ => _['waitMax'])
 
       const XMax = markMax(_data, 10)
-
       const dataAxis = data.map(_ => _['name'])
 
-      var dataShadow = [];
+      const dataShadow = [];
 
       // 背景层
       for (var i = 0; i < _data.length; i++) {
@@ -73,12 +71,19 @@ export default {
       const options = {
         grid: {
           top: 50,
-          left: 150,
+          left: 180,
           right: 20,
-          bottom: 20
+          bottom: 30
         },
 
         xAxis: {
+          boundaryGap: ['20%', '20%'],
+          axisLine: {
+            symbol: ['none', 'arrow'],
+            lineStyle: {
+              color: Color.colorPrimary
+            }
+          },
           splitLine: {
             show: false
           },
@@ -89,6 +94,13 @@ export default {
           }
         },
         yAxis: {
+          boundaryGap: ['20%', '20%'],
+          axisLine: {
+            // symbol: ['arrow', 'none'],
+            lineStyle: {
+              color: Color.colorPrimary
+            }
+          },
           data: dataAxis,
           splitLine: {
             show: false
@@ -98,7 +110,7 @@ export default {
           },
           axisLabel: {
             textStyle: {
-              color: '#999'
+              color: Color.colorDarkGrey
             }
           },
           inverse: true

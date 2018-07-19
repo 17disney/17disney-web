@@ -8,7 +8,7 @@
 | Author: xank <xank@qq.com>  Blog：https://www.xank.cn
 +-----------------------------------------------------------------------------------------------------------------------
 | day-park-mark-charts
-| 客流量预测图表
+| 乐园热门时刻
 */
 
 import echarts from 'echarts'
@@ -37,7 +37,7 @@ export default {
 
   data() {
     return {
-      height: 330,
+      height: 350,
       options: null
     }
   },
@@ -63,14 +63,19 @@ export default {
 
       const options = {
         grid: {
-          top: 0,
-          left: 20,
-          right: 70,
+          top: 50,
+          left: 30,
+          right:30,
           bottom: 60
         },
         xAxis: {
           splitLine: {
             show: false
+          },
+          axisLine: {
+            lineStyle: {
+              color: Color.colorPrimary
+            }
           },
           type: 'category',
           boundaryGap: false,
@@ -81,14 +86,17 @@ export default {
             show: false
           },
           type: 'value',
-          boundaryGap: [0, '100%'],
+          // boundaryGap: ['0%', '0%'],
           axisTick: { // 刻度粗线
             show: false,
             inside: true
           },
           max: XMax,
           axisLine: {
-            // show: false
+            symbol: ['none', 'arrow'],
+            lineStyle: {
+              color: Color.colorPrimary
+            }
           },
           splitNumber: 4,
           axisLabel: {
@@ -101,7 +109,20 @@ export default {
         },
         legend: {
           right: 0,
-          bottom: 0
+          bottom: 0,
+          data: [
+            {
+              name: '客流量',
+              icon: 'roundRect'
+            },
+            {
+              name: '等候时间',
+              icon: 'roundRect'
+            }
+          ],
+          textStyle: {
+            color: Color.colorLightGrey
+          }
         },
         tooltip: {
           trigger: 'axis',
@@ -154,7 +175,9 @@ export default {
               color: Color.colorPick,
               opacity: 0.85
             },
-
+            itemStyle: {
+              color: Color.colorPick,
+            },
             data: flowData
           },
           {
@@ -207,6 +230,9 @@ export default {
               width: 2,
               color: Color.colorPrimary,
               opacity: 0.85
+            },
+            itemStyle: {
+              color: Color.colorPrimary,
             },
             data: markData
           }
