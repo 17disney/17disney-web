@@ -42,7 +42,7 @@ const router = new Router({
           component: () => import('@/page/about/index')
         },
         {
-          path: 'report',
+          path: 'report/:date',
           component: () => import('@/page/report/index')
         }
       ]

@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      height: 520,
+      height: 550,
       options: null
     }
   },
@@ -56,7 +56,7 @@ export default {
       let { data } = this
       if (!data) return
 
-      let _data = data.map(_ => _['waitMax'])
+      let _data = data.map(_ => _['waitAvg'])
 
       const XMax = markMax(_data, 10)
       const dataAxis = data.map(_ => _['name'])
@@ -73,9 +73,25 @@ export default {
           top: 50,
           left: 180,
           right: 20,
-          bottom: 30
+          bottom: 60
         },
-
+        legend: {
+          right: 0,
+          bottom: 0,
+          // data: [
+          //   {
+          //     name: '客流量',
+          //     icon: 'roundRect'
+          //   },
+          //   {
+          //     name: '等候时间',
+          //     icon: 'roundRect'
+          //   }
+          // ],
+          textStyle: {
+            color: Color.colorLightGrey
+          }
+        },
         xAxis: {
           boundaryGap: ['20%', '20%'],
           axisLine: {
@@ -116,8 +132,57 @@ export default {
           inverse: true
         },
         series: [
+
+
           {
             type: 'bar',
+            name: '最长等候',
+            barWidth: 16,
+            barGap: '-100%',
+            barCategoryGap: '40%',
+
+            markLine: {
+              symbolSize: [8, 8],
+              symbol: ['circle', 'circle'],
+              label: {
+                position: 'start',
+                formatter: function (params) {
+                  const { value, name } = params.data
+                  return `${name} ${parseInt(value)} 分钟`
+                }
+              },
+              lineStyle: {
+                normal: {
+                  barBorderRadius: 5,
+                  type: 'dashed',
+                  color: Color.colorPick,
+
+                }
+              },
+              data: [
+                { type: 'max', name: '最长' }
+              ]
+            },
+
+            itemStyle: {
+              normal: {
+                barBorderRadius: 20,
+                opacity: 0.5,
+                color: new echarts.graphic.LinearGradient(
+                  0, 0, 1, 1,
+                  [
+                    { offset: 0, color: Color.colorPick },
+                    { offset: 1, color: Color.colorPick }
+                  ]
+                )
+              },
+            },
+            data: data.map(_ => _['waitMax'])
+          },
+
+          {
+            type: 'bar',
+            name: '平均等候',
             barWidth: 16,
             markLine: {
               symbolSize: [8, 8],
@@ -133,12 +198,12 @@ export default {
                 normal: {
                   barBorderRadius: 5,
                   type: 'dashed',
-                  color: Color.colorPick
+                  color: Color.colorPrimary
                 }
               },
               data: [
                 { type: 'average', name: '平均' },
-                { type: 'max', name: '最长' }
+                // { type: 'max', name: '最长' }
               ]
             },
             itemStyle: {
@@ -148,7 +213,6 @@ export default {
                   0, 0, 1, 1,
                   [
                     { offset: 0, color: Color.colorPrimaryS },
-                    // { offset: 0.5, color: '#188df0' },
                     { offset: 1, color: Color.colorPrimary }
                   ]
                 )
@@ -156,6 +220,11 @@ export default {
             },
             data: _data
           }
+
+
+
+
+
         ]
       };
 

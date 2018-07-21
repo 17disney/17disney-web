@@ -7,24 +7,25 @@
 
 .ds-card--report-top {
   text-align: center;
-  background: linear-gradient(to bottom, $color-primary-s, $color-primary);
+  background: linear-gradient(to bottom, $color-pick-d2, $color-primary-dark);
   border-radius: 10px;
-  padding: 10px 0;
-  padding-bottom: 20px;
+  padding: 40px 0;
 
   .icon {
-    font-size: 65px;
-    color: #FFF;
+    font-size: 70px;
+    height: 70px;
+    color: rgb(126, 130, 226);
   }
 
   .title {
-    margin-bottom: 4px;
+    margin-bottom: 20px;
+    margin-top: 5px;
     color: $color-primary-ss;
-    font-size: 22px;
+    font-size: 20px;
 
     &--date {
       font-size: 16px;
-      font-weight: 600;
+      // font-weight: 600;
       color: $color-primary-ss;
     }
 
@@ -95,23 +96,25 @@
             <div class="ds-card-header__icon icon--pep icon__personal-magic"></div>
             <div class="ds-card-header__text">
               <div class="title">乐园热门时刻</div>
-              <div class="title--desc">最多 {{dataPark.flowMax | formatNumber}} 位游客同时在乐园</div>
+              <div class="title--desc">最多有 {{dataPark.flowMax | formatNumber}} 位游客在乐园</div>
             </div>
           </div>
           <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
         </dm-card>
+
         <dm-card type="report">
           <div slot="header" class="ds-card-header--icon">
             <div class="ds-card-header__icon icon--pep icon__shdr-fastpass"></div>
             <div class="ds-card-header__text">
               <div class="title">快速通行证领取速度</div>
-              <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后一张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领完</div>
+              <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后一张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领取</div>
             </div>
           </div>
           <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
           <!-- <p>开园仅 38 分钟，翱翔·飞跃地平线的快速通行证就被领完</p>
           <p>最后一张快速通行证在 12:16 领完</p> -->
         </dm-card>
+
         <dm-card type="report">
           <div slot="header" class="ds-card-header--icon">
             <div class="ds-card-header__icon icon--pep icon__magic-morning"></div>
@@ -122,6 +125,7 @@
           </div>
           <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
         </dm-card>
+
         <dm-card type="report" class="ds-card--report-top">
           <img src="//17disney.com/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
           <div class="title--desc">本数据由 17Disney.com 统计发布</div>
@@ -152,7 +156,7 @@ export default {
 
   data() {
     return {
-      date: '2018-07-19',
+      date: null,
       dataPark: {},
       dataAtt: [],
       dataOperate: {},
@@ -166,6 +170,8 @@ export default {
   computed: {},
 
   mounted() {
+    const { date } = this.$route.params
+    this.date = date
     this.init()
   },
 
@@ -175,7 +181,6 @@ export default {
       this.dataPark = dataPark || {}
 
       const { flowMax, openAtt, markMax, markHour, flowHour, show } = dataPark
-
       const { allFlowDay, allMarkDay, rankMarkDay, rankFlowDay } = dataPark
 
       // 热门时刻表单
@@ -213,7 +218,6 @@ export default {
           const { fpFinish, waitAvg, waitMax } = waitsData[item.aid]
           if (fpFinish > 0) {
             if (item.name === '抱抱龙冲天赛车') return
-
             const _fpFinish = fpFinish - moment(this.date, 'YYYY-MM-DD').format('x') - 60 * 60 * 1000 * 7
             dataAttFp.push({
               name: item.name,
@@ -228,7 +232,7 @@ export default {
 
       this.dataAttFp = dataAttFp.sort(compare('fpFinish'))
 
-      dataAtt = dataAtt.sort(compare('waitMax'))
+      dataAtt = dataAtt.sort(compare('waitAvg'))
       dataAtt.length = 10
       console.log(dataAtt)
       this.dataAtt = dataAtt
