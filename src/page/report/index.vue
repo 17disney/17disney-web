@@ -107,7 +107,7 @@
             <div class="ds-card-header__icon icon--pep icon__shdr-fastpass"></div>
             <div class="ds-card-header__text">
               <div class="title">快速通行证领取速度</div>
-              <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后一张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领取</div>
+              <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领取</div>
             </div>
           </div>
           <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
