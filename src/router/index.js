@@ -1,8 +1,8 @@
-import Layout from '@/components/Layout/Layout';
-import { Loading } from 'element-ui';
-import Lockr from 'lockr';
-import Vue from 'vue';
-import Router from 'vue-router';
+import Layout from '@/components/Layout/Layout'
+import { Loading } from 'element-ui'
+import Lockr from 'lockr'
+import Vue from 'vue'
+import Router from 'vue-router'
 /*  */
 Vue.use(Router)
 
@@ -11,6 +11,21 @@ const router = new Router({
     {
       path: '/',
       redirect: '/forecast'
+    },
+    {
+      path: '/report',
+      component: Layout,
+      name: 'report',
+      children: [
+        {
+          path: 'index',
+          component: () => import('@/page/report/index')
+        },
+        {
+          path: 'day/:date',
+          component: () => import('@/page/report/day')
+        }
+      ]
     },
     {
       path: '/',
@@ -40,10 +55,6 @@ const router = new Router({
         {
           path: 'about',
           component: () => import('@/page/about/index')
-        },
-        {
-          path: 'report/:date',
-          component: () => import('@/page/report/index')
         }
       ]
     }

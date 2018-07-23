@@ -57,16 +57,9 @@ export default {
       if (!data) return
 
       let _data = data.map(_ => _['waitAvg'])
-
-      const XMax = markMax(_data, 10)
+      const dataMax = data.map(_ => _['waitMax'])
       const dataAxis = data.map(_ => _['name'])
-
-      const dataShadow = [];
-
-      // 背景层
-      for (var i = 0; i < _data.length; i++) {
-        dataShadow.push(XMax)
-      }
+      const XMax = markMax(dataMax, 20, 1)
 
       const options = {
         grid: {
@@ -94,6 +87,8 @@ export default {
         },
         xAxis: {
           boundaryGap: ['20%', '20%'],
+          min: 0,
+          max: XMax,
           axisLine: {
             symbol: ['none', 'arrow'],
             lineStyle: {
@@ -132,8 +127,6 @@ export default {
           inverse: true
         },
         series: [
-
-
           {
             type: 'bar',
             name: '最长等候',
