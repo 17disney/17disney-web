@@ -15,6 +15,7 @@ export function markMax(arr, size, add = 0) {
   return max ? max : undefined
 }
 
+// 数组转 HASH
 export function arrayToHash(arr, key) {
   const hash = {}
   arr.forEach(item => {
