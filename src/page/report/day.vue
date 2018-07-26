@@ -47,6 +47,36 @@
     margin-bottom: 10px;
     overflow: hidden;
   }
+
+  .panel--index {
+    display: flex;
+    text-align: center;
+    margin-top: 40px;
+
+    .index-item {
+      color: rgba(255, 255, 255, 0.8);
+      flex: 1;
+
+      &:not(:first-child) {
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      &__title {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+      }
+
+      &__num {
+        color: #FFF;
+        font-size: 24px;
+      }
+
+      &__desc {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+      }
+    }
+  }
 }
 
 .ds-card-header--icon {
@@ -79,6 +109,23 @@
       <div class="icon icon--pep icon__shanghai-disney-resort"></div>
       <div class="title">上海迪士尼乐园运营日报</div>
       <div class="title--date">{{date | timeFormat('YYYY 年 M 月 D 日')}}</div>
+      <div class="panel--index">
+        <div class="index-item">
+          <p class="index-item__title">开园时间</p>
+          <p class="index-item__num">{{dataPark.enterTime | timeFormat('H:mm', 'HH:mm:ss')}}</p>
+          <p class="index-item__desc">比计划提前 {{dataPark.enterDiff}} 分钟</p>
+        </div>
+        <div class="index-item">
+          <p class="index-item__title">开放项目</p>
+          <p class="index-item__num">{{dataPark.openAtt}}</p>
+          <p class="index-item__desc">演出场次 {{dataPark.show }} 场</p>
+        </div>
+        <div class="index-item">
+          <p class="index-item__title">客流量</p>
+          <p class="index-item__num">{{dataPark.flowMax}}</p>
+          <p class="index-item__desc">超过 {{dataCount.flowRank}}% 运营日</p>
+        </div>
+      </div>
     </dm-card>
 
     <dm-card type="report">
@@ -174,11 +221,18 @@ export default {
   methods: {
     async init() {
       let dataPark = await this.$Api.waitTimes.parkDate(this.local, this.date)
-      this.dataPark = dataPark || {}
 
-      const { flowMax, openAtt, markMax, markHour, flowHour, show } = dataPark
+      const { flowMax, openAtt, markMax, markHour, flowHour, show, startTime, enterTime } = dataPark
       const { allFlowDay, allMarkDay, rankMarkDay, rankFlowDay } = dataPark
 
+      const _startTime = moment(startTime, 'HH:mm:ss')
+      const _enterTime = moment(enterTime, 'HH:mm:ss')
+
+      const diff = _startTime.diff(_enterTime, 'minutes')
+
+      dataPark.enterDiff = diff
+
+      this.dataPark = dataPark || {}
       // 热门时刻表单
       const dataParkFlow = []
       markHour.forEach((item, index) => {
