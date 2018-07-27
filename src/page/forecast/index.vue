@@ -1,12 +1,12 @@
 <style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
-.container {
-  margin-top: 32px;
-}
-
 .dm-card {
   margin-bottom: 30px;
+}
+
+.container {
+  margin-top: 32px;
 }
 
 .ft-date-select {

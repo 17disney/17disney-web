@@ -121,7 +121,7 @@ export default {
     init() {
       const list = []
       this.dates.forEach(item => {
-        const { date } = item
+        const { date, flowMaxFT } = item
         let week = this.$t('el.datepicker.weeks.' + WEEKS[moment(date, 'YYYY-MM-DD').format('e')])
 
         if (this.$lang === 'zh-hans') {
@@ -129,7 +129,8 @@ export default {
         }
         list.push({
           date,
-          week
+          week,
+          flowMaxFT
         })
       })
       this.list = list
