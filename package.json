@@ -11,7 +11,8 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "work": "node build/init.js"
   },
   "compileDependencies": [
     "17disney-web"
@@ -68,6 +69,7 @@
     "less": "^3.0.1",
     "less-loader": "^4.0.6",
     "nightwatch": "^0.9.12",
+    "node-cmd": "^3.0.0",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
