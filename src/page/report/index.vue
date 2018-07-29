@@ -12,11 +12,12 @@
 </style>
 <template>
   <div class="container">
+    <year-wait-charts :data="attCount"></year-wait-charts>
     <div class="report-list-wrap">
       <el-row :gutter="20">
         <el-col :span="6">
           <el-card>
-            32
+            323434
           </el-card>
         </el-col>
       </el-row>
@@ -26,14 +27,19 @@
 
 <script>
 import base from '@/common/mixins/base'
+import YearWaitCharts from '@/components/Charts/YearWaitCharts'
+
 export default {
   mixins: [base],
-  components: {},
+
+  components: { YearWaitCharts },
 
   data() {
     return {
-      dateRange: [],
-      list: []
+      dateRange: ['2017-07-29', '2018-07-29'],
+      list: [],
+      isInit: false,
+      attCount: []
     }
   },
 
@@ -41,12 +47,15 @@ export default {
 
   mounted() {
     this.init()
+
+
   },
 
   methods: {
     async init() {
-      // const [st, et] =
-      // const data = this.$Api.waitTimes.park(this.local, )
+      const [st, et] = this.dateRange
+      const attCount = await this.$Api.waitTimes.park(this.local, { st, et })
+      this.attCount = attCount
     }
   }
 }

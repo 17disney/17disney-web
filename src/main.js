@@ -5,6 +5,7 @@
 | Main
 |
 */
+
 import Vue from 'vue'
 import store from './store'
 import App from './App'
@@ -17,8 +18,8 @@ import 'leaflet/dist/leaflet.css'
 
 // UI
 import ElementUI from 'element-ui'
-import DmUi from 'product/dm-ui'
-import AttUi from 'product/att-ui'
+import DmUi from 'package/dm-ui'
+import AttUi from 'package/att-ui'
 
 Vue.use(ElementUI)
 Vue.use(DmUi)

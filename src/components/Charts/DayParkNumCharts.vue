@@ -11,7 +11,6 @@
 | 乐园指数图表
 */
 
-import echarts from 'echarts'
 import Color from 'package/17disney-common/const/color'
 import Charts from './Charts'
 import moment from 'moment'
