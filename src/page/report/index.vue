@@ -12,13 +12,13 @@
 </style>
 <template>
   <div class="container">
-    <year-wait-charts :data="attCount"></year-wait-charts>
+    <el-card>
+      <year-wait-charts :data="attCount"></year-wait-charts>
+    </el-card>
     <div class="report-list-wrap">
+
       <el-row :gutter="20">
-        <el-col :span="6">
-          <el-card>
-            323434
-          </el-card>
+        <el-col :span="24">
         </el-col>
       </el-row>
     </div>

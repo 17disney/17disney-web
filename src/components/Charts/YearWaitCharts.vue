@@ -7,27 +7,10 @@
 <script>
 import charts from '@/common/mixins/charts'
 import Color from 'package/17disney-common/const/color'
-
+import { colorRgb } from '@/utils/color'
 const NAME = 'year-wait-charts'
 
-function getVirtulData(year) {
-  year = year || '2017';
-  var date = +echarts.number.parseDate(year + '-01-01');
-  var end = +echarts.number.parseDate((+year + 1) + '-01-01');
-  var dayTime = 3600 * 24 * 1000;
-  var data = [];
-  for (var time = date; time < end; time += dayTime) {
-    data.push([
-      echarts.format.formatTime('yyyy-MM-dd', time),
-      Math.floor(Math.random() * 1000)
-    ]);
-  }
-  console.log(data)
-  return data;
-}
-
 const COLOR = '36,146,215'
-
 
 export default {
   name: NAME,
@@ -47,7 +30,7 @@ export default {
 
   data() {
     return {
-      height: 400,
+      height: 160,
       options: null
     }
   },
@@ -89,22 +72,27 @@ export default {
           top: 10,
           right: 10,
           show: false,
-          pieces: [{
-            gt: 0,
-            lte: 500,
-            color: `rgba(${COLOR}, 0.2)`
-          }, {
-            gt: 500,
-            lte: 900,
-            color: `rgba(${COLOR}, 0.5)`
-          }, {
-            gt: 900,
-            lte: 1300,
-            color: `rgba(${COLOR}, 0.7)`
-          }, {
-            gt: 1300,
-            color: Color.colorPrimary
-          }]
+          pieces: [
+            {
+              gt: 0,
+              lte: 500,
+              color: `rgba(${COLOR}, 0.4)`
+            },
+            {
+              gt: 500,
+              lte: 900,
+              color: `rgba(${COLOR}, 0.7)`
+            },
+            {
+              gt: 900,
+              lte: 1300,
+              color: Color.colorPrimary
+            },
+            {
+              gt: 1300,
+              color: Color.colorPick
+            }
+          ]
         },
         // visualMap: {
         //   min: 0,
@@ -114,26 +102,36 @@ export default {
         //   left: 'center',
         //   top: 'top'
         // },
-
         calendar: [
           {
+            top: 15,
+            bottom: 0,
+            right: 0,
+            left: 25,
             dayLabel: {
               firstDay: 1,
-              nameMap: 'cn'
+              nameMap: 'cn',
+              color: Color.colorLightGrey
             },
             monthLabel: {
               nameMap: 'cn',
+              color: Color.colorLightGrey
+            },
+            yearLabel: {
+              show: false
             },
             range: ['2017-07-29', '2018-07-29'],
             cellSize: ['auto', 20],
             splitLine: {
               lineStyle: {
                 width: 0.5,
-                color: '#000'
+                color: '#FFF'
               }
             },
             itemStyle: {
-              color: '#FFF' //Color.colorPrimary
+              // color: `rgba(${COLOR}, 0.1)`, //Color.colorPrimary
+              borderColor: '#FFF',
+              borderWidth: 1,
             }
           },
           // {
