@@ -11,9 +11,9 @@
   }
 
   &__title {
-    font-size: 15px;
+    font-size: 14px;
     flex: 1;
-    line-height: 36px;
+    line-height: 42px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -22,7 +22,6 @@
   &__item {
     padding: 8px 24px;
     border-radius: 5px;
-    // padding-left: 48px;
     width: 100%;
     cursor: pointer;
     display: flex;
@@ -30,6 +29,8 @@
     color: $color-dark-grey;
 
     .att-media {
+      width: 42px;
+      height: 42px;
       margin-right: 16px;
     }
 

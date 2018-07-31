@@ -11,10 +11,10 @@
   &__title {
     color: $color-grey;
     border-bottom: 1px solid $color-light-grey-ss;
-    padding-bottom: 35px;
-    margin-bottom: 35px;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
     line-height: 23px;
-    font-size: 23px;
+    font-size: 20px;
   }
 }
 </style>

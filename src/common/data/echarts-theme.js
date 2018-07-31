@@ -267,12 +267,6 @@ const data = {
     }
   },
   categoryAxis: {
-    axisLine: {
-      show: true,
-      lineStyle: {
-        color: Color.colorLightGreySS
-      }
-    },
     axisTick: {
       show: false,
       lineStyle: {
@@ -286,7 +280,7 @@ const data = {
       }
     },
     splitLine: {
-      show: true,
+      show: false,
       lineStyle: {
         color: ['#edf1f4']
       }
@@ -410,6 +404,14 @@ const data = {
     }
   },
   tooltip: {
+    padding: 12,
+    trigger: 'axis',
+    backgroundColor: '#FFF',
+    borderColor: Color.colorDarkGrey,
+    borderWidth: 1,
+    textStyle: {
+      color: Color.colorDarkGrey
+    },
     axisPointer: {
       lineStyle: {
         color: '#008acd',

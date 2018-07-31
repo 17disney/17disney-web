@@ -73,6 +73,10 @@ export default {
           type: 'category',
           boundaryGap: false,
           data: xAxisData,
+          splitLine: {
+            show: false
+          }
+
         },
         yAxis: {
           type: 'value',
@@ -82,9 +86,6 @@ export default {
             inside: true
           },
           max: XMax,
-          axisLine: {
-            show: false
-          },
           splitNumber: 4,
           axisLabel: {
             inside: true,
@@ -98,7 +99,7 @@ export default {
           top: 0
         },
         tooltip: {
-          trigger: 'axis',
+
         },
         series: [
           {
