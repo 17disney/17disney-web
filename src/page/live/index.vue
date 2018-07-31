@@ -81,14 +81,12 @@
     <dm-main>
       <div class="live-time-wrap">
         <div class="live-time__clock">
-
           <div class="live-open-time">
             <h3 class="title">{{$t('ds.title.parkOpentime')}}</h3>
             <span class="open-time">
               {{data.startTime | timeFormat('H:mm', 'HH:mm:ss')}} - {{data.endTime | timeFormat('H:mm', 'HH:mm:ss')}}
             </span>
           </div>
-
           <div class="live-clock">
             <div class="live-clock__time">{{time}}</div>
             <div @click="getWaits" class="live-clock__btn">{{$t('ds.label.refresh')}}</div>
@@ -177,7 +175,7 @@ export default {
     },
 
     updateTime() {
-      this.time = moment().format('H:mm:ss')
+      this.time = moment().format('HH:mm:ss')
     }
   }
 }

@@ -42,13 +42,13 @@
   <div class="container">
     <el-row :gutter="50">
       <el-col :span="10">
-        <dm-card>
+        <dm-card type="charts">
           <div slot="header" class="clearfix">
             <span>{{this.$t('ds.label.forecastflow')}}</span>
           </div>
           <charts-flow :delay="200" :data="forecast"></charts-flow>
         </dm-card>
-        <dm-card>
+        <dm-card type="charts">
           <div slot="header" class="clearfix">
             <span>{{this.$t('ds.label.ticketTrend')}}</span>
           </div>
@@ -59,7 +59,7 @@
         <div class="forecast-time" v-if="data.utime">{{$t('ds.label.forecastTime')}}{{data.utime | timeFormat('YYYY-MM-DD H:mm:ss', 'x')}}</div>
       </el-col>
       <el-col :span="14">
-        <dm-card class="dm-card-att-list">
+        <dm-card class="dm-card-att-list" type="charts">
           <div slot="header" class="clearfix">
             <span>{{this.$t('ds.label.attractionWaits')}}</span>
           </div>
