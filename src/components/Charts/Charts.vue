@@ -70,7 +70,8 @@ export default {
   },
 
   watch: {
-    'options': function () {
+    'options': function (val) {
+      console.log(val)
       this.loading = true
       this.init()
     }
@@ -86,6 +87,8 @@ export default {
     init() {
       const chart = echarts.init(document.getElementById(this.id), theme)
       const { options, delay } = this
+
+      console.log(options)
 
       if (!options) {
         this.loading = false

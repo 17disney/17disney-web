@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      options: null
+      options: {}
     }
   },
   watch: {
@@ -45,9 +45,15 @@ export default {
       this.init()
     }
   },
+
+  mounted() {
+    this.init()
+  },
+
   methods: {
     init() {
       const { data } = this
+      if (!data) return
       const DATE_FORMAT = this.$t('ds.dateFormat.monthDay')
       const xAxisData = data.map(_ => moment(_['date'], 'YYYY-MM-DD').format(DATE_FORMAT))
 
@@ -64,74 +70,72 @@ export default {
         legend: {
           // show: false,
         },
-        visualMap: {
-          top: 10,
-          right: 10,
-          show: false,
-          pieces: [{
-            gt: 0,
-            lte: 30,
-            color: Color.colorGreen
-          }, {
-            gt: 30,
-            lte: 60,
-            color: Color.colorYellow
-          }, {
-            gt: 60,
-            lte: 120,
-            color: Color.colorOrange
-          }, {
-            gt: 120,
-            color: Color.colorRed
-          }]
-        },
+        // visualMap: {
+        //   top: 10,
+        //   right: 10,
+        //   show: false,
+        //   pieces: [{
+        //     gt: 0,
+        //     lte: 30,
+        //     color: Color.colorGreen
+        //   }, {
+        //     gt: 30,
+        //     lte: 60,
+        //     color: Color.colorYellow
+        //   }, {
+        //     gt: 60,
+        //     lte: 120,
+        //     color: Color.colorOrange
+        //   }, {
+        //     gt: 120,
+        //     color: Color.colorRed
+        //   }]
+        // },
         tooltip: {
           trigger: 'axis',
         },
-        yAxis: [{
-          type: 'value',
-          axisTick: {
-            show: false
-          },
-          max: XMax,
-          axisLine: {
-            show: false
-          }
-        }],
-        xAxis: [{
-          type: 'category',
-          // boundaryGap: false,
-          data: xAxisData,
-        }],
-        series: [{
-          name: this.$t('ds.label.waitsAvg'),
-          data: data.map(_ => _['waitAvg']),
-          type: 'bar',
-          smooth: true,
-          symbolSize: 2,
-          showSymbol: false,
-          barWidth: '35%',
-          lineStyle: {
-            width: 3
-          },
-          itemStyle: {
-            normal: {
-              color: Color.colorPrimary
+        yAxis: [
+          {
+            type: 'value',
+            axisTick: {
+              show: false
+            },
+            max: XMax,
+            axisLine: {
+              show: false
             }
           }
-        },
-        {
-          name: this.$t('ds.label.waitsMax'),
-          data: data.map(_ => _['waitMax']),
-          type: 'line',
-          smooth: true,
-          symbolSize: 2,
-          showSymbol: false,
-          lineStyle: {
-            width: 2,
-            type: 'dashed'
+        ],
+        xAxis: [
+          {
+            type: 'category',
+            data: xAxisData,
           }
-        }]
+        ],
+        series: [
+          {
+            name: this.$t('ds.label.waitsAvg'),
+            data: data.map(_ => _['waitAvg']),
+            type: 'bar',
+            barWidth: 8,
+            barGap: '-100%',
+            showSymbol: false,
+            itemStyle: {
+              color: Color.colorPrimary
+            }
+          },
+          {
+            name: this.$t('ds.label.waitsMax'),
+            data: data.map(_ => _['waitMax']),
+            type: 'bar',
+            barWidth: 8,
+            showSymbol: false,
+            itemStyle: {
+              opacity: 0.5,
+              color: Color.colorPick
+            }
+          }
+        ]
       }
 
       this.options = options
