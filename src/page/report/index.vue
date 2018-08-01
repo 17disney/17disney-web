@@ -28,6 +28,9 @@
 <script>
 import base from '@/common/mixins/base'
 import YearWaitCharts from '@/components/Charts/YearWaitCharts'
+import { dateRange } from '@/utils/date'
+
+console.log(dateRange(-365, 0))
 
 export default {
   mixins: [base],
@@ -36,7 +39,7 @@ export default {
 
   data() {
     return {
-      dateRange: ['2017-07-29', '2018-07-29'],
+      dateRange: dateRange(-365, 0),
       list: [],
       isInit: false,
       attCount: []
@@ -46,6 +49,7 @@ export default {
   computed: {},
 
   mounted() {
+
     this.init()
 
 

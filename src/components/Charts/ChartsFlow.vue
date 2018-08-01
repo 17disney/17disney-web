@@ -76,7 +76,6 @@ export default {
           splitLine: {
             show: false
           }
-
         },
         yAxis: {
           type: 'value',
