@@ -14,16 +14,43 @@ const router = new Router({
     },
     {
       path: '/report',
-      component: Layout,
       name: 'report',
+      component: Layout,
       children: [
         {
-          path: 'index',
-          component: () => import('@/page/report/index')
-        },
-        {
-          path: 'day/:date',
-          component: () => import('@/page/report/day')
+          path: '/',
+          component: () => import('@/page/report/index'),
+          children: [
+            {
+              path: '/',
+              alias: 'home',
+              component: () => import('@/page/report/home')
+            },
+            {
+              path: 'day',
+              component: () => import('@/page/report/day')
+            },
+            {
+              path: 'day/:date',
+              component: () => import('@/page/report/day')
+            },
+            {
+              path: 'year',
+              component: () => import('@/page/report/year')
+            },
+            {
+              path: 'year/:year',
+              component: () => import('@/page/report/year')
+            },
+            {
+              path: 'month',
+              component: () => import('@/page/report/month')
+            },
+            {
+              path: 'month/:date',
+              component: () => import('@/page/report/month')
+            }
+          ]
         }
       ]
     },

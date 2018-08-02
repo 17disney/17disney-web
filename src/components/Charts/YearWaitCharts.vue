@@ -25,6 +25,7 @@ export default {
       type: String,
       default: NAME
     },
+    dateRange: Array,
     data: Array
   },
 
@@ -47,7 +48,7 @@ export default {
 
   methods: {
     init() {
-      let { data } = this
+      let { data, dateRange } = this
       if (!data || data.length === 0) return
 
       const nData = []
@@ -94,14 +95,6 @@ export default {
             }
           ]
         },
-        // visualMap: {
-        //   min: 0,
-        //   max: 2000,
-        //   calculable: true,
-        //   orient: 'horizontal',
-        //   left: 'center',
-        //   top: 'top'
-        // },
         calendar: [
           {
             top: 15,
@@ -120,7 +113,7 @@ export default {
             yearLabel: {
               show: false
             },
-            range: ['2017-07-29', '2018-07-29'],
+            range: dateRange,
             cellSize: ['auto', 20],
             splitLine: {
               lineStyle: {

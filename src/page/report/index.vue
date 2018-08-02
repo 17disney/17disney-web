@@ -1,66 +1,53 @@
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
-.container {
-  margin-top: 30px;
-}
-
-.report-list-wrap {
-  .card--report {
-  }
+.navbar-page {
+  margin-top: 20px;
 }
 </style>
 <template>
   <div class="container">
-    <el-card>
-      <year-wait-charts :data="attCount"></year-wait-charts>
-    </el-card>
-    <div class="report-list-wrap">
-
-      <el-row :gutter="20">
-        <el-col :span="24">
-        </el-col>
-      </el-row>
-    </div>
+    <navbar-page :data="navbar"></navbar-page>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import base from '@/common/mixins/base'
-import YearWaitCharts from '@/components/Charts/YearWaitCharts'
-import { dateRange } from '@/utils/date'
-
-console.log(dateRange(-365, 0))
+import NavbarPage from '@/components/Navbar/NavbarPage'
 
 export default {
-  mixins: [base],
+  components: { NavbarPage },
 
-  components: { YearWaitCharts },
+  props: {
+  },
 
   data() {
     return {
-      dateRange: dateRange(-365, 0),
-      list: [],
-      isInit: false,
-      attCount: []
+      navbar: [
+        {
+          label: '首页',
+          to: 'home'
+        },
+        {
+          label: '运营日报',
+          to: 'day'
+        },
+        {
+          label: '运营月报',
+          to: 'month'
+        },
+        {
+          label: '运营年报',
+          to: 'year'
+        }
+      ]
     }
   },
 
   computed: {},
 
-  mounted() {
+  mounted() { },
 
-    this.init()
-
-
-  },
-
-  methods: {
-    async init() {
-      const [st, et] = this.dateRange
-      const attCount = await this.$Api.waitTimes.park(this.local, { st, et })
-      this.attCount = attCount
-    }
-  }
+  methods: {}
 }
 </script>
