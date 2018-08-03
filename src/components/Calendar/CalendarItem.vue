@@ -3,8 +3,6 @@
 
 .popover-att {
   padding: 10px 0 !important;
-  // display: flex;
-  // flex-direction: column;
   text-align: center;
 
   &__charts {
@@ -18,12 +16,12 @@
   }
 
   &__num {
+    display: flex;
     width: 185px;
     margin: 0 auto;
     margin-bottom: 10px;
-    display: flex;
-    color: $color-grey;
     font-size: 13px;
+    color: $color-grey;
   }
 
   &__wait {
@@ -86,12 +84,18 @@
     }
   }
 
+  &.is-default {
+    .badge {
+      background-color: #CCC;
+    }
+  }
+
   &__day {
     position: absolute;
     top: 8px;
     left: 8px;
-    color: $color-light-grey-s;
     font-size: 13px;
+    color: $color-light-grey-s;
   }
 
   &__num {
@@ -106,18 +110,22 @@
 <template>
   <div>
     <el-popover v-if="mode === 'waits'" popper-class="popover-att" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
-      <div class="popover-att__num">
-        <div class="popover-att__wait">
-          {{tipContent}}
+      <div v-if="data.waitAvg > 0">
+        <div class="popover-att__num">
+          <div class="popover-att__wait">
+            {{tipContent}}
+          </div>
+          <att-status v-if="data.status" :status="data.status"></att-status>
         </div>
-        <att-status v-if="data.status" :status="data.status"></att-status>
+        <charts-att-base v-if="data && data.waitHour" class="popover-att__charts" :id="'att' + id" :data="data.waitHour"></charts-att-base>
+        <div class="popover-att__schedule" v-if="data">{{data.startTime}} - {{data.endTime}}</div>
       </div>
-      <charts-att-base v-if="data && data.waitHour" class="popover-att__charts" :id="'att' + id" :data="data.waitHour"></charts-att-base>
-      <div class="popover-att__schedule" v-if="data">{{data.startTime}} - {{data.endTime}}</div>
-      <div slot="reference" href="">
+      <div v-else>未开放</div>
+
+      <div slot="reference">
         <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
           <p class="calendar-item__day">{{day}}</p>
-          <div v-if="data && data.waitAvg" class="badge"></div>
+          <div v-if="data && data.status" class="badge"></div>
         </div>
       </div>
     </el-popover>
@@ -130,12 +138,12 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import { ATT_WAIT_CLASS } from '@/common/data/const'
 import ChartsAttBase from '@/components/Charts/ChartsAttBase'
+
 export default {
   components: { ChartsAttBase },
 
@@ -152,14 +160,14 @@ export default {
 
   data() {
     return {
-      tipDisabled: false,
+      tipDisabled: true,
       id: Math.random()
     }
   },
 
   computed: {
     tipContent() {
-      if (this.data && this.data.waitAvg > 0) {
+      if (this.data && this.data.status) {
         this.tipDisabled = false
         return `${this.data.waitAvg} ${this.$t('ds.label.minute')}`
       } else {
@@ -181,7 +189,7 @@ export default {
         }
 
       } else {
-        return ATT_WAIT_CLASS['green']
+        return ATT_WAIT_CLASS['default']
       }
     }
 

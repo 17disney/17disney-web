@@ -178,6 +178,7 @@
       <img src="//17disney.com/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
       <div class="title--desc">本数据由 17Disney.com 统计发布</div>
     </dm-card>
+
   </div>
 </template>
 
@@ -191,11 +192,12 @@ import DayAttRankCharts from '@/components/Charts/DayAttRankCharts'
 import DayAttFpCharts from '@/components/Charts/DayAttFpCharts'
 import { lineToObject } from '@/utils/tool'
 import { arrayToHash, compare } from '@/utils/array'
+import AsideDate from '@/components/Aside/AsideDate'
 
 export default {
   mixins: [base],
 
-  components: { ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts, DayAttFpCharts },
+  components: { AsideDate, ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts, DayAttFpCharts },
 
   data() {
     return {

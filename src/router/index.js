@@ -7,6 +7,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -19,11 +20,11 @@ const router = new Router({
       children: [
         {
           path: '/',
+          redirect: 'home',
           component: () => import('@/page/report/index'),
           children: [
             {
-              path: '/',
-              alias: 'home',
+              path: 'home',
               component: () => import('@/page/report/home')
             },
             {

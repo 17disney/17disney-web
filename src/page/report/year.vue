@@ -15,15 +15,17 @@
     <el-card>
       <year-wait-charts :data="attCount" :date-range="dateRange"></year-wait-charts>
     </el-card>
-    <div class="report-list-wrap">
-
-      <el-row :gutter="20" style="margin-top:12px">
-        <el-col :span="12">
-          <el-card>
+    <div class="report-list-wrap" style="margin-top:20px">
+      <el-card>
+        <el-row :gutter="20">
+          <el-col :span="12">
             <year-wait-pie-charts :data="pieCount"></year-wait-pie-charts>
-          </el-card>
-        </el-col>
-      </el-row>
+          </el-col>
+          <el-col :span="12">
+            <year-wait-bar-charts :data="dataBar"></year-wait-bar-charts>
+          </el-col>
+        </el-row>
+      </el-card>
     </div>
   </div>
 </template>
@@ -32,6 +34,7 @@
 import base from '@/common/mixins/base'
 import YearWaitCharts from '@/components/Charts/YearWaitCharts'
 import YearWaitPieCharts from '@/components/Charts/YearWaitPieCharts'
+import YearWaitBarCharts from '@/components/Charts/YearWaitBarCharts'
 import { dateRange } from '@/utils/date'
 import Color from 'package/17disney-common/const/color'
 
@@ -57,7 +60,7 @@ function filterMap(data, map, key) {
 
 export default {
   mixins: [base],
-  components: { YearWaitCharts, YearWaitPieCharts },
+  components: { YearWaitCharts, YearWaitPieCharts, YearWaitBarCharts },
 
   data() {
     return {
@@ -65,7 +68,8 @@ export default {
       list: [],
       isInit: false,
       attCount: [],
-      pieCount: []
+      pieCount: [],
+      dataBar: {}
     }
   },
 
@@ -81,7 +85,6 @@ export default {
       const attCount = await this.$Api.waitTimes.park(this.local, { st, et })
 
       const mapValue = filterMap(attCount, FLOW_MAP, 'markAvg')
-
       const mapName = ['空闲', '正常', '拥挤', '爆满']
 
       const list = []
@@ -95,6 +98,12 @@ export default {
         )
       })
 
+      const seriesList = list
+      const dataBar = {
+        seriesList
+      }
+
+      this.dataBar = dataBar
       this.pieCount = list
 
 

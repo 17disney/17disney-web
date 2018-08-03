@@ -1,4 +1,8 @@
 const ATT_WAIT_CLASS = {
+  'default': {
+    name: '关闭',
+    class: 'is-default'
+  },
   'green': {
     name: '舒适',
     class: 'is-green'
