@@ -2,7 +2,6 @@
 @require '../../styles/disney/var/color.styl';
 
 .container {
-  max-width: 600px;
   margin: 0 auto;
   margin-top: 30px;
 }
@@ -104,7 +103,10 @@
 }
 </style>
 <template>
-  <div class="container">
+  <div>
+    <el-date-picker v-model="date" @change="handleDateChange" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
+    </el-date-picker>
+
     <dm-card type="report" class="ds-card--report-top">
       <div class="icon icon--pep icon__shanghai-disney-resort"></div>
       <div class="title">上海迪士尼乐园运营日报</div>
@@ -221,6 +223,12 @@ export default {
   },
 
   methods: {
+    handleDateChange(date) {
+      console.log(e)
+      this.$router.push({
+        path: `day/${date}`
+      })
+    },
     async init() {
       let dataPark = await this.$Api.waitTimes.parkDate(this.local, this.date)
 
