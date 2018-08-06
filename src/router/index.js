@@ -40,6 +40,10 @@ const router = new Router({
               component: () => import('@/page/report/year')
             },
             {
+              path: 'week',
+              component: () => import('@/page/report/week')
+            },
+            {
               path: 'year/:year',
               component: () => import('@/page/report/year')
             },

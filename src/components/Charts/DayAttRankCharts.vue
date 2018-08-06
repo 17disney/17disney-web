@@ -149,7 +149,6 @@ export default {
                   barBorderRadius: 5,
                   type: 'dashed',
                   color: Color.colorPick,
-
                 }
               },
               data: [
