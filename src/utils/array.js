@@ -31,3 +31,14 @@ export function compare(property) {
     return value2 - value1
   }
 }
+
+export function sum(arr) {
+  return arr.reduce(function(prev, curr, idx, arr) {
+    return prev + curr
+  })
+}
+
+export function arrayAvg(arr) {
+
+  return sum(arr) / arr.length
+}

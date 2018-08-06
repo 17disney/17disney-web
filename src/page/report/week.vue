@@ -129,26 +129,22 @@
       <dm-main>
         <dm-card type="report" class="ds-card--report-top">
           <div class="icon icon--pep icon__shanghai-disney-resort"></div>
-          <div class="title">上海迪士尼乐园运营日报</div>
-          <div class="title--date">{{date | timeFormat('YYYY 年 M 月 D 日')}}</div>
-          <div class="panel--index">
-            <div class="index-item">
-              <p class="index-item__title">开园时间</p>
-              <p class="index-item__num">{{dataPark.enterTime | timeFormat('H:mm', 'HH:mm:ss')}}</p>
-              <p class="index-item__desc">比计划提前 {{dataPark.enterDiff}} 分钟</p>
-            </div>
-            <div class="index-item">
-              <p class="index-item__title">开放项目</p>
-              <p class="index-item__num">{{dataPark.openAtt}}</p>
-              <p class="index-item__desc">演出场次 {{dataPark.show }} 场</p>
-            </div>
-            <div class="index-item">
-              <p class="index-item__title">客流量</p>
-              <p class="index-item__num">{{dataPark.flowMax}}</p>
-              <p class="index-item__desc">超过 {{dataCount.flowRank}}% 运营日</p>
+          <div class="title">上海迪士尼乐园运营周报</div>
+          <div class="title--date">{{dateRange[0] | timeFormat('YYYY.MM.DD')}} - {{dateRange[1] | timeFormat('MM.DD')}}</div>
+        </dm-card>
+
+
+        <dm-card type="report">
+          <div slot="header" class="ds-card-header--icon">
+            <div class="ds-card-header__icon icon--pep icon__business-excellence"></div>
+            <div class="ds-card-header__text">
+              <div class="title">乐园综合指数</div>
+              <!-- <div class="title--desc">工作日对比双休日</div> -->
             </div>
           </div>
+          <week-park-num-charts :data="dataParkNum"></week-park-num-charts>
         </dm-card>
+
         <dm-card type="report">
           <div slot="header" class="ds-card-header--icon">
             <div class="ds-card-header__icon icon--pep icon__business-excellence"></div>
@@ -168,10 +164,8 @@
               <div class="title">{{attFind(item.aid).name}}</div>
             </div>
           </div>
-
           <week-att-charts :id="item.aid" :data="item.data"></week-att-charts>
         </dm-card>
-
       </dm-main>
     </div>
   </div>
@@ -187,9 +181,10 @@ import DayAttRankCharts from '@/components/Charts/DayAttRankCharts'
 import DayAttFpCharts from '@/components/Charts/DayAttFpCharts'
 import WeekFlowCharts from '@/components/Charts/WeekFlowCharts'
 import WeekAttCharts from '@/components/Charts/WeekAttCharts'
+import WeekParkNumCharts from '@/components/Charts/WeekParkNumCharts'
 
 import { lineToObject } from '@/utils/tool'
-import { arrayToHash, compare } from '@/utils/array'
+import { arrayToHash, compare, arrayAvg } from '@/utils/array'
 
 const TODAY = moment().format('YYYY-MM-DD')
 const WEEKS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -197,7 +192,7 @@ const WEEKS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 export default {
   mixins: [base],
 
-  components: { WeekFlowCharts, WeekAttCharts, ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts, DayAttFpCharts },
+  components: { WeekFlowCharts, WeekAttCharts, WeekParkNumCharts, ChartsDayFlowMark, DayParkMarkCharts, DayAttRankCharts, DayParkNumCharts, DayAttFpCharts },
 
   props: {
     select: {}
@@ -240,9 +235,11 @@ export default {
       const [st, et] = this.dateRange
       let dataPark = await this.$Api.waitTimes.park(this.local, { st, et })
 
-
       const showWork = []
       const showWeek = []
+
+      const attrList = ['flowMax', 'openAtt', 'show', 'markMax']
+      const dataAttr = {}
 
       dataPark.forEach(item => {
         const { date } = item
@@ -255,6 +252,54 @@ export default {
         item.flowMaxView = (flowMax / 10000).toFixed(1) + ' 万'
       })
 
+      attrList.forEach(key => {
+        const arr = dataPark.map(item => item[key])
+        // dataAttr[key] = dataPark.map(item => item[key])
+
+        const workDay = arr.slice(0, 5)
+        const weekDay = arr.slice(6, 7)
+
+        dataAttr[key] = {
+          work: Math.round(arrayAvg(workDay)),
+          week: Math.round(arrayAvg(weekDay))
+        }
+      })
+
+      console.log(dataAttr)
+
+      const dataParkNum = [
+        {
+          name: '客流量',
+          max: 70000,
+          today: dataAttr['flowMax']['week'],
+          history: dataAttr['flowMax']['work'],
+        },
+        {
+          name: '演出场次',
+          max: 70,
+          today: dataAttr['show']['week'],
+          history: dataAttr['show']['work'],
+        },
+        {
+          name: '等候时间',
+          max: 2500,
+          today: dataAttr['markMax']['week'],
+          history: dataAttr['markMax']['work'],
+        },
+        {
+          name: '开放项目',
+          max: 50,
+          today: dataAttr['openAtt']['week'],
+          history: dataAttr['openAtt']['work'],
+        }
+      ]
+
+      console.log(dataParkNum)
+
+      this.dataParkNum = dataParkNum
+
+      console.log(dataAttr)
+
       const { attList } = this
       this.dataPark = dataPark
 
@@ -264,28 +309,17 @@ export default {
         const aid = attList[i]
         const data = await this.$Api.waitTimes.attractions(this.local, aid, { st, et })
 
-
         data.forEach(item => {
           const { waitAvg, waitMax, flowMax, date } = item
           const week = moment(date).format('ddd')
           const weekView = this.$t('el.datepicker.weeks.' + WEEKS[moment(date, 'YYYY-MM-DD').format('e')])
           item.dateView = `${moment(date).format('M月D日')}\n星期${weekView}`
-
           item.waitView = `${waitAvg} - ${waitMax}''`
         })
-
         dataAtt.push({ aid, data })
       }
 
       this.dataAtt = dataAtt
-
-      console.log(dataAtt)
-    },
-
-    initAtt() {
-
-
-
     }
   }
 }

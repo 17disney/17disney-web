@@ -181,9 +181,7 @@ export default {
                 show: true,
                 position: 'end',
                 formatter: params => {
-                  console.log(params)
                   const { name, value } = params
-
                   return `${name} ${value.toFixed(0)} 分钟`
                 }
               },
