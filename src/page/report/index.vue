@@ -15,35 +15,10 @@
 <template>
   <div class="container">
     <navbar-page :data="navbar"></navbar-page>
-
     <el-card style="margin-bottom: 20px">
-      <year-wait-charts :data="attCount" :date-range="dateRange"></year-wait-charts>
+      <year-wait-charts @click="handleClick" :data="attCount" :date-range="dateRange"></year-wait-charts>
     </el-card>
-
-    <!-- <el-aside width="320px">
-      <el-menu default-active="2" class="el-menu-vertical-demo">
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">乐园日报</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">乐园周报</span>
-        </el-menu-item>
-        <el-menu-item index="5">
-          <i class="el-icon-setting"></i>
-          <span slot="title">乐园月报</span>
-        </el-menu-item>
-        <el-menu-item index="6">
-          <i class="el-icon-setting"></i>
-          <span slot="title">乐园年报</span>
-        </el-menu-item>
-      </el-menu>
-
-    </el-aside> -->
-    <!-- <dm-main> -->
-    <router-view></router-view>
-    <!-- </dm-main> -->
+    <router-view :select="date"></router-view>
   </div>
 </template>
 
@@ -63,6 +38,7 @@ export default {
     return {
       dateRange: dateRange(-365, 0),
       attCount: [],
+      date: '',
       navbar: [
         {
           label: '首页',
@@ -100,6 +76,13 @@ export default {
       const attCount = await this.$Api.waitTimes.park(this.local, { st, et })
 
       this.attCount = attCount
+    },
+    handleClick(date) {
+      this.date = date
+      this.$router.push({
+        path: `/report/day/?date=${date}`
+      })
+
     }
 
   }

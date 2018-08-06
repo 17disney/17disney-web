@@ -1,7 +1,7 @@
 <style lang='stylus'>
 </style>
 <template>
-  <charts :height="height" :options="options" :id="id"></charts>
+  <charts ref="raw" @click="handleClick" :height="height" :options="options" :id="id"></charts>
 </template>
 
 <script>
@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       height: 160,
-      options: null
+      options: null,
+      chart: {}
     }
   },
 
@@ -47,6 +48,18 @@ export default {
   },
 
   methods: {
+    handleClick(params) {
+      const { data } = params
+      this.$emit('click', data[0])
+
+      const { chart } = this.$refs.raw
+
+      chart.dispatchAction({
+        type: 'dataZoom',
+        start: 20,
+        end: 30
+      });
+    },
     init() {
       let { data, dateRange } = this
       if (!data || data.length === 0) return
@@ -68,7 +81,6 @@ export default {
         tooltip: {
           position: 'top'
         },
-
         visualMap: {
           top: 10,
           right: 10,
@@ -160,12 +172,10 @@ export default {
           //   data: getVirtulData(2015)
           // }
         ]
-
-      };
+      }
 
       this.options = option
     }
-
   }
 }
 </script>

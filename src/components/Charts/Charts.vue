@@ -65,13 +65,13 @@ export default {
     return {
       loading: true,
       isDraw: false,
-      isNull: false
+      isNull: false,
+      chart: {}
     }
   },
 
   watch: {
     'options': function (val) {
-      console.log(val)
       this.loading = true
       this.init()
     }
@@ -86,9 +86,8 @@ export default {
   methods: {
     init() {
       const chart = echarts.init(document.getElementById(this.id), theme)
+      this.chart = chart
       const { options, delay } = this
-
-      console.log(options)
 
       if (!options) {
         this.loading = false
@@ -103,11 +102,19 @@ export default {
           this.isDraw = true
           this.loading = false
           chart.setOption(options)
+          this.initChart()
         }, delay)
       } else {
         chart.setOption(options)
+        this.initChart()
         this.loading = false
       }
+    },
+
+    initChart() {
+      this.chart.on('click', params => {
+        this.$emit('click', params)
+      })
     }
   }
 }
