@@ -1,5 +1,3 @@
-<style lang='stylus'>
-</style>
 <template>
   <charts ref="raw" @click="handleClick" :height="height" :options="options" :id="id"></charts>
 </template>
@@ -61,6 +59,7 @@ export default {
       });
     },
     init() {
+      this.chart = this.$refs.raw
       let { data, dateRange } = this
       if (!data || data.length === 0) return
 
@@ -173,6 +172,8 @@ export default {
           // }
         ]
       }
+
+
 
       this.options = option
     }

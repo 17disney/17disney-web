@@ -110,30 +110,63 @@
       </el-date-picker>
     </div>
 
-    {{select}}
     <div class="container">
-      <el-aside width="320px">
-        <el-menu default-active="2" class="el-menu-vertical-demo">
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">乐园日报</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">乐园周报</span>
-          </el-menu-item>
-          <el-menu-item index="5">
-            <i class="el-icon-setting"></i>
-            <span slot="title">乐园月报</span>
-          </el-menu-item>
-          <el-menu-item index="6">
-            <i class="el-icon-setting"></i>
-            <span slot="title">乐园年报</span>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
       <dm-main>
-        <dm-card type="report" class="ds-card--report-top">
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <dm-card type="report">
+              <div slot="header" class="ds-card-header--icon">
+                <div class="ds-card-header__icon icon--pep icon__business-excellence"></div>
+                <div class="ds-card-header__text">
+                  <div class="title">乐园综合指数</div>
+                  <div class="title--desc">超过 {{dataCount.flowRank}}% 运营日</div>
+                </div>
+              </div>
+              <day-park-num-charts height="400" :data="dataParkNum"></day-park-num-charts>
+            </dm-card>
+          </el-col>
+
+          <el-col :span="12">
+            <dm-card type="report">
+              <div slot="header" class="ds-card-header--icon">
+                <div class="ds-card-header__icon icon--pep icon__personal-magic"></div>
+                <div class="ds-card-header__text">
+                  <div class="title">乐园热门时刻</div>
+                  <div class="title--desc">最多有 {{dataPark.flowMax | formatNumber}} 位游客在乐园</div>
+                </div>
+              </div>
+              <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
+            </dm-card>
+
+          </el-col>
+
+          <el-col :span="12">
+            <dm-card type="report">
+              <div slot="header" class="ds-card-header--icon">
+                <div class="ds-card-header__icon icon--pep icon__shdr-fastpass"></div>
+                <div class="ds-card-header__text">
+                  <div class="title">快速通行证领取速度</div>
+                  <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领取</div>
+                </div>
+              </div>
+              <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
+            </dm-card>
+          </el-col>
+
+          <el-col :span="12">
+            <dm-card type="report">
+              <div slot="header" class="ds-card-header--icon">
+                <div class="ds-card-header__icon icon--pep icon__magic-morning"></div>
+                <div class="ds-card-header__text">
+                  <div class="title">热门项目等候时间</div>
+                  <div class="title--desc">超过 {{dataCount.markRank}}% 运营日</div>
+                </div>
+              </div>
+              <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
+            </dm-card>
+          </el-col>
+        </el-row>
+        <!-- <dm-card type="report" class="ds-card--report-top">
           <div class="icon icon--pep icon__shanghai-disney-resort"></div>
           <div class="title">上海迪士尼乐园运营日报</div>
           <div class="title--date">{{date | timeFormat('YYYY 年 M 月 D 日')}}</div>
@@ -154,49 +187,8 @@
               <p class="index-item__desc">超过 {{dataCount.flowRank}}% 运营日</p>
             </div>
           </div>
-        </dm-card>
-        <dm-card type="report">
-          <div slot="header" class="ds-card-header--icon">
-            <div class="ds-card-header__icon icon--pep icon__business-excellence"></div>
-            <div class="ds-card-header__text">
-              <div class="title">乐园综合指数</div>
-              <div class="title--desc">超过 {{dataCount.flowRank}}% 运营日</div>
-            </div>
-          </div>
-          <day-park-num-charts :data="dataParkNum"></day-park-num-charts>
-        </dm-card>
-        <dm-card type="report">
-          <div slot="header" class="ds-card-header--icon">
-            <div class="ds-card-header__icon icon--pep icon__personal-magic"></div>
-            <div class="ds-card-header__text">
-              <div class="title">乐园热门时刻</div>
-              <div class="title--desc">最多有 {{dataPark.flowMax | formatNumber}} 位游客在乐园</div>
-            </div>
-          </div>
-          <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
-        </dm-card>
-        <dm-card type="report">
-          <div slot="header" class="ds-card-header--icon">
-            <div class="ds-card-header__icon icon--pep icon__shdr-fastpass"></div>
-            <div class="ds-card-header__text">
-              <div class="title">快速通行证领取速度</div>
-              <div class="title--desc" v-if="dataAttFp && dataAttFp.length > 0">最后张快速通行证在 {{dataAttFp[0]['fpFinish'] | timeFormat('H:mm', 'x')}} 被领取</div>
-            </div>
-          </div>
-          <day-att-fp-charts :data="dataAttFp"></day-att-fp-charts>
-          <!-- <p>开园仅 38 分钟，翱翔·飞跃地平线的快速通行证就被领完</p>
-          <p>最后一张快速通行证在 12:16 领完</p> -->
-        </dm-card>
-        <dm-card type="report">
-          <div slot="header" class="ds-card-header--icon">
-            <div class="ds-card-header__icon icon--pep icon__magic-morning"></div>
-            <div class="ds-card-header__text">
-              <div class="title">热门项目等候时间</div>
-              <div class="title--desc">超过 {{dataCount.markRank}}% 运营日</div>
-            </div>
-          </div>
-          <day-att-rank-charts :data="dataAtt"></day-att-rank-charts>
-        </dm-card>
+        </dm-card> -->
+
         <dm-card type="report" class="ds-card--report-top">
           <img src="//17disney.com/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
           <div class="title--desc">本数据由 17Disney.com 统计发布</div>

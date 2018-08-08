@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      height: 550,
+      height: 400,
       options: null
     }
   },

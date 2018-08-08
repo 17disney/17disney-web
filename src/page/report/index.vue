@@ -9,14 +9,12 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
-
 </style>
 <template>
   <div class="container">
     <navbar-page :data="navbar"></navbar-page>
-    <el-card style="margin-bottom: 20px">
-      <year-wait-charts @click="handleClick" :data="attCount" :date-range="dateRange"></year-wait-charts>
+    <el-card style="margin-bottom: 20px; width: 700px;">
+      <year-wait-charts ref="chart" @click="handleClick" :data="attCount" :date-range="dateRange"></year-wait-charts>
     </el-card>
     <router-view :select="date"></router-view>
   </div>
@@ -72,6 +70,7 @@ export default {
 
   methods: {
     async init() {
+      this.chart = this.$refs.chart
       const [st, et] = this.dateRange
       const attCount = await this.$Api.waitTimes.park(this.local, { st, et })
 
@@ -84,7 +83,6 @@ export default {
       })
 
     }
-
   }
 }
 </script>
