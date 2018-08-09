@@ -81,7 +81,6 @@ export default {
       this.$router.push({
         path: `/report/day/?date=${date}`
       })
-
     }
   }
 }

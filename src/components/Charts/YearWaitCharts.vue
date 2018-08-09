@@ -15,9 +15,6 @@ export default {
 
   mixins: [charts],
 
-  components: {
-  },
-
   props: {
     id: {
       type: String,
@@ -48,9 +45,8 @@ export default {
   methods: {
     handleClick(params) {
       const { data } = params
-      this.$emit('click', data[0])
-
       const { chart } = this.$refs.raw
+      this.$emit('click', data[0])
 
       chart.dispatchAction({
         type: 'dataZoom',
@@ -138,17 +134,6 @@ export default {
               borderWidth: 1,
             }
           },
-          // {
-          //   top: 260,
-          //   range: '2016',
-          //   cellSize: ['auto', 20]
-          // },
-          // {
-          //   top: 450,
-          //   range: '2015',
-          //   cellSize: ['auto', 20],
-          //   right: 5
-          // }
         ],
 
         series: [
@@ -157,19 +142,7 @@ export default {
             coordinateSystem: 'calendar',
             calendarIndex: 0,
             data: nData
-          },
-          // {
-          //   type: 'heatmap',
-          //   coordinateSystem: 'calendar',
-          //   calendarIndex: 1,
-          //   data: getVirtulData(2016)
-          // },
-          // {
-          //   type: 'heatmap',
-          //   coordinateSystem: 'calendar',
-          //   calendarIndex: 2,
-          //   data: getVirtulData(2015)
-          // }
+          }
         ]
       }
 
