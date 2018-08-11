@@ -1,19 +1,16 @@
 <style lang='stylus' scoped>
 @require '../../styles/disney/var/color.styl';
 
-.container {
-  // display: flex;
-}
-
 .navbar-page {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 </style>
+
 <template>
   <div class="container">
     <navbar-page :data="navbar"></navbar-page>
-    <el-card style="margin-bottom: 20px; width: 700px;">
+    <el-card style="margin-bottom: 20px;">
       <year-wait-charts ref="chart" @click="handleClick" :data="attCount" :date-range="dateRange"></year-wait-charts>
     </el-card>
     <router-view :select="date"></router-view>
@@ -76,11 +73,16 @@ export default {
 
       this.attCount = attCount
     },
+
     handleClick(date) {
       this.date = date
       this.$router.push({
         path: `/report/day/?date=${date}`
       })
+
+      console.log(this.chart)
+
+
     }
   }
 }

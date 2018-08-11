@@ -11,7 +11,7 @@
   text-align: center;
   border: none;
   background: linear-gradient(to bottom, $color-pick-d2, $color-primary-dark);
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 40px 0;
 
   .icon {
@@ -112,7 +112,7 @@
 
     <div class="container">
       <dm-main>
-        <el-row :gutter="20">
+        <el-row :gutter="50">
           <el-col :span="12">
             <dm-card type="report">
               <div slot="header" class="ds-card-header--icon">

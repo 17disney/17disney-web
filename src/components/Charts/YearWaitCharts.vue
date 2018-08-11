@@ -44,15 +44,29 @@ export default {
 
   methods: {
     handleClick(params) {
-      const { data } = params
+      const { data, seriesIndex, dataIndex } = params
       const { chart } = this.$refs.raw
+      console.log(params)
       this.$emit('click', data[0])
 
+      // chart.dispatchAction({
+      //   type: 'dataZoom',
+      //   start: 20,
+      //   end: 30
+      // })
+
       chart.dispatchAction({
-        type: 'dataZoom',
-        start: 20,
-        end: 30
-      });
+        type: 'downplay',
+        seriesIndex
+      })
+
+      chart.dispatchAction({
+        type: 'highlight',
+        seriesIndex,
+        dataIndex
+      })
+
+
     },
     init() {
       this.chart = this.$refs.raw
@@ -130,8 +144,13 @@ export default {
             },
             itemStyle: {
               // color: `rgba(${COLOR}, 0.1)`, //Color.colorPrimary
-              borderColor: '#FFF',
-              borderWidth: 1,
+              normal: {
+                borderColor: '#FFF',
+                borderWidth: 1,
+              },
+              highlight: {
+                borderColor: '#000',
+              }
             }
           },
         ],
@@ -145,8 +164,6 @@ export default {
           }
         ]
       }
-
-
 
       this.options = option
     }
