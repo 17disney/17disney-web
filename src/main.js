@@ -29,7 +29,7 @@ Vue.use(AttUi)
 import * as Filters from '@/common/filters'
 import initLocale from './utils/locale'
 import initLeaflet from './utils/leaflet'
-import * as Api from 'package/17disney-common/api'
+import * as Api from '../../packages/17disney-common/api'
 
 Vue.prototype.$Api = Api
 
