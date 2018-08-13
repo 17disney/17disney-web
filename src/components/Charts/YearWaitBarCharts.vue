@@ -6,7 +6,7 @@
 
 <script>
 import charts from '@/common/mixins/charts'
-import Color from 'package/17disney-common/const/color'
+import Color from 'pkg/17disney-common/const/color'
 import { colorRgb } from '@/utils/color'
 import { deepClone } from '@/utils/util'
 const NAME = 'year-wait-bar-charts'

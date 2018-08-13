@@ -36,7 +36,7 @@ import YearWaitCharts from '@/components/Charts/YearWaitCharts'
 import YearWaitPieCharts from '@/components/Charts/YearWaitPieCharts'
 import YearWaitBarCharts from '@/components/Charts/YearWaitBarCharts'
 import { dateRange } from '@/utils/date'
-import Color from 'package/17disney-common/const/color'
+import Color from 'pkg/17disney-common/const/color'
 
 const COLOR = '36,146,215'
 

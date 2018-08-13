@@ -38,7 +38,7 @@
 */
 
 import echarts from 'echarts'
-import Color from 'package/17disney-common/const/color'
+import Color from 'pkg/17disney-common/const/color'
 import theme from '@/common/data/echarts-theme'
 
 export default {
