@@ -126,7 +126,7 @@
 import moment from 'moment'
 import base from '@/common/mixins/base'
 import DsMap from '@/components/DsMap/DsMap.vue'
-import LOCAL from 'package/17disney-common/const/local'
+import LOCAL from 'pkg/17disney-common/const/local'
 import ChartsFlowDay from '@/components/Charts/ChartsFlowDay'
 import ChartsParkMark from '@/components/Charts/ChartsParkMark'
 

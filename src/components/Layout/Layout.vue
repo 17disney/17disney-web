@@ -101,7 +101,7 @@ import LayoutHeader from '@/components/Layout/LayoutHeader'
 import LayoutFooter from '@/components/Layout/LayoutFooter'
 import DsMap from '@/components/DsMap/DsMap.vue'
 import DsTabHome from '@/components/DsTab/DsTabHome'
-import LOCAL from 'package/17disney-common/const/local'
+import LOCAL from 'pkg/17disney-common/const/local'
 import base from '@/common/mixins/base'
 
 export default {

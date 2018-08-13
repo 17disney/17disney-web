@@ -230,8 +230,8 @@
 
 <script>
 import LogoText from '@/components/Layout/LogoText'
-import LOCAL from 'package/17disney-common/const/local'
-import LOCALE from 'package/17disney-common/const/locale'
+import LOCAL from 'pkg/17disney-common/const/local'
+import LOCALE from 'pkg/17disney-common/const/locale'
 
 export default {
   components: { LogoText },
