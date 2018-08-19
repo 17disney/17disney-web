@@ -56,7 +56,7 @@ function formatComponentName(vm) {
 
   var name = vm._isVue
     ? (vm.$options && vm.$options.name) ||
-      (vm.$options && vm.$options._componentTag)
+    (vm.$options && vm.$options._componentTag)
     : vm.name
   return (
     (name ? 'component <' + name + '>' : 'anonymous component') +
@@ -66,7 +66,7 @@ function formatComponentName(vm) {
   )
 }
 
-Vue.config.errorHandler = function(err, vm, info) {
+Vue.config.errorHandler = function (err, vm, info) {
   var componentName = formatComponentName(vm)
   var propsData = vm.$options && vm.$options.propsData
 
