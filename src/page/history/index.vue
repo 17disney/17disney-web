@@ -43,7 +43,11 @@
           <div slot="header" class="clearfix">
             <span>{{$t('ds.label.waitsCalendar')}}</span>
           </div>
-          <calendar v-loading="loading" :data="attCount" :ym="calendar"></calendar>
+          <calendar v-loading="loading" :data="attCount" :ym="calendar">
+             <template slot-scope="scope">
+              <calendar-item mode="waits" :day="scope.day" :data="scope.data"></calendar-item>
+             </template>
+          </calendar>
         </ft-section>
         <ft-section>
           <div slot="header" class="clearfix">
@@ -86,7 +90,7 @@ import FtSectionList from '@/components/FtSection/FtSectionList'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 
 export default {
-  components: { FtIndex, AttListSelect, Calendar, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
+  components: { FtIndex, AttListSelect, Calendar, CalendarItem, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
 
   mixins: [base],
   data() {
@@ -106,23 +110,17 @@ export default {
   computed: {
     activeAttList() {
       const list = this.attListFilter('attraction', 3)
-      list.unshift({
-        iconName: 'shanghai-disney-resort',
-        aid: 'park',
-        name: '乐园综合'
-      })
+      // list.unshift({
+      //   iconName: 'shanghai-disney-resort',
+      //   aid: 'park',
+      //   name: '乐园综合'
+      // })
       if (list && list[0]) {
         const { aid } = list[0]
         this.aid = aid
         return list
       }
     }
-  },
-
-  async mounted() {
-    setTimeout(() => {
-      // this.init()
-    }, 1000)
   },
 
   watch: {
@@ -143,40 +141,54 @@ export default {
       this.handleMonthSelect(this.calendar)
       this.handleAttSelect(this.aid)
       this.isInit = true
+
+      this.initPark()
     },
-    // 读取项目
-    async initAtt() {
-      const { local, aid } = this
-      if (!aid || !local) return
+
+    async initPark() {
+      const { local } = this
 
       this.loading = true
       const [st, et] = this.dateRange
+      const attCount = await this.$Api.waitTimes.park(local, { st, et })
 
-      setTimeout(async () => {
-        const attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
-        this.attCount = attCount
+      console.log(attCount)
+      this.attCount = attCount
 
-        let avgList = attCount.map(_ => _['waitAvg'])
-        avgList = avgList.filter(_ => _ > 0)
+    },
 
-        this.attIndex = [
-          {
-            label: '最低等候',
-            value: Math.min(...avgList)
-          },
-          {
-            label: '最高等候',
-            value: Math.max(...avgList)
-          }
-        ]
-        this.loading = false
-      }, 500)
+    // 读取项目
+    async initAtt() {
+      this.loading = true
+      const { local, aid } = this
+      if (!aid || !local) return
+
+      const [st, et] = this.dateRange
+
+      const attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
+      this.attCount = attCount
+
+      let avgList = attCount.map(_ => _['waitAvg'])
+      avgList = avgList.filter(_ => _ > 0)
+
+      this.attIndex = [
+        {
+          label: '最低等候',
+          value: Math.min(...avgList)
+        },
+        {
+          label: '最高等候',
+          value: Math.max(...avgList)
+        }
+      ]
+      this.loading = false
     },
     // 选择项目
-    async handleAttSelect(aid) {
+    handleAttSelect(aid) {
       this.aid = aid
       this.info = this.activeAttList.find(_ => _.aid === aid)
-      this.initAtt()
+
+      aid === 'park' ? this.initPark : this.initAtt()
     },
     // 选择月份
     handleMonthSelect(val) {

@@ -121,7 +121,6 @@
         <div class="popover-att__schedule" v-if="data">{{data.startTime}} - {{data.endTime}}</div>
       </div>
       <div v-else>未开放</div>
-
       <div slot="reference">
         <div class="calendar-item" :class="[numName.class, {'is-pointer': !tipDisabled}]">
           <p class="calendar-item__day">{{day}}</p>
