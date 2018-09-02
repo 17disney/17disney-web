@@ -44,9 +44,9 @@
             <span>{{$t('ds.label.waitsCalendar')}}</span>
           </div>
           <calendar v-loading="loading" :data="attCount" :ym="calendar">
-             <template slot-scope="scope">
-              <calendar-item mode="waits" :day="scope.day" :data="scope.data"></calendar-item>
-             </template>
+            <template slot-scope="scope">
+              <calendar-item-wait mode="waits" :day="scope.day" :data="scope.data"></calendar-item-wait>
+            </template>
           </calendar>
         </ft-section>
         <ft-section>
@@ -82,7 +82,7 @@ import moment from 'moment'
 import FtIndex from '@/components/FtIndex/FtIndex'
 import AttListSelect from '@/components/AttList/AttListSelect'
 import Calendar from '@/components/Calendar/Calendar'
-import CalendarItem from '@/components/Calendar/CalendarItem'
+import CalendarItemWait from '@/components/Calendar/CalendarItemWait'
 import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
 import FtSection from '@/components/FtSection/FtSection'
@@ -90,7 +90,7 @@ import FtSectionList from '@/components/FtSection/FtSectionList'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 
 export default {
-  components: { FtIndex, AttListSelect, Calendar, CalendarItem, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
+  components: { FtIndex, AttListSelect, Calendar, CalendarItemWait, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
 
   mixins: [base],
   data() {

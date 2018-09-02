@@ -56,7 +56,6 @@
         <tr v-for="(item, index) in calendar" :key="index">
           <td v-for="(day, index) in item" :key="index">
             <slot mode="waits" v-if="day.day" :day="day.day" :data="data[day.index]"></slot>
-            <!-- <calendar-item :mode="mode" v-if="day.day" :day="day.day" :data="data[day.index]"></calendar-item> -->
           </td>
         </tr>
       </tbody>
