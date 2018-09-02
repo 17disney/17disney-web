@@ -51,7 +51,7 @@
     <ul class="att-list-select__list">
       <el-tooltip v-for="item in data" :key="item.id" class="item" effect="dark" :content="item.name" placement="right">
         <li class="att-list-select__item" :class="{'is-active': item.aid === value}" @click="clickAttItem(item.aid)">
-          <att-media size="small" :medias="item.medias"></att-media>
+          <att-media size="small" :medias="item.medias" :icon="item.iconName"></att-media>
           <span class="att-list-select__title">{{item.name}}</span>
         </li>
       </el-tooltip>

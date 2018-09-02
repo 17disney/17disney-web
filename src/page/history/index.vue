@@ -52,7 +52,6 @@
           <charts-att-count v-loading="loading" :data="attCount"></charts-att-count>
         </ft-section>
       </ft-section-list>
-
       <!-- <ft-section>
         <div slot="header" class="clearfix">
           <span>历史最高等候</span>
@@ -107,6 +106,11 @@ export default {
   computed: {
     activeAttList() {
       const list = this.attListFilter('attraction', 3)
+      list.unshift({
+        iconName: 'shanghai-disney-resort',
+        aid: 'park',
+        name: '乐园综合'
+      })
       if (list && list[0]) {
         const { aid } = list[0]
         this.aid = aid
