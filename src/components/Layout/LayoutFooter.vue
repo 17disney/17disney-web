@@ -166,7 +166,9 @@
             <div class="footer-nav-list">
               <h2>{{$t('ds.navbar.community')}}</h2>
               <div class="footer-nav-item">
-                <a href="#/about">{{$t('ds.navbar.aboutUs')}}</a>
+                <router-link to="/about">
+                  <span>{{$t('ds.navbar.aboutUs')}}</span>
+                </router-link>
               </div>
               <div class="footer-nav-item">
                 <a href="https://github.com/17disney" target="_blank">Github</a>
