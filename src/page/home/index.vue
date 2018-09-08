@@ -70,14 +70,9 @@ export default {
           item.data = await this.$Api.waitTimes.parkDate(item.value, date)
         }
       }
-      console.log(item)
-
-      console.log(localList)
 
       LOCAL.forEach(item => {
       })
-
-
     }
   }
 }

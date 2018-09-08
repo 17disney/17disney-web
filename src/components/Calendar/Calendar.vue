@@ -41,6 +41,84 @@
     }
   }
 }
+
+
+.calendar-item {
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: $color-primary-ss;
+
+  &.is-pointer {
+    cursor: pointer;
+
+    &:hover {
+      .calendar-item {
+        &__day {
+          color: $color-primary;
+        }
+      }
+
+      background-color: rgba($color-primary-s, 0.2);
+    }
+  }
+
+  .badge {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  &.is-yellow {
+    .badge {
+      background-color: $color-yellow;
+    }
+  }
+
+  &.is-green {
+    .badge {
+      background-color: $color-green;
+    }
+  }
+
+  &.is-orange {
+    .badge {
+      background-color: $color-orange;
+    }
+  }
+
+  &.is-red {
+    .badge {
+      background-color: $color-red;
+    }
+  }
+
+  &.is-default {
+    .badge {
+      background-color: #CCC;
+    }
+  }
+
+  &__day {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 13px;
+    color: $color-light-grey-s;
+  }
+
+  &__num {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: $color-light-grey;
+    font-size: 14px;
+  }
+}
 </style>
 
 <template>
@@ -55,7 +133,7 @@
       <tbody>
         <tr v-for="(item, index) in calendar" :key="index">
           <td v-for="(day, index) in item" :key="index">
-            <slot mode="waits" v-if="day.day" :day="day.day" :data="data[day.index]"></slot>
+            <slot v-if="day.day" :day="day.day" :data="data[day.index]"></slot>
           </td>
         </tr>
       </tbody>

@@ -45,7 +45,8 @@
           </div>
           <calendar v-loading="loading" :data="attCount" :ym="calendar">
             <template slot-scope="scope">
-              <calendar-item-wait mode="waits" :day="scope.day" :data="scope.data"></calendar-item-wait>
+              <calendar-item-park v-if="aid === 'park'" :day="scope.day" :data="scope.data"></calendar-item-park>
+              <calendar-item-att v-else :day="scope.day" :data="scope.data"></calendar-item-att>
             </template>
           </calendar>
         </ft-section>
@@ -82,7 +83,8 @@ import moment from 'moment'
 import FtIndex from '@/components/FtIndex/FtIndex'
 import AttListSelect from '@/components/AttList/AttListSelect'
 import Calendar from '@/components/Calendar/Calendar'
-import CalendarItemWait from '@/components/Calendar/CalendarItemWait'
+import CalendarItemAtt from '@/components/Calendar/CalendarItemAtt'
+import CalendarItemPark from '@/components/Calendar/CalendarItemPark'
 import ChartsAttCount from '@/components/Charts/ChartsAttCount'
 import SelectDateRange from '@/components/Select/SelectDateRange'
 import FtSection from '@/components/FtSection/FtSection'
@@ -90,7 +92,7 @@ import FtSectionList from '@/components/FtSection/FtSectionList'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 
 export default {
-  components: { FtIndex, AttListSelect, Calendar, CalendarItemWait, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
+  components: { FtIndex, AttListSelect, Calendar, CalendarItemAtt, CalendarItemPark, ChartsAttCount, SelectDateRange, FtSection, FtSectionList, SelectMonth },
 
   mixins: [base],
   data() {
@@ -110,11 +112,11 @@ export default {
   computed: {
     activeAttList() {
       const list = this.attListFilter('attraction', 3)
-      // list.unshift({
-      //   iconName: 'shanghai-disney-resort',
-      //   aid: 'park',
-      //   name: '乐园综合'
-      // })
+      list.unshift({
+        iconName: 'shanghai-disney-resort',
+        aid: 'park',
+        name: '乐园综合'
+      })
       if (list && list[0]) {
         const { aid } = list[0]
         this.aid = aid
@@ -141,8 +143,6 @@ export default {
       this.handleMonthSelect(this.calendar)
       this.handleAttSelect(this.aid)
       this.isInit = true
-
-      this.initPark()
     },
 
     async initPark() {
@@ -154,12 +154,10 @@ export default {
 
       console.log(attCount)
       this.attCount = attCount
-
     },
 
     // 读取项目
     async initAtt() {
-      this.loading = true
       const { local, aid } = this
       if (!aid || !local) return
 
@@ -181,14 +179,14 @@ export default {
           value: Math.max(...avgList)
         }
       ]
-      this.loading = false
     },
     // 选择项目
-    handleAttSelect(aid) {
+    async handleAttSelect(aid) {
       this.aid = aid
       this.info = this.activeAttList.find(_ => _.aid === aid)
-
-      aid === 'park' ? this.initPark : this.initAtt()
+      this.loading = true
+      aid === 'park' ? await this.initPark() : await this.initAtt()
+      this.loading = false
     },
     // 选择月份
     handleMonthSelect(val) {
