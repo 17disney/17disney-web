@@ -106,26 +106,6 @@
 <template>
   <div>
     <div class="container">
-      <el-aside width="380px">
-        <el-menu default-active="2" class="el-menu-vertical-demo">
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">乐园日报</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">乐园周报</span>
-          </el-menu-item>
-          <el-menu-item index="5">
-            <i class="el-icon-setting"></i>
-            <span slot="title">乐园月报</span>
-          </el-menu-item>
-          <el-menu-item index="6">
-            <i class="el-icon-setting"></i>
-            <span slot="title">乐园年报</span>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
       <dm-main>
         <dm-card type="report" class="ds-card--report-top">
           <div class="icon icon--pep icon__shanghai-disney-resort"></div>
