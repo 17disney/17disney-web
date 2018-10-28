@@ -13,7 +13,8 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
     "work": "node build/init.js",
-    "server": "cd ./server && npm run dev"
+    "server": "cd ./server && npm run start:docker",
+    "server:test": "cd ./server && npm run dev"
   },
   "compileDependencies": [
     "17disney-web"
