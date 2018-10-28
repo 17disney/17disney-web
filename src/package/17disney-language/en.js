@@ -48,7 +48,7 @@ export default {
     },
     disneyLand: {
       name: 'Disney Land',
-      shanghai: 'Sahanghai Disneyland',
+      shanghai: 'Shanghai Disneyland',
       hongkong: 'Hongkong Disneyland',
       california: 'California Disneyland',
       paris: 'Paris Disneyland',
