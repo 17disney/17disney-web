@@ -1,5 +1,13 @@
-FROM daocloud.io/nginx
+FROM node:8.9.4
 
-COPY /dist /usr/share/nginx/html
+COPY . /app/
+WORKDIR /app
+RUN yarn install
 
-EXPOSE 80
+WORKDIR /app/server
+RUN yarn install
+
+WORKDIR /app
+RUN npm run build
+EXPOSE 7701
+CMD ["npm", "run", "server"]
