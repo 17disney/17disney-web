@@ -86,8 +86,6 @@
 export default {
   name: 'att-status',
 
-  components: {},
-
   props: {
     status: {
       type: String
@@ -113,12 +111,6 @@ export default {
         Down: 'static-error'
       }
     }
-  },
-
-  computed: {},
-
-  mounted() { },
-
-  methods: {}
+  }
 }
 </script>

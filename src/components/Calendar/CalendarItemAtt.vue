@@ -30,6 +30,7 @@
   }
 }
 </style>
+
 <template>
   <el-popover popper-class="popover-att" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
     <div v-if="data.waitAvg > 0">

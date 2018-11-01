@@ -50,7 +50,7 @@
             </template>
           </calendar>
         </ft-section>
-        <ft-section>
+        <ft-section v-if="aid !== 'park'">
           <div slot="header" class="clearfix">
             <span>{{$t('ds.label.waitsTrend')}}</span>
           </div>
@@ -112,11 +112,11 @@ export default {
   computed: {
     activeAttList() {
       const list = this.attListFilter('attraction', 3)
-      // list.unshift({
-      //   iconName: 'shanghai-disney-resort',
-      //   aid: 'park',
-      //   name: '乐园综合'
-      // })
+      list.unshift({
+        iconName: 'shanghai-disney-resort',
+        aid: 'park',
+        name: '乐园综合'
+      })
       if (list && list[0]) {
         const { aid } = list[0]
         this.aid = aid
@@ -133,7 +133,7 @@ export default {
     },
     'calendar': function (val, oVal) {
       setTimeout(() => {
-        this.initAtt()
+        this.aid === 'park' ? this.initPark() : this.initAtt()
       }, 100)
     }
   },
@@ -152,8 +152,8 @@ export default {
       const [st, et] = this.dateRange
       const attCount = await this.$Api.waitTimes.park(local, { st, et })
 
-      console.log(attCount)
       this.attCount = attCount
+      this.loading = false
     },
 
     // 读取项目
@@ -162,7 +162,6 @@ export default {
       if (!aid || !local) return
 
       const [st, et] = this.dateRange
-
       const attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
       this.attCount = attCount
 
@@ -191,7 +190,6 @@ export default {
     // 选择月份
     handleMonthSelect(val) {
       const dateRange = [moment(val, 'YYYY-MM').startOf('month').format('YYYY-MM-DD'), moment(val, 'YYYY-MM').endOf('month').format('YYYY-MM-DD')]
-
       this.dateRange = dateRange
       this.calendar = val
     }

@@ -190,7 +190,7 @@
         </dm-card> -->
 
         <dm-card type="report" class="ds-card--report-top">
-          <img src="//17disney.com/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
+          <img src="/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
           <div class="title--desc">本数据由 17Disney.com 统计发布</div>
         </dm-card>
       </dm-main>

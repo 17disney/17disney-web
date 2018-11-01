@@ -204,7 +204,7 @@
         <!-- 小程序 -->
         <el-popover placement="bottom-start" width="230" trigger="hover">
           <div class="popover-wxapp">
-            <img src="//17disney.com/static/wxapp_17disney.jpg" alt="">
+            <img src="/static/wxapp_17disney.jpg" alt="">
             <div class="popover-wxapp__title">{{$t('ds.title.scanMiniProgram')}}</div>
           </div>
           <div class="nav-top-left" slot="reference">
