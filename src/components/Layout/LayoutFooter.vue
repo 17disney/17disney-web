@@ -260,17 +260,17 @@ export default {
         {
           name: '微信小程序',
           desc: '17俱乐部',
-          picUrl: '//17disney.com/static/wxapp_17disney.jpg'
+          picUrl: '/static/wxapp_17disney.jpg'
         },
         {
           name: '公众号',
           desc: '一起神奇',
-          picUrl: '//17disney.com/static/wx_17shenqi.jpg'
+          picUrl: '/static/wx_17shenqi.jpg'
         },
         {
           name: '微信小程序',
           desc: '乐园时间表',
-          picUrl: '//17disney.com/static/wxapp_timesguide.jpg'
+          picUrl: '/static/wxapp_timesguide.jpg'
         }
       ]
     }
