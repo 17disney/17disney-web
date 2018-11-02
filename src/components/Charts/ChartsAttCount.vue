@@ -67,30 +67,6 @@ export default {
           right: 25,
           bottom: 25
         },
-        legend: {
-          // show: false,
-        },
-        // visualMap: {
-        //   top: 10,
-        //   right: 10,
-        //   show: false,
-        //   pieces: [{
-        //     gt: 0,
-        //     lte: 30,
-        //     color: Color.colorGreen
-        //   }, {
-        //     gt: 30,
-        //     lte: 60,
-        //     color: Color.colorYellow
-        //   }, {
-        //     gt: 60,
-        //     lte: 120,
-        //     color: Color.colorOrange
-        //   }, {
-        //     gt: 120,
-        //     color: Color.colorRed
-        //   }]
-        // },
         tooltip: {
           trigger: 'axis',
         },
@@ -115,7 +91,7 @@ export default {
         series: [
           {
             name: this.$t('ds.label.waitsAvg'),
-            data: data.map(_ => _['waitAvg']),
+            data: data.list, //map(_ => _['waitAvg']),
             type: 'bar',
             barWidth: 8,
             barGap: '-100%',

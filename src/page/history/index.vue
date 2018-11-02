@@ -50,7 +50,7 @@
             </template>
           </calendar>
         </ft-section>
-        <ft-section v-if="aid !== 'park'">
+        <ft-section>
           <div slot="header" class="clearfix">
             <span>{{$t('ds.label.waitsTrend')}}</span>
           </div>
@@ -150,6 +150,7 @@ export default {
       this.loading = true
       const [st, et] = this.dateRange
       const attCount = await this.$Api.waitTimes.park(local, { st, et })
+      attCount.list = attCount.map(_ => _.markMax)
       this.attCount = attCount
       this.loading = false
     },
@@ -161,6 +162,7 @@ export default {
 
       const [st, et] = this.dateRange
       const attCount = await this.$Api.waitTimes.attractions(local, aid, { st, et })
+      attCount.list = attCount.map(_ => _.waitAvg)
       this.attCount = attCount
 
       let avgList = attCount.map(_ => _['waitAvg'])
