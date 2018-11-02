@@ -147,11 +147,9 @@ export default {
 
     async initPark() {
       const { local } = this
-
       this.loading = true
       const [st, et] = this.dateRange
       const attCount = await this.$Api.waitTimes.park(local, { st, et })
-
       this.attCount = attCount
       this.loading = false
     },
