@@ -17,7 +17,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/forecast'
+      redirect: '/live'
     },
     {
       path: '/report',
@@ -101,7 +101,6 @@ const router = new Router({
 
 async function init(to) {
   const { dispatch, state } = router.app.$options.store
-
   if (state.app.init) return
 
   let loadingInstance = Loading.service({})
@@ -111,7 +110,6 @@ async function init(to) {
 
   dispatch('setLocal', local)
   dispatch('setLocale', locale)
-
   dispatch('getDestinationsList')
 
   loadingInstance.close()

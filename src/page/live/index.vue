@@ -99,15 +99,15 @@
         </att-map>
       </div>
       <el-row :gutter="30">
-        <el-col :span="12" v-if="local === 'shanghai'">
-          <!-- 乐园客流量 -->
+        <!-- 乐园客流量 -->
+        <!-- <el-col :span="12">
           <dm-card>
             <div slot="header" class="clearfix">
               <span>{{$t('ds.label.parkFlow')}}</span>
             </div>
             <charts-flow-day :height="200" :data="data.flowHour"></charts-flow-day>
           </dm-card>
-        </el-col>
+        </el-col> -->
         <el-col :span="12">
           <!-- 乐园指数 -->
           <dm-card>
@@ -145,8 +145,6 @@ export default {
     }
   },
 
-  computed: {},
-
   mounted() {
     this.localInfo = LOCAL.find(_ => _.value === this.local)
     this.init()
@@ -169,7 +167,7 @@ export default {
         return
       }
       this.$message({
-        message: '已更新',
+        message: this.$t('message.updated'),
         type: 'success'
       })
     },

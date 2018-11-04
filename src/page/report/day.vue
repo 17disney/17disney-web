@@ -137,7 +137,6 @@
               </div>
               <day-park-mark-charts :data="dataParkFlow"></day-park-mark-charts>
             </dm-card>
-
           </el-col>
 
           <el-col :span="12">
@@ -189,10 +188,10 @@
           </div>
         </dm-card> -->
 
-        <dm-card type="report" class="ds-card--report-top">
+        <!-- <dm-card type="report" class="ds-card--report-top">
           <img src="/static/wx_17shenqi.jpg" alt="一起神奇" class="image--qrcode">
           <div class="title--desc">本数据由 17Disney.com 统计发布</div>
-        </dm-card>
+        </dm-card> -->
       </dm-main>
     </div>
   </div>

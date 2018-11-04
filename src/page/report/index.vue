@@ -11,7 +11,11 @@
   <div class="container">
     <navbar-page :data="navbar"></navbar-page>
     <el-card style="margin-bottom: 20px;">
-      <year-wait-charts ref="chart" @click="handleClick" :data="attCount" :date-range="dateRange"></year-wait-charts>
+      <YearWaitCharts ref="chart" @click="handleClick" :data="attCount" :date-range="dateRange"></YearWaitCharts>
+    </el-card>
+
+    <el-card>
+      <YearParkWaitCharts ref="yearParkWaitCharts" :data="attCount"></YearParkWaitCharts>
     </el-card>
     <router-view :select="date"></router-view>
   </div>
@@ -23,11 +27,12 @@ import { dateRange } from '@/utils/date'
 
 import NavbarPage from '@/components/Navbar/NavbarPage'
 import YearWaitCharts from '@/components/Charts/YearWaitCharts'
+import YearParkWaitCharts from '@/components/Charts/YearParkWaitCharts'
 
 export default {
   mixins: [base],
 
-  components: { NavbarPage, YearWaitCharts },
+  components: { NavbarPage, YearWaitCharts, YearParkWaitCharts },
 
   data() {
     return {
