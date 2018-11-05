@@ -1,5 +1,8 @@
 export default {
   ds: {
+    message: {
+      updated: 'Updated'
+    },
     label: {
       name: 'Name',
       status: 'Status',

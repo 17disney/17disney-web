@@ -1,5 +1,8 @@
 export default {
   ds: {
+    message: {
+      updated: '已更新'
+    },
     label: {
       name: '名称',
       status: '状态',
