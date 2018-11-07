@@ -1,5 +1,5 @@
 import moment from 'moment'
-import LOCALE from 'pkg/17disney-common/const/locale'
+import LOCALE from 'packages/17disney-common/const/locale'
 
 // 时间格式化
 export function timeFormat(value, format, src = 'YYYY-MM-DD') {

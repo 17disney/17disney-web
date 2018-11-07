@@ -19,7 +19,7 @@
 */
 
 import Charts from './Charts'
-import Color from 'pkg/17disney-common/const/color'
+import Color from 'packages/17disney-common/const/color'
 import moment from 'moment'
 import { markMax } from '@/utils/array'
 

@@ -1,4 +1,4 @@
-import Color from 'pkg/17disney-common/const/color'
+import Color from 'packages/17disney-common/const/color'
 
 const data = {
   color: [

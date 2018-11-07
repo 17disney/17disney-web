@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import LOCAL from 'pkg/17disney-common/const/local'
+import LOCAL from 'packages/17disney-common/const/local'
 import { today } from '@/utils/time'
 import { deepClone } from '@/utils/util'
 

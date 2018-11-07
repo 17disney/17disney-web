@@ -295,8 +295,8 @@
 import { mapState } from 'vuex'
 
 import LogoText from './LogoText.vue'
-import LOCAL from 'pkg/17disney-common/const/local'
-import LOCALE from 'pkg/17disney-common/const/locale'
+import LOCAL from 'packages/17disney-common/const/local'
+import LOCALE from 'packages/17disney-common/const/locale'
 import base from '@/common/mixins/base'
 
 export default {

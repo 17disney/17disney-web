@@ -6,7 +6,7 @@
 
 <script>
 import charts from '@/common/mixins/charts'
-import Color from 'pkg/17disney-common/const/color'
+import Color from 'packages/17disney-common/const/color'
 import { colorRgb } from '@/utils/color'
 const NAME = 'year-wait-pie-charts'
 

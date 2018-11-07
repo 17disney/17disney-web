@@ -1,10 +1,10 @@
-import LOCAL from 'pkg/17disney-common/const/local'
-import ATT_TYPE from 'pkg/17disney-common/const/att-type'
-import WaitTimes from 'pkg/17disney-common/api/wait-times'
+import LOCAL from 'packages/17disney-common/const/local'
+import ATT_TYPE from 'packages/17disney-common/const/att-type'
+import WaitTimes from 'packages/17disney-common/api/wait-times'
 import { lineToObject } from '@/utils/tool'
 import Lockr from 'lockr'
 import moment from 'moment'
-import LAND_NAME from 'pkg/17disney-common/const'
+import LAND_NAME from 'packages/17disney-common/const'
 
 const explorer = {
   state: {
