@@ -1,0 +1,19 @@
+{
+  "name": "17disney-common",
+  "version": "0.1.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/17disney/17disney-common.git"
+  },
+  "author": "xank@qq.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/17disney/17disney-common/issues"
+  },
+  "homepage": "https://github.com/17disney/17disney-common#readme"
+}
