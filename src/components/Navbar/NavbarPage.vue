@@ -1,5 +1,5 @@
 <style lang='stylus'>
-@require '../../styles/disney/var/color.styl';
+@require '~@/styles/disney/var/color.styl';
 
 .navbar-page {
   height: 40px;

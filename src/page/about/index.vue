@@ -1,5 +1,5 @@
 <style lang='stylus'>
-@require '../../styles/disney/var/color.styl';
+@require '~@/styles/disney/var/color.styl';
 
 .content {
   padding: 50px 30px;

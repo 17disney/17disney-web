@@ -1,5 +1,5 @@
 <style lang='stylus'>
-@require '../../styles/disney/var/color.styl';
+@require '~@/styles/disney/var/color.styl';
 
 .popover-att {
   padding: 10px 0 !important;

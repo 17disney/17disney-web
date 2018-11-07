@@ -18,8 +18,8 @@ import 'leaflet/dist/leaflet.css'
 
 // UI
 import ElementUI from 'element-ui'
-import DmUi from 'package/dm-ui'
-import AttUi from 'package/att-ui'
+import DmUi from 'packages/17disney-ui-dm'
+import AttUi from 'packages/17disney-ui-att'
 
 Vue.use(ElementUI)
 Vue.use(DmUi)

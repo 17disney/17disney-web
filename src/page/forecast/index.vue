@@ -1,5 +1,5 @@
 <style lang='stylus' scoped>
-@require '../../styles/disney/var/color.styl';
+@require '~@/styles/disney/var/color.styl';
 
 .dm-card {
   margin-bottom: 30px;

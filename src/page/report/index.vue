@@ -1,5 +1,5 @@
 <style lang='stylus' scoped>
-@require '../../styles/disney/var/color.styl';
+@require '~@/styles/disney/var/color.styl';
 
 .navbar-page {
   margin-top: 20px;
