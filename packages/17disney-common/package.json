@@ -11,7 +11,7 @@
     "url": "git+https://github.com/17disney/17disney-common.git"
   },
   "author": "xank@qq.com",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/17disney/17disney-common/issues"
   },
