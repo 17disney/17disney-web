@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { TIMESGUIDE_TYPE_LIST } from 'packages/17disney-common/const/museum'
+import { TIMESGUIDE_TYPE_LIST } from '17disney-common/const/museum'
 
 const NAME = 'att-media-collection'
 const CDN = {
