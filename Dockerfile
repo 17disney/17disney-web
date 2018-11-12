@@ -4,7 +4,7 @@ COPY . /app/
 WORKDIR /app
 RUN yarn install
 RUN npm run build
-RUN yarn install lerna
+RUN yarn add lerna
 RUN lerna bootstrap
 
 WORKDIR /app/server
