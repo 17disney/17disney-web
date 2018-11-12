@@ -87,6 +87,10 @@ const router = new Router({
           component: () => import('@/page/history/index')
         },
         {
+          path: 'history/:type',
+          component: () => import('@/page/history/index')
+        },
+        {
           path: 'live',
           component: () => import('@/page/live/index')
         },

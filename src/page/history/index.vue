@@ -146,13 +146,16 @@ export default {
     },
 
     async initPark() {
-      const { local } = this
       this.loading = true
+      this.attCount = []
+      const { local } = this
       const [st, et] = this.dateRange
       const attCount = await this.$Api.waitTimes.park(local, { st, et })
       attCount.list = attCount.map(_ => _.markMax)
-      this.attCount = attCount
-      this.loading = false
+      setTimeout(() => {
+        this.attCount = attCount
+        this.loading = false
+      }, 1000)
     },
 
     // 读取项目
@@ -192,7 +195,7 @@ export default {
       const dateRange = [moment(val, 'YYYY-MM').startOf('month').format('YYYY-MM-DD'), moment(val, 'YYYY-MM').endOf('month').format('YYYY-MM-DD')]
       this.dateRange = dateRange
       this.calendar = val
-    }
+    },
   }
 }
 </script>

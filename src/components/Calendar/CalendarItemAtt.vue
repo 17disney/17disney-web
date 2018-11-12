@@ -32,7 +32,7 @@
 </style>
 
 <template>
-  <el-popover popper-class="popover-att" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
+  <el-popover popper-class="popover-att" :open-delay="400" :disabled="tipDisabled" placement="top" width="220" trigger="hover">
     <div v-if="data.waitAvg > 0">
       <div class="popover-att__num">
         <div class="popover-att__wait">
