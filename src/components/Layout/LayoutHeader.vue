@@ -229,7 +229,6 @@
               </a>
             </el-popover>
           </li>
-
           <!-- 语言选择 -->
           <li class="nav-top-item">
             <el-popover popper-class="popover-locale" placement="bottom-end" width="50" trigger="click">
@@ -260,6 +259,11 @@
               <span>首页</span>
             </router-link>
           </li> -->
+          <li class="nav-item">
+            <router-link to="/live" class="insert">
+              <span>{{$t('ds.label.parkLive')}}</span>
+            </router-link>
+          </li>
           <li v-if="local === 'shanghai'" class="nav-item">
             <router-link to="/forecast" class="insert">
               <span>{{$t('ds.navbar.flowOperia')}}</span>
@@ -268,11 +272,6 @@
           <li class="nav-item">
             <router-link to="/history" class="insert">
               <span>{{$t('ds.label.historicalWait')}}</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/live" class="insert">
-              <span>{{$t('ds.label.parkLive')}}</span>
             </router-link>
           </li>
           <li v-if="local === 'shanghai'" class="nav-item">
@@ -303,9 +302,6 @@ export default {
   components: { LogoText },
 
   mixins: [base],
-
-  props: {
-  },
 
   data() {
     return {
