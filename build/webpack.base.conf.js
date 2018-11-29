@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const PostCompilePlugin = require('webpack-post-compile-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -99,5 +100,5 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
-  plugins: [new PostCompilePlugin()]
+  plugins: [new PostCompilePlugin(), new VueLoaderPlugin()]
 }
