@@ -1,9 +1,11 @@
 FROM node:8.9.4
 
 COPY . /app/
+
 WORKDIR /app
 RUN yarn install
 RUN npm run build
+
 WORKDIR /app/server
 RUN yarn install
 
