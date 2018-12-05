@@ -50,8 +50,8 @@ module.exports = {
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
+        loader: 'vue-loader'
+        // options: vueLoaderConfig
       },
       {
         test: /\.js$/,
@@ -100,5 +100,5 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
-  plugins: [new PostCompilePlugin(), new VueLoaderPlugin()]
+  plugins: [new VueLoaderPlugin()]
 }
