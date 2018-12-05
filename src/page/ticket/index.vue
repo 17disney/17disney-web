@@ -33,34 +33,62 @@
 </style>
 <template>
   <div class="container">
-    <el-aside width="350px">
+    <!-- <el-aside width="350px">
       <div class="shop-wrapper">
         <h2 class="title">{{$t('ds.title.buyTickets')}}</h2>
         <ticket-item @click="handleTicketClick" v-for="(item, index) in shop" :key="index" :data="item"></ticket-item>
       </div>
-    </el-aside>
+    </el-aside> -->
     <dm-main>
       <ft-section-list>
-        <select-month min-month="2018-03" @click="handleMonthSelect" v-model="calendar"></select-month>
+        <select-month
+          min-month="2018-03"
+          @click="handleMonthSelect"
+          v-model="calendar"
+        ></select-month>
         <ft-section>
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>{{$t('ds.title.ticketingCalendar')}}</span>
           </div>
-          <calendar mode="ticket" v-loading="loading" :data="ticketData" :ym="calendar"></calendar>
+          <calendar
+            mode="ticket"
+            v-loading="loading"
+            :data="ticketData"
+            :ym="calendar"
+          >
+            <template slot-scope="scope">
+              <CalendarItemTicket
+                :day="scope.day"
+                :data="scope.data"
+              ></CalendarItemTicket>
+            </template>
+          </calendar>
         </ft-section>
         <ft-section>
-          <div slot="header" class="clearfix">
+          <div
+            slot="header"
+            class="clearfix"
+          >
             <span>{{$t('ds.title.ticketingTrend')}}</span>
           </div>
-          <charts-ticket-month :data="ticketData"></charts-ticket-month>
+          <ChartsTicketMonth :data="ticketData"></ChartsTicketMonth>
         </ft-section>
       </ft-section-list>
     </dm-main>
 
-    <el-dialog class="dialog-shop" :visible.sync="dialogVisible" width="50%">
-      <img src="http://cdn.17disney.com/20180615180550.jpg" alt="">
+    <el-dialog
+      class="dialog-shop"
+      :visible.sync="dialogVisible"
+      width="50%"
+    >
+      <img
+        src="http://cdn.17disney.com/20180615180550.jpg"
+        alt=""
+      >
     </el-dialog>
-
   </div>
 </template>
 
@@ -77,13 +105,14 @@ import base from '@/common/mixins/base'
 import moment from 'moment'
 import SelectMonth from '@/components/SelectMonth/SelectMonth'
 import Calendar from '@/components/Calendar/Calendar'
+import CalendarItemTicket from '@/components/Calendar/CalendarItemTicket'
 import FtSection from '@/components/FtSection/FtSection'
 import FtSectionList from '@/components/FtSection/FtSectionList'
 import ChartsTicketMonth from '@/components/Charts/ChartsTicketMonth'
 import TicketItem from '@/components/Ticket/TicketItem'
 
 export default {
-  components: { SelectMonth, Calendar, FtSection, FtSectionList, ChartsTicketMonth, TicketItem },
+  components: { SelectMonth, Calendar, CalendarItemTicket, FtSection, FtSectionList, ChartsTicketMonth, TicketItem },
 
   mixins: [base],
 

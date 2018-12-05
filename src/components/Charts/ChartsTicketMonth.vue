@@ -6,7 +6,11 @@
 </style>
 
 <template>
-  <charts v-if="options" :options="options" :id="id"></charts>
+  <charts
+    v-if="options"
+    :options="options"
+    :id="id"
+  ></charts>
 </template>
 
 <script>
@@ -22,6 +26,7 @@ import Charts from './Charts'
 import Color from 'packages/17disney-common/const/color'
 import moment from 'moment'
 import { markMax } from '@/utils/array'
+import { TICKET_INDEX_MAP } from '@/common/data/const'
 
 const NAME = 'charts-ticket-month'
 
@@ -78,22 +83,7 @@ export default {
           top: 10,
           right: 10,
           show: false,
-          pieces: [{
-            gt: 0,
-            lte: 4999,
-            color: Color.colorGreen
-          }, {
-            gt: 5000,
-            lte: 9999,
-            color: Color.colorYellow
-          }, {
-            gt: 10000,
-            lte: 14999,
-            color: Color.colorOrange
-          }, {
-            gt: 15000,
-            color: Color.colorRed
-          }]
+          pieces: TICKET_INDEX_MAP
         },
         tooltip: {
           trigger: 'axis',
