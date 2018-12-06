@@ -8,6 +8,7 @@
 import L from 'leaflet'
 import 'leaflet.markercluster'
 import { findRealParent, propsBinder } from 'vue2-leaflet'
+import { setTimeout } from 'timers';
 const props = {
   options: {
     type: Object,
@@ -22,16 +23,19 @@ export default {
     }
   },
   mounted() {
-    this.mapObject = L.markerClusterGroup(this.options)
-    L.DomEvent.on(this.mapObject, this.$listeners)
-    propsBinder(this, this.mapObject, props)
-    this.ready = true
-    this.parentContainer = findRealParent(this.$parent)
-    this.parentContainer.addLayer(this)
+    console.log(L.markerClusterGroup)
+    setTimeout(() => {
+      // this.mapObject = L.markerClusterGroup(this.options)
+      L.DomEvent.on(this.mapObject, this.$listeners)
+      propsBinder(this, this.mapObject, props)
+      this.ready = true
+      this.parentContainer = findRealParent(this.$parent)
+      this.parentContainer.addLayer(this)
+    }, 0)
   },
-  beforeDestroy() {
-    this.parentContainer.removeLayer(this)
-  },
+  // beforeDestroy() {
+  //   this.parentContainer.removeLayer(this)
+  // },
   methods: {
     addLayer(layer, alreadyAdded) {
       if (!alreadyAdded) {
