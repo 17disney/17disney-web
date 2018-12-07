@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --port 7701 --title=egg-server-server",
-    "start:docker": "egg-scripts start --port 80 --title=egg-server-server",
+    "start:docker": "egg-scripts start --port 810 --title=egg-server-server",
     "stop": "egg-scripts stop --title=egg-server-server",
     "dev": "egg-bin dev --port 7701",
     "debug": "egg-bin debug",
