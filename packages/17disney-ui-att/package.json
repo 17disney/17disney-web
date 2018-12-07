@@ -1,6 +1,6 @@
 {
   "name": "17disney-ui-att",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "start": "react-scripts start",
     "dev": "react-scripts start",
@@ -9,6 +9,6 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "17disney-common": "^0.2.0"
+    "17disney-common": "^0.2.1"
   }
 }
