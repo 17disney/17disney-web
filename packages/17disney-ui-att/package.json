@@ -9,6 +9,6 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "17disney-common": "^0.1.6"
+    "17disney-common": "^0.2.0"
   }
 }
