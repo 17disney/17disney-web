@@ -76,13 +76,13 @@ const webpackConfig = merge(baseWebpackConfig, {
       parallel: true
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[hash].css'),
-      // set the following option to `true` if you want to extract CSS from
-      // codesplit chunks into this main css file as well.
-      // This will result in *all* of your app's CSS being loaded upfront.
-      allChunks: false,
-    }),
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[hash].css'),
+    //   // set the following option to `true` if you want to extract CSS from
+    //   // codesplit chunks into this main css file as well.
+    //   // This will result in *all* of your app's CSS being loaded upfront.
+    //   allChunks: false,
+    // }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
