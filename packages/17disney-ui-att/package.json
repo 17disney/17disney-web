@@ -10,5 +10,6 @@
   },
   "dependencies": {
     "17disney-common": "^0.2.1"
-  }
+  },
+  "gitHead": "7dcb81ae5bcbaa6ea069461620ac09fe8d7cf67f"
 }
