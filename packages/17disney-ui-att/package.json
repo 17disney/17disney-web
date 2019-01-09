@@ -1,6 +1,6 @@
 {
   "name": "17disney-ui-att",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "start": "react-scripts start",
     "dev": "react-scripts start",
@@ -9,7 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "17disney-common": "^0.2.1"
+    "17disney-common": "^0.2.2"
   },
   "gitHead": "7dcb81ae5bcbaa6ea069461620ac09fe8d7cf67f"
 }
